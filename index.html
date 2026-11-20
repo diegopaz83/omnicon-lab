@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Omnicon Lab</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#001c3f;--navy-2:#00285a;--deep:#00122b;--blue:#002473;--bright:#0a58eb;--cyan:#00dcfa;--violet:#7543ff;
+  --bg:#f2f5f9;--surface:#ffffff;--ink:#001c3f;--muted:#4d5d71;--line:#dbe2ea;--chip:#e8eefc;--chip-ink:#002473;
+  --font:'Poppins','Segoe UI',system-ui,-apple-system,sans-serif;
+  color-scheme:light;box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#07111f;--surface:#0d1b2f;--ink:#e7eef7;--muted:#9db0c5;--line:#22385a;--chip:#16294a;--chip-ink:#bcd3ff;color-scheme:dark;}}
+:root[data-theme="dark"]{--bg:#07111f;--surface:#0d1b2f;--ink:#e7eef7;--muted:#9db0c5;--line:#22385a;--chip:#16294a;--chip-ink:#bcd3ff;color-scheme:dark;}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
+html,body{overflow-x:clip}
+body{margin:0;font-family:var(--font);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--navy)}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1200px,100% - 48px);margin:0 auto}
+
+/* Intro */
+.intro{position:fixed;inset:0;z-index:100;background:var(--deep);display:grid;place-items:center;cursor:pointer}
+.intro-ring{position:absolute;left:50%;top:50%;width:120px;height:120px;margin:-60px 0 0 -60px;will-change:transform,opacity}
+.intro-ring circle{fill:none;stroke:var(--cyan);stroke-width:5;stroke-linecap:round;stroke-dasharray:340;stroke-dashoffset:340}
+.intro-logo{position:absolute;left:50%;top:calc(50% + 96px);transform:translate(-50%,8px);width:200px;opacity:0}
+.intro-skip{position:absolute;right:24px;bottom:calc(24px + env(safe-area-inset-bottom,0px));background:none;border:1px solid rgba(255,255,255,.25);color:#c9d6e6;font:500 13px var(--font);padding:8px 14px;border-radius:999px;cursor:pointer}
+.intro-skip:hover{border-color:var(--cyan);color:#fff}
+
+/* Nav */
+.nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;transition:background-color .3s,border-color .3s;border-bottom:1px solid transparent}
+.nav.solid{background:rgba(0,28,63,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom-color:rgba(255,255,255,.08)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff}
+.brand img{width:118px;height:auto}
+.brand span{font-weight:300;font-size:18px;color:#c9d6e6;padding-left:12px;border-left:1px solid rgba(255,255,255,.25)}
+.links{display:flex;align-items:center;gap:28px}
+.links a{color:#c9d6e6;text-decoration:none;font-size:14px;font-weight:400}
+.links a:hover{color:#fff}
+.lang{display:flex;border:1px solid rgba(255,255,255,.25);border-radius:8px;overflow:hidden}
+.lang button{background:none;border:0;color:#c9d6e6;font:600 12px var(--font);padding:6px 10px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--cyan);color:var(--navy)}
+@media (max-width:760px){.links a{display:none}.brand span{display:none}}
+
+/* Hero */
+.hero{position:relative;min-height:100vh;min-height:100svh;background:var(--deep);color:#fff;overflow:hidden;display:flex;align-items:flex-end}
+.hero-bg{position:absolute;inset:0;background:url(img/hero.jpg) center/cover no-repeat;transform:scale(1.12);animation:settle 16s cubic-bezier(.2,.7,.2,1) forwards;animation-play-state:paused}
+.go .hero-bg{animation-play-state:running}
+@keyframes settle{to{transform:scale(1)}}
+.hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,18,43,.96) 0%,rgba(0,28,63,.84) 42%,rgba(0,28,63,.62) 70%,rgba(0,28,63,.7) 100%),linear-gradient(0deg,rgba(0,18,43,.9) 0%,transparent 45%)}
+.hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:40px;align-items:center;padding:120px 0 72px}
+.kicker{font-size:17px;font-weight:300;color:#c9d6e6;margin:0 0 18px}
+.kicker b{color:var(--cyan);font-weight:600}
+h1{font-size:clamp(44px,6.6vw,92px);line-height:.98;letter-spacing:-.025em;margin:0;font-weight:200}
+h1 strong{display:block;font-weight:700}
+.lead{font-size:clamp(16px,1.5vw,19px);line-height:1.6;color:#c9d6e6;max-width:34em;margin:26px 0 0}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.btn{display:inline-flex;align-items:center;gap:10px;font:600 15px var(--font);padding:14px 22px;border-radius:10px;text-decoration:none;cursor:pointer;border:1px solid transparent;transition:transform .2s,background-color .2s,border-color .2s}
+.btn:active{transform:scale(.98)}
+.btn-cyan{background:var(--cyan);color:var(--navy)}
+.btn-cyan:hover{background:#5ae8fc}
+.btn-ghost{color:#fff;border-color:rgba(255,255,255,.3)}
+.btn-ghost:hover{border-color:var(--cyan)}
+.btn svg{width:18px;height:18px}
+.stage{opacity:0;transform:translateY(18px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.go .stage{opacity:1;transform:none}
+.go .s2{transition-delay:.12s}.go .s3{transition-delay:.24s}.go .s4{transition-delay:.36s}.go .s5{transition-delay:.5s}
+
+/* Orbit */
+.orbit{position:relative;width:min(440px,100%);aspect-ratio:1;justify-self:center;margin-bottom:28px}
+.orbit svg.rings{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.rings .r1{fill:none;stroke:var(--cyan);stroke-width:2.2}
+.rings .r2{fill:none;stroke:rgba(255,255,255,.18);stroke-width:1;stroke-dasharray:2 7}
+.rings .r3{fill:none;stroke:rgba(0,220,250,.25);stroke-width:1}
+.orb-core{position:absolute;left:50%;top:50%;width:34%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;box-shadow:0 0 80px rgba(0,220,250,.25)}
+.orb-core canvas{width:100%;height:100%;border-radius:50%;display:block}
+.orb-label{position:absolute;left:0;right:0;top:100%;margin-top:8px;text-align:center;font-size:14px;color:#c9d6e6}
+.orb-label b{color:#fff;font-weight:600}
+.sat{position:absolute;left:50%;top:50%;width:0;height:0}
+.sat a{position:absolute;transform:translate(-50%,-50%);display:flex;align-items:center;gap:8px;white-space:nowrap;background:rgba(0,28,63,.85);border:1px solid rgba(0,220,250,.45);color:#fff;text-decoration:none;font-size:13px;font-weight:500;padding:8px 14px 8px 10px;border-radius:999px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:border-color .2s,background-color .2s}
+.sat a:hover{border-color:var(--cyan);background:rgba(0,40,90,.95)}
+.sat a i{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 0 4px rgba(0,220,250,.2)}
+@media (max-width:900px){.hero .wrap{grid-template-columns:minmax(0,1fr);padding-top:100px}.orbit{width:min(340px,86%);order:-1;margin-top:8px}}
+@media (max-width:520px){.orbit{width:min(300px,92%)}.sat a{font-size:12px;padding:6px 11px 6px 8px}}
+
+.scroll-cue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);width:22px;height:34px;border:1.5px solid rgba(255,255,255,.35);border-radius:12px}
+.scroll-cue::after{content:"";position:absolute;left:50%;top:7px;width:3px;height:7px;margin-left:-1.5px;border-radius:2px;background:var(--cyan);animation:cue 1.8s ease-in-out 3}
+@keyframes cue{50%{transform:translateY(9px);opacity:.3}}
+@media (max-width:900px){.scroll-cue{display:none}}
+
+/* Sections */
+section{padding:112px 0}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:56px;flex-wrap:wrap}
+h2{font-size:clamp(34px,4.4vw,56px);line-height:1.05;letter-spacing:-.02em;margin:0;font-weight:300}
+h2 strong{font-weight:700}
+.sec-head p{max-width:30em;color:var(--muted);font-size:16px;line-height:1.65;margin:0}
+
+.prod{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:64px;align-items:center;padding:56px 0;border-top:1px solid var(--line)}
+.prod:nth-of-type(even){grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+.prod:nth-of-type(even) .copy{order:2}
+.word{font-size:clamp(30px,3.4vw,44px);font-weight:300;letter-spacing:-.02em;margin:0 0 6px;line-height:1.1}
+.word b{font-weight:700}
+.word .ai{color:var(--bright);font-weight:600}
+:root[data-theme="dark"] .word .ai{color:var(--cyan)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .word .ai{color:var(--cyan)}}
+.status{display:inline-block;font-size:12px;font-weight:600;padding:4px 10px;border-radius:6px;margin-bottom:18px}
+.st-demo{background:#e5f7ee;color:#145a37}
+.st-proto{background:#fff4e0;color:#7a4a00}
+.copy p{color:var(--muted);font-size:16px;line-height:1.7;margin:0 0 22px;max-width:32em}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 0;margin:0 0 30px;padding:0;list-style:none}
+.flow li{font-size:13px;color:var(--chip-ink);background:var(--chip);padding:6px 12px;border-radius:999px}
+.flow li+li{margin-left:22px;position:relative}
+.flow li+li::before{content:"";position:absolute;left:-18px;top:50%;width:14px;height:1.5px;background:var(--cyan)}
+@media (max-width:520px){.flow{gap:6px}.flow li+li{margin-left:0}.flow li+li::before{display:none}}
+.btn-dark{background:var(--navy);color:#fff}
+.btn-dark:hover{background:var(--blue)}
+:root[data-theme="dark"] .btn-dark{background:var(--cyan);color:var(--navy)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn-dark{background:var(--cyan);color:var(--navy)}}
+
+.visual{perspective:1400px}
+.tilt{transition:transform .5s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d}
+.browser{border-radius:14px;overflow:hidden;background:#0d1b2f;box-shadow:0 30px 70px rgba(0,28,63,.28),0 0 0 1px rgba(0,28,63,.08)}
+.bar{display:flex;align-items:center;gap:6px;height:34px;padding:0 14px;background:#0b1830}
+.bar i{width:9px;height:9px;border-radius:50%;background:#2a3d5c}
+.bar span{margin-left:12px;font-size:11px;color:#7d93ae;background:#13233d;padding:3px 12px;border-radius:6px}
+.browser img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top}
+.phone{width:min(220px,30vw);border-radius:30px;border:7px solid #001c3f;background:#001c3f;overflow:hidden;box-shadow:0 26px 60px rgba(0,28,63,.3)}
+.phone img{width:100%;aspect-ratio:780/1688;object-fit:cover}
+.fan{display:flex;justify-content:center;align-items:center;padding:20px 0}
+.fan .phone{transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.fan .phone:nth-child(1){transform:translateX(26%) rotate(-7deg) scale(.9)}
+.fan .phone:nth-child(2){position:relative;z-index:2}
+.fan .phone:nth-child(3){transform:translateX(-26%) rotate(7deg) scale(.9)}
+.fan:hover .phone:nth-child(1){transform:translateX(8%) rotate(-4deg) scale(.92)}
+.fan:hover .phone:nth-child(3){transform:translateX(-8%) rotate(4deg) scale(.92)}
+.combo{position:relative;padding-bottom:40px}
+.combo .phone{position:absolute;right:-10px;bottom:0;width:min(170px,24vw);transform:translateZ(40px)}
+.combo .browser{margin-right:70px}
+.rv{opacity:0;transform:translateY(40px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media (max-width:900px){
+  .prod,.prod:nth-of-type(even){grid-template-columns:minmax(0,1fr);gap:36px}
+  .prod:nth-of-type(even) .copy{order:0}
+  .phone{width:min(200px,38vw)}
+  .combo .phone{width:min(140px,30vw)}
+  .combo .browser{margin-right:40px}
+}
+
+/* omnIA band */
+.omnia{position:relative;background:var(--deep);color:#fff;overflow:hidden}
+.omnia-bg{position:absolute;inset:0;background:url(img/omnia.jpg) center/cover;opacity:.22}
+.omnia-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 25% 50%,rgba(0,18,43,.2),rgba(0,18,43,.95) 70%)}
+.omnia .wrap{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);gap:72px;align-items:center}
+.big-orb{width:clamp(180px,22vw,260px);aspect-ratio:1;border-radius:50%;position:relative}
+.big-orb canvas{width:100%;height:100%;border-radius:50%;display:block}
+.big-orb::before{content:"";position:absolute;inset:-18px;border-radius:50%;border:1.5px solid rgba(0,220,250,.5)}
+.big-orb::after{content:"";position:absolute;inset:-40px;border-radius:50%;border:1px dashed rgba(255,255,255,.15)}
+.omnia h2{color:#fff}
+.omnia h2 em{font-style:normal;font-weight:700}
+.omnia h2 em b{color:var(--cyan);font-weight:700}
+.uses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:rgba(255,255,255,.12);border-radius:14px;overflow:hidden;margin-top:36px}
+.uses div{background:rgba(0,28,63,.75);padding:22px}
+.uses h3{margin:0 0 8px;font-size:15px;font-weight:600;color:#fff}
+.uses p{margin:0;font-size:14px;line-height:1.6;color:#9db0c5}
+@media (max-width:900px){.omnia .wrap{grid-template-columns:1fr;gap:56px;justify-items:start}.uses{grid-template-columns:1fr}}
+
+/* Explore */
+.sketches{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.sk{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;text-decoration:none;transition:border-color .25s,transform .25s}
+.sk:hover{border-color:var(--bright);transform:translateY(-3px)}
+.sk .ph{height:120px;background-size:cover;background-position:center;position:relative}
+.sk .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,28,63,.1),rgba(0,28,63,.55))}
+.sk .ph span{position:absolute;left:14px;bottom:12px;z-index:1;font-size:11px;font-weight:600;color:#fff;background:rgba(0,28,63,.7);padding:3px 9px;border-radius:6px}
+.sk div.t{padding:18px 18px 20px;display:flex;flex-direction:column;gap:6px;flex:1}
+.sk strong{font-size:16px;font-weight:600;line-height:1.3}
+.sk small{font-size:13px;color:var(--muted)}
+@media (max-width:1000px){.sketches{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.sketches{grid-template-columns:1fr}}
+
+.docs{margin-top:64px;border-top:1px solid var(--line)}
+.doc{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:24px;align-items:center;padding:20px 4px;border-bottom:1px solid var(--line);text-decoration:none}
+.doc:hover strong{color:var(--bright)}
+.doc strong{font-weight:500;font-size:16px;transition:color .2s}
+.doc small{font-size:13px;color:var(--muted)}
+.doc svg{width:18px;height:18px;color:var(--muted)}
+.docs h3{font-size:14px;font-weight:600;color:var(--muted);margin:28px 0 4px}
+
+footer{background:var(--deep);color:#9db0c5;padding:56px 0 calc(40px + env(safe-area-inset-bottom,0px))}
+footer .wrap{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+footer img{width:130px;margin-bottom:14px}
+footer p{margin:0;font-size:13px;line-height:1.7}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .stage,.rv{opacity:1;transform:none}
+  .hero-bg{transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="intro" id="intro" aria-hidden="true">
+  <svg class="intro-ring" viewBox="0 0 120 120"><circle cx="60" cy="60" r="54"/></svg>
+  <img class="intro-logo" src="img/logo-white.png" alt="">
+  <button class="intro-skip" type="button" data-i18n="skip">Saltar intro</button>
+</div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Omnicon Lab"><img src="img/logo-white.png" alt="Omnicon"><span>lab</span></a>
+    <nav class="links" aria-label="Secciones">
+      <a href="#productos" data-i18n="navProducts">Productos</a>
+      <a href="#omnia">omnIA</a>
+      <a href="#exploracion" data-i18n="navExplore">Exploración</a>
+      <div class="lang" role="group" aria-label="Idioma / Language">
+        <button type="button" data-lang="es" aria-pressed="true">ES</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" id="hero" style="padding:0">
+    <div class="hero-bg"></div>
+    <div class="hero-shade"></div>
+    <div class="wrap">
+      <div>
+        <p class="kicker stage s1">omnicon <b>lab</b> <span data-i18n="kicker">· espacio de pruebas</span></p>
+        <h1 class="stage s2"><span data-i18n="h1a">Lo que estamos</span><strong data-i18n="h1b">construyendo.</strong></h1>
+        <p class="lead stage s3" data-i18n="lead">Prototipos funcionales de Omnicon para la industria: proyectos que fluyen de la cotización a la entrega, informes de servicio emitidos en campo y riesgo operacional respaldado por evidencia.</p>
+        <div class="ctas stage s4">
+          <a class="btn btn-cyan" href="#productos"><span data-i18n="ctaProducts">Ver los productos</span></a>
+          <a class="btn btn-ghost" href="#omnia"><span data-i18n="ctaOmnia">Conocer omnIA</span></a>
+        </div>
+      </div>
+      <div class="orbit stage s5" id="orbit">
+        <svg class="rings" viewBox="0 0 400 400" aria-hidden="true">
+          <circle class="r3" cx="200" cy="200" r="196"/>
+          <circle class="r2" cx="200" cy="200" r="160"/>
+          <circle class="r1" cx="200" cy="200" r="118"/>
+        </svg>
+        <div class="orb-core"><canvas id="orbSmall" data-size="160"></canvas></div>
+        <div class="orb-label" data-i18n-html="orbLabel"><b>omnIA</b> conecta los tres productos</div>
+        <div class="sat" data-a="-100"><a href="#kairos"><i></i>Kairos</a></div>
+        <div class="sat" data-a="20"><a href="#informes"><i></i><span data-i18n="satInformes">Informes de servicio</span></a></div>
+        <div class="sat" data-a="140"><a href="#ora"><i></i>ORA</a></div>
+      </div>
+    </div>
+    <div class="scroll-cue" aria-hidden="true"></div>
+  </section>
+
+  <section id="productos">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2><span data-i18n="prodTitleA">Tres productos,</span><br><strong data-i18n="prodTitleB">una misma planta.</strong></h2>
+        <p data-i18n="prodIntro">Cada demo corre en el navegador con datos de ejemplo. Entra con un rol de prueba y recorre el flujo completo.</p>
+      </div>
+
+      <article class="prod" id="kairos">
+        <div class="copy">
+          <span class="status st-demo" data-i18n="stDemo">Demo</span>
+          <h3 class="word">k<span class="ai">ai</span>ros <span style="font-size:.5em;color:var(--muted)" data-i18n="kairosSub">ecosistema transversal</span></h3>
+          <p data-i18n="kairosText">Proyectos que fluyen. Cada fase, cada persona y cada hora en su lugar, desde la primera cotización hasta la entrega, con roles para dirección, diseño de soluciones, planeación e ingeniería.</p>
+          <ul class="flow"><li data-i18n="fCot">Cotizar</li><li data-i18n="fPlan">Planear</li><li data-i18n="fEje">Ejecutar</li><li data-i18n="fAna">Analizar</li></ul>
+          <a class="btn btn-dark" href="https://diegopaz83.github.io/omnicon-kairos-demo/" target="_blank" rel="noopener"><span data-i18n="openDemo">Abrir demo</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+        </div>
+        <div class="visual rv"><div class="tilt"><div class="browser"><div class="bar"><i></i><i></i><i></i><span>kairos · omnicon</span></div><img src="img/kairos.jpg" alt="Pantalla de entrada de Kairos con los roles de prueba" loading="lazy"></div></div></div>
+      </article>
+
+      <article class="prod" id="informes">
+        <div class="copy">
+          <span class="status st-demo" data-i18n="stDemo">Demo</span>
+          <h3 class="word" data-i18n-html="infWord">Informes <b>de servicio</b></h3>
+          <p data-i18n="infText">El informe de servicio se emite en campo, desde el teléfono. El ingeniero elige el servicio, dicta lo que encontró y la IA propone la redacción; el informe sale con portada Omnicon.</p>
+          <ul class="flow"><li data-i18n="fSel">Elegir servicio</li><li data-i18n="fDic">Dictar</li><li data-i18n="fRev">Revisar</li><li data-i18n="fEmi">Emitir</li></ul>
+          <a class="btn btn-dark" href="https://diegopaz83.github.io/omnicon-informe-servicios/" target="_blank" rel="noopener"><span data-i18n="openDemo">Abrir demo</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+        </div>
+        <div class="visual rv"><div class="fan">
+          <div class="phone"><img src="img/inf1.jpg" alt="Pantalla Mis servicios" loading="lazy"></div>
+          <div class="phone"><img src="img/inf2.jpg" alt="Paso 1 del informe" loading="lazy"></div>
+          <div class="phone"><img src="img/inf3.jpg" alt="Informe emitido con portada Omnicon" loading="lazy"></div>
+        </div></div>
+      </article>
+
+      <article class="prod" id="ora">
+        <div class="copy">
+          <span class="status st-proto" data-i18n="stProto">Prototipo</span>
+          <h3 class="word" data-i18n-html="oraWord">operational <b>risk</b> assessment</h3>
+          <p data-i18n="oraText">Riesgo operacional respaldado por evidencia. De los procesos críticos a los escenarios de falla: cada hallazgo se rastrea hasta una respuesta, un activo y una evidencia, y termina en un informe ejecutivo listo para decidir.</p>
+          <ul class="flow"><li data-i18n="fAlc">Alcance</li><li data-i18n="fRec">Recorrido</li><li data-i18n="fCue">Cuestionario</li><li data-i18n="fEva">Evaluación</li><li data-i18n="fInf">Informe</li></ul>
+          <a class="btn btn-dark" href="https://diegopaz83.github.io/ora-demo/" target="_blank" rel="noopener"><span data-i18n="openDemo">Abrir demo</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+        </div>
+        <div class="visual rv"><div class="tilt combo">
+          <div class="browser"><div class="bar"><i></i><i></i><i></i><span>ora · omnicon</span></div><img src="img/ora.jpg" alt="Pantalla de entrada de ORA" loading="lazy"></div>
+          <div class="phone"><img src="img/ora_m.jpg" alt="ORA en el teléfono" loading="lazy"></div>
+        </div></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="omnia" id="omnia">
+    <div class="omnia-bg"></div>
+    <div class="wrap">
+      <div class="big-orb"><canvas id="orbBig" data-size="260"></canvas></div>
+      <div>
+        <h2><span data-i18n="omTitleA">Un mismo asistente</span><br><em data-i18n-html="omTitleB">en cada producto: <b>omnIA</b></em></h2>
+        <div class="uses">
+          <div><h3>Kairos</h3><p data-i18n="omK">Ayuda a armar cotizaciones y respeta los límites que define el administrador para cada rol.</p></div>
+          <div><h3 data-i18n="satInformes">Informes de servicio</h3><p data-i18n="omI">Convierte lo que el ingeniero dicta en una redacción sugerida que puede usar o descartar.</p></div>
+          <div><h3>ORA</h3><p data-i18n="omO">Reutiliza la misma experiencia de omnIA para acompañar la evaluación.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="exploracion">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2><span data-i18n="exTitleA">En exploración</span></h2>
+        <p data-i18n="exIntro">Bocetos y documentos de trabajo. Algunos son ideas que todavía no llegan a un producto.</p>
+      </div>
+      <div class="sketches">
+        <a class="sk" href="https://claude.ai/artifact/P4t185ZGFqSnyrFTnbzigD" target="_blank" rel="noopener"><div class="ph" style="background-image:url(img/band1.jpg)"><span data-i18n="tSketch">Boceto</span></div><div class="t"><strong data-i18n="sk1">omnIA · Alertas de seguimiento</strong><small data-i18n="d17">Actualizado el 17 nov 2026</small></div></a>
+        <a class="sk" href="https://claude.ai/artifact/M5wzzfQeiegUtFeRJsyAMM" target="_blank" rel="noopener"><div class="ph" style="background-image:url(img/band2.jpg)"><span data-i18n="tEpisode">Episodio</span></div><div class="t"><strong data-i18n="sk2">Kairos · Episodio 1 · Cotizaciones</strong><small data-i18n="d05">Actualizado el 5 nov 2026</small></div></a>
+        <a class="sk" href="https://claude.ai/artifact/J6gDTdu1t53y7SE4uqsFJW" target="_blank" rel="noopener"><div class="ph" style="background-image:url(img/band3.jpg)"><span data-i18n="tSketch">Boceto</span></div><div class="t"><strong data-i18n="sk3">Solicitudes y novedades</strong><small data-i18n="d04">Actualizado el 4 nov 2026</small></div></a>
+        <a class="sk" href="https://claude.ai/artifact/JMWwe1P5zVNu6b15rDbHxc" target="_blank" rel="noopener"><div class="ph" style="background-image:url(img/cover.jpg)"><span data-i18n="tSketch">Boceto</span></div><div class="t"><strong data-i18n="sk4">ORA · Cadena de valor</strong><small data-i18n="d10">Actualizado el 10 nov 2026</small></div></a>
+      </div>
+
+      <div class="docs">
+        <h3 data-i18n="docsTitle">Documentos</h3>
+        <a class="doc" href="https://claude.ai/artifact/VG9eGRzumUnPfiFwGQuKb6" target="_blank" rel="noopener"><strong data-i18n="doc1">Levantamiento de requerimientos de Kairos, de la cotización a la facturación</strong><small data-i18n="d31">31 oct 2026</small><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+        <a class="doc" href="https://claude.ai/artifact/4msgxhDBbPCUhQmh7FG6NB" target="_blank" rel="noopener"><strong data-i18n="doc2">ORA · Alcance propuesto</strong><small data-i18n="d20">20 nov 2026</small><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+        <a class="doc" href="https://claude.ai/artifact/7gpFWiQVTSyWzK9ZbFgvT5" target="_blank" rel="noopener"><strong data-i18n="doc3">ORA · Resumen propuesto</strong><small data-i18n="d20">20 nov 2026</small><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><img src="img/logo-white.png" alt="Omnicon"><p>© 2026 Omnicon S.A.S. · Smart Manufacturing · Automation · <span data-i18n="consult">Consultoría</span></p></div>
+    <p data-i18n="foot">Espacio de pruebas. Los datos de los demos son de ejemplo.</p>
+  </div>
+</footer>
+
+<script>
+/* omnIA orb (from ORA) */
+(function(){'use strict';var REDUCED=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;var SPEED={idle:0.012,listening:0.035,thinking:0.08,alert:0.03,offline:0};var FPS={idle:30,listening:60,thinking:60,alert:45,offline:0};var LIVE={core:['#0a2a6b','#001c3f'],glow:['rgba(0,220,250,','rgba(10,88,235,','rgba(120,200,255,']};var DIM={core:['#3a4a5e','#1d2a3a'],glow:['rgba(157,176,197,','rgba(85,101,120,','rgba(157,176,197,']};var all=[];function Orb(c){this.state='idle';this.visible=true;this.running=false;this.raf=0;this.last=0;this.t=Math.random()*10;var s=this;this.loop=function(ts){s.tick(ts)};this.attach(c);all.push(this)}Orb.prototype.attach=function(c){this.cv=c;this.ctx=c.getContext('2d');var css=c.clientWidth||parseInt(c.getAttribute('data-size'),10)||c.width/2;var px=Math.round(css*Math.min(2,window.devicePixelRatio||1));if(px&&c.width!==px){c.width=px;c.height=px}this.sync()};Orb.prototype.setState=function(s){if(this.state!==s){this.state=s;this.sync()}};Orb.prototype.setVisible=function(v){if(this.visible!==v){this.visible=v;this.sync()}};Orb.prototype.sync=function(){var run=this.visible&&!document.hidden&&!REDUCED&&FPS[this.state]>0;if(run&&!this.running){this.running=true;this.last=0;this.raf=requestAnimationFrame(this.loop)}else if(!run&&this.running){this.running=false;cancelAnimationFrame(this.raf)}if(!run)this.draw()};Orb.prototype.tick=function(ts){if(!this.running)return;var f=FPS[this.state]||30;if(!this.last||ts-this.last>=1000/f-2){this.t+=SPEED[this.state]*(this.last?(ts-this.last)/16.7:1);this.last=ts;this.draw()}this.raf=requestAnimationFrame(this.loop)};Orb.prototype.draw=function(){var ctx=this.ctx,W=this.cv.width,R=W/2,t=this.t,st=this.state;if(!W)return;var pal=st==='offline'?DIM:LIVE;ctx.clearRect(0,0,W,W);var g=ctx.createRadialGradient(R,R,2,R,R,R);g.addColorStop(0,pal.core[0]);g.addColorStop(1,pal.core[1]);ctx.fillStyle=g;ctx.beginPath();ctx.arc(R,R,R,0,Math.PI*2);ctx.fill();ctx.globalCompositeOperation='lighter';for(var i=0;i<3;i++){var a=t*(1+i*0.4)+i*2.1,rr=R*(0.38+0.08*Math.sin(t*1.3+i));var x=R+Math.cos(a)*R*0.32,y=R+Math.sin(a*1.2)*R*0.32;var k=st==='alert'?0.55+0.35*Math.sin(t*6):st==='offline'?0.35:0.6;var gl=ctx.createRadialGradient(x,y,0,x,y,rr*1.6);gl.addColorStop(0,pal.glow[i]+k+')');gl.addColorStop(1,pal.glow[i]+'0)');ctx.fillStyle=gl;ctx.beginPath();ctx.arc(R,R,R,0,Math.PI*2);ctx.fill()}ctx.globalCompositeOperation='source-over'};document.addEventListener('visibilitychange',function(){all.forEach(function(o){o.sync()})});window.OmniaOrb=Orb})();
+
+(function(){
+'use strict';
+var REDUCED=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var root=document.documentElement;
+
+/* i18n */
+var EN={
+ skip:'Skip intro',navProducts:'Products',navExplore:'Exploration',kicker:'· test space',
+ h1a:'What we are',h1b:'building.',
+ lead:'Working prototypes by Omnicon for industry: projects that flow from quote to delivery, service reports issued in the field, and operational risk backed by evidence.',
+ orbLabel:'<b>omnIA</b> connects all three products',ctaProducts:'See the products',ctaOmnia:'Meet omnIA',satInformes:'Service reports',
+ prodTitleA:'Three products,',prodTitleB:'one plant floor.',
+ prodIntro:'Each demo runs in the browser with sample data. Sign in with a test role and walk through the whole flow.',
+ stDemo:'Demo',stProto:'Prototype',kairosSub:'cross-cutting ecosystem',
+ kairosText:'Projects that flow. Every phase, every person and every hour in its place, from the first quote to delivery, with roles for leadership, solution design, planning and engineering.',
+ fCot:'Quote',fPlan:'Plan',fEje:'Execute',fAna:'Analyze',openDemo:'Open demo',openDeck:'View presentation',
+ infWord:'Service <b>reports</b>',
+ infText:'The service report is issued in the field, from the phone. The engineer picks the service, dictates what they found and AI suggests the wording; the report comes out with an Omnicon cover.',
+ fSel:'Pick service',fDic:'Dictate',fRev:'Review',fEmi:'Issue',
+ oraWord:'operational <b>risk</b> assessment',
+ oraText:'Operational risk, backed by evidence. From critical processes to failure scenarios: every finding traceable to an answer, an asset and a piece of evidence, ending in an executive report ready for decisions.',
+ fAlc:'Scope',fRec:'Walkdown',fCue:'Questionnaire',fEva:'Assessment',fInf:'Report',
+ omTitleA:'One assistant',omTitleB:'in every product: <b>omnIA</b>',
+ omK:'Helps build quotes and respects the limits the administrator sets for each role.',
+ omI:'Turns what the engineer dictates into suggested wording they can use or discard.',
+ omO:'Reuses the same omnIA experience to support the assessment.',
+ exTitleA:'In exploration',exIntro:'Sketches and working documents. Some are ideas that have not reached a product yet.',
+ tSketch:'Sketch',tEpisode:'Episode',
+ sk1:'omnIA · Follow-up alerts',sk2:'Kairos · Episode 1 · Quotes',sk3:'Requests and updates',sk4:'ORA · Value chain',
+ d17:'Updated Nov 17, 2026',d05:'Updated Nov 5, 2026',d04:'Updated Nov 4, 2026',d10:'Updated Nov 10, 2026',
+ docsTitle:'Documents',doc1:'Kairos requirements gathering, from quote to invoicing',doc2:'ORA · Proposed scope',doc3:'ORA · Proposed summary',
+ d31:'Oct 31, 2026',d20:'Nov 20, 2026',consult:'Consulting',foot:'Test space. Demo data is sample data.'
+};
+var ES={};
+document.querySelectorAll('[data-i18n]').forEach(function(el){ES[el.dataset.i18n]=el.textContent});
+document.querySelectorAll('[data-i18n-html]').forEach(function(el){ES[el.dataset.i18nHtml]=el.innerHTML});
+function setLang(l){
+  var d=l==='en'?EN:ES;
+  document.querySelectorAll('[data-i18n]').forEach(function(el){var v=d[el.dataset.i18n];if(v!=null)el.textContent=v});
+  document.querySelectorAll('[data-i18n-html]').forEach(function(el){var v=d[el.dataset.i18nHtml];if(v!=null)el.innerHTML=v});
+  root.lang=l;
+  document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lang===l))});
+  try{localStorage.setItem('olab-lang',l)}catch(e){}
+}
+document.querySelectorAll('.lang button').forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.lang)})});
+var saved=null;try{saved=localStorage.getItem('olab-lang')}catch(e){}
+if(saved==='en')setLang('en');
+
+/* orbs */
+var orbs=[new OmniaOrb(document.getElementById('orbSmall')),new OmniaOrb(document.getElementById('orbBig'))];
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){var o=e.target===document.getElementById('orbSmall')?orbs[0]:orbs[1];o.setVisible(e.isIntersecting)})});
+  io.observe(document.getElementById('orbSmall'));io.observe(document.getElementById('orbBig'));
+}
+
+/* satellites orbit */
+var sats=[].slice.call(document.querySelectorAll('.sat'));
+var orbit=document.getElementById('orbit');
+var spin=0,lastT=0,orbitVisible=true;
+function placeSats(){
+  var R=orbit.clientWidth*(118/400);
+  sats.forEach(function(s){var a=(parseFloat(s.dataset.a)+spin)*Math.PI/180;var a2=s.firstElementChild;a2.style.left=(Math.cos(a)*R)+'px';a2.style.top=(Math.sin(a)*R)+'px'});
+}
+function spinLoop(t){if(!lastT)lastT=t;var dt=Math.min(64,t-lastT);lastT=t;if(orbitVisible){spin+=dt*0.004;placeSats()}requestAnimationFrame(spinLoop)}
+placeSats();addEventListener('resize',placeSats);
+if(!REDUCED){
+  requestAnimationFrame(spinLoop);
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){orbitVisible=es[0].isIntersecting}).observe(orbit);
+}
+
+/* nav */
+var nav=document.getElementById('nav');
+function onScroll(){nav.classList.toggle('solid',scrollY>40)}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+/* reveals */
+var rvs=document.querySelectorAll('.rv');
+if(REDUCED||!('IntersectionObserver' in window)){rvs.forEach(function(el){el.classList.add('in')})}
+else{var ro=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target)}})},{threshold:.2});rvs.forEach(function(el){ro.observe(el)})}
+
+/* tilt (pointer) */
+if(!REDUCED&&matchMedia('(hover: hover)').matches){
+  document.querySelectorAll('.tilt').forEach(function(el){
+    var p=el.parentElement;
+    p.addEventListener('pointermove',function(e){var r=p.getBoundingClientRect();var x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;el.style.transform='rotateY('+(x*10)+'deg) rotateX('+(-y*8)+'deg)'});
+    p.addEventListener('pointerleave',function(){el.style.transform=''});
+  });
+}
+
+/* intro: the cyan "o" opens into the lab */
+var intro=document.getElementById('intro');
+function start(){document.body.classList.add('go')}
+var seen=false;try{seen=sessionStorage.getItem('olab-intro')==='1'}catch(e){}
+if(REDUCED||seen){intro.remove();start();return}
+try{sessionStorage.setItem('olab-intro','1')}catch(e){}
+var ring=intro.querySelector('.intro-ring'),circle=ring.querySelector('circle'),logo=intro.querySelector('.intro-logo');
+var t0=null,done=false;
+function ease(t){return t<0?0:t>1?1:1-Math.pow(1-t,3)}
+function easeIO(t){t=t<0?0:t>1?1:t;return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+function finish(){if(done)return;done=true;intro.remove();start()}
+function frame(ts){
+  if(done)return;
+  if(t0===null)t0=ts;var t=ts-t0;
+  circle.style.strokeDashoffset=340*(1-ease(t/700));
+  var lg=ease((t-450)/500);
+  logo.style.opacity=lg*(1-ease((t-1300)/250));logo.style.transform='translate(-50%,'+(8-8*lg)+'px)';
+  var p=easeIO((t-1300)/1100);
+  if(p>0){
+    var diag=Math.hypot(innerWidth,innerHeight);
+    var r=54+p*(diag/2+60);
+    ring.style.transform='scale('+(r/54)+')';
+    ring.style.opacity=String(1-ease((t-1900)/500));
+    circle.style.strokeWidth=String(Math.max(.4,5*54/r*1.6));
+    var m='radial-gradient(circle at 50% 50%, transparent '+(r-2)+'px, #000 '+(r)+'px)';
+    intro.style.webkitMaskImage=m;intro.style.maskImage=m;
+    if(p>.15)start();
+  }
+  if(t>2450){finish();return}
+  requestAnimationFrame(frame);
+}
+intro.addEventListener('click',finish);
+addEventListener('keydown',function k(e){if(e.key==='Escape'){finish();removeEventListener('keydown',k)}});
+requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
