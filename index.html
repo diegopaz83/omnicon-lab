@@ -156,6 +156,32 @@ h2 strong{font-weight:700}
   .combo .browser{margin-right:40px}
 }
 
+/* Portfolio */
+.pf { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.pf-kicker { font-size: 14px; color: var(--muted); margin: 0 0 14px; }
+.pf-kicker b { color: var(--bright); font-weight: 600; }
+:root[data-theme="dark"] .pf-kicker b { color: var(--cyan); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pf-kicker b { color: var(--cyan); } }
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; list-style: none; margin: 0; padding: 0; counter-reset: st; }
+.steps > li { display: flex; }
+.step { flex: 1; display: flex; flex-direction: column; background: var(--bg); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; text-decoration: none; transition: border-color .25s, transform .6s cubic-bezier(.2,.7,.2,1), box-shadow .25s, opacity .8s; }
+.step:hover { border-color: var(--bright); transform: translateY(-4px); box-shadow: 0 24px 50px rgba(0,28,63,.14); }
+.step .shot { aspect-ratio: 16 / 10; overflow: hidden; background: var(--navy); border-bottom: 1px solid var(--line); }
+.step .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+.step:hover .shot img { transform: scale(1.04); }
+.step .tx { padding: 22px 22px 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.step .n { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
+.step .n i { font-style: normal; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; border: 1.5px solid var(--cyan); color: var(--ink); font-size: 12px; font-weight: 600; }
+.step h3 { margin: 0; font-size: 19px; font-weight: 600; line-height: 1.3; }
+.step p { margin: 0; color: var(--muted); font-size: 14.5px; line-height: 1.65; flex: 1; }
+.step .go { font-size: 14px; font-weight: 600; color: var(--bright); display: inline-flex; align-items: center; gap: 6px; }
+:root[data-theme="dark"] .step .go { color: var(--cyan); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .step .go { color: var(--cyan); } }
+.step .go svg { width: 16px; height: 16px; }
+.pf-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; margin-top: 36px; }
+.pf-cta p { margin: 0; color: var(--muted); font-size: 14px; }
+@media (max-width: 960px) { .steps { grid-template-columns: minmax(0, 1fr); } }
+
 /* omnIA band */
 .omnia{position:relative;background:var(--deep);color:#fff;overflow:hidden}
 .omnia-bg{position:absolute;inset:0;background:url(img/omnia.jpg) center/cover;opacity:.22}
@@ -220,6 +246,7 @@ footer p{margin:0;font-size:13px;line-height:1.7}
     <a class="brand" href="#top" aria-label="Omnicon Lab"><img src="img/logo-white.png" alt="Omnicon"><span>lab</span></a>
     <nav class="links" aria-label="Secciones">
       <a href="#productos" data-i18n="navProducts">Productos</a>
+      <a href="#portafolio" data-i18n="navPortfolio">Portafolio</a>
       <a href="#omnia">omnIA</a>
       <a href="#exploracion" data-i18n="navExplore">Exploración</a>
       <div class="lang" role="group" aria-label="Idioma / Language">
@@ -309,6 +336,41 @@ footer p{margin:0;font-size:13px;line-height:1.7}
     </div>
   </section>
 
+  <section class="pf" id="portafolio">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="pf-kicker" data-i18n-html="pfKicker">Portafolio de producto · <b>core de negocio</b></p>
+          <h2><span data-i18n="pfTitleA">Del proyecto en planta</span><br><strong data-i18n="pfTitleB">al producto Omnicon.</strong></h2>
+        </div>
+        <p data-i18n="pfIntro">La metodología con la que creo y presento los productos que Omnicon vende a sus clientes: lo que funciona en un proyecto real se convierte en producto, con su vitrina pública y su seguimiento de entrega.</p>
+      </div>
+      <ol class="steps">
+        <li><a class="step rv" href="https://diegopaz83.github.io/omnicon-showcase-product/" target="_blank" rel="noopener">
+          <div class="shot"><img src="img/sc-hub.jpg" alt="Vitrina de productos Omnicon" loading="lazy"></div>
+          <div class="tx"><span class="n"><i>1</i><span data-i18n="pfS1k">Vitrina</span></span>
+            <h3 data-i18n="pfS1t">Todos los productos en un lugar</h3>
+            <p data-i18n="pfS1p">Cada producto con su estado: OPMM disponible, Energía en desarrollo, y Mantenimiento predictivo y Calidad planeados.</p>
+            <span class="go"><span data-i18n="pfS1g">Ver la vitrina</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div></a></li>
+        <li><a class="step rv" href="https://diegopaz83.github.io/omnicon-showcase-product/products/mes/index.html" target="_blank" rel="noopener">
+          <div class="shot"><img src="img/sc-opmm.jpg" alt="Página de producto de OPMM" loading="lazy"></div>
+          <div class="tx"><span class="n"><i>2</i><span data-i18n="pfS2k">Producto</span></span>
+            <h3 data-i18n="pfS2t">OPMM, de la señal de la máquina a la decisión</h3>
+            <p data-i18n="pfS2p">Estado en vivo de cada máquina, cada parada con su causa y OEE por máquina, línea y planta. Basado en ISA-95, con Logix y FactoryTalk Optix.</p>
+            <span class="go"><span data-i18n="pfS2g">Explorar OPMM</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div></a></li>
+        <li><a class="step rv" href="https://diegopaz83.github.io/omnicon-showcase-product/products/mes/project/index.html" target="_blank" rel="noopener">
+          <div class="shot"><img src="img/sc-proj.jpg" alt="Vista interna de entrega del proyecto OPMM" loading="lazy"></div>
+          <div class="tx"><span class="n"><i>3</i><span data-i18n="pfS3k">Proyecto</span></span>
+            <h3 data-i18n="pfS3t">La entrega, visible por etapas</h3>
+            <p data-i18n="pfS3p">Vista interna del piloto: cinco etapas de entrega, la arquitectura del PLC a la pantalla del operador, y las preguntas y decisiones del proyecto.</p>
+            <span class="go"><span data-i18n="pfS3g">Ver el proyecto</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div></a></li>
+      </ol>
+      <div class="pf-cta">
+        <a class="btn btn-dark" href="https://diegopaz83.github.io/omnicon-showcase-product/" target="_blank" rel="noopener"><span data-i18n="pfCta">Abrir Omnicon Products</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+      </div>
+    </div>
+  </section>
+
   <section class="omnia" id="omnia">
     <div class="omnia-bg"></div>
     <div class="wrap">
@@ -384,6 +446,13 @@ var EN={
  omK:'Helps build quotes and respects the limits the administrator sets for each role.',
  omI:'Turns what the engineer dictates into suggested wording they can use or discard.',
  omO:'Reuses the same omnIA experience to support the assessment.',
+ navPortfolio:'Portfolio',pfKicker:'Product portfolio · <b>core business</b>',
+ pfTitleA:'From the plant-floor project',pfTitleB:'to the Omnicon product.',
+ pfIntro:'The method I use to create and present the products Omnicon sells to its clients: what works in a real project becomes a product, with its public showcase and its delivery tracking.',
+ pfS1k:'Showcase',pfS1t:'Every product in one place',pfS1p:'Each product with its status: OPMM available, Energy in development, and Predictive maintenance and Quality planned.',pfS1g:'See the showcase',
+ pfS2k:'Product',pfS2t:'OPMM, from machine signal to decision',pfS2p:'Live status for every machine, every stop with its reason and OEE by machine, line and plant. Built on ISA-95, with Logix and FactoryTalk Optix.',pfS2g:'Explore OPMM',
+ pfS3k:'Project',pfS3t:'Delivery, visible by stage',pfS3p:'Internal view of the pilot: five delivery stages, the architecture from PLC to operator screen, and the project questions and decisions.',pfS3g:'See the project',
+ pfCta:'Open Omnicon Products',
  exTitleA:'In exploration',exIntro:'Sketches and working documents. Some are ideas that have not reached a product yet.',
  tSketch:'Sketch',tEpisode:'Episode',
  sk1:'omnIA · Follow-up alerts',sk2:'Kairos · Episode 1 · Quotes',sk3:'Requests and updates',sk4:'ORA · Value chain',
