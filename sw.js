@@ -1,4 +1,4 @@
-const CACHE = 'omnicon-lab-v1';
+const CACHE = 'omnicon-lab-v2';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './img/logo-white.png', './img/logo-blue.png', './img/hero.jpg'];
 
 self.addEventListener('install', e => {
