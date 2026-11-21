@@ -90,7 +90,7 @@ No recibe alertas de seguimiento. En modo consulta solo vería sugerencias asist
 · Valores con separador de miles y signo; la moneda va arriba: un bloque por moneda (COP, USD) con sus totales por mes y, al final, el total consolidado en la moneda del cluster.
 · Celdas editables como campos; la cambiada queda resaltada y la barra de guardado aparece abajo solo cuando hay cambios.
 · Analista: lápiz en el backlog para ajustarlo. Historial de la celda al pasar el puntero.</div>
-<div class="note">Respuestas de Juan [ACORDADO 01-nov]
+<div class="note">Respuestas de Diego [ACORDADO 01-nov]
 1. Vendido y facturado dentro de la barra del backlog: sí.
 2. Meses cerrados: se pueden ver, solo como referencia; no se editan (tablero 10).
 3. Siempre 3 meses por defecto, con botones para desplazar la ventana hacia adelante y hacia atrás, como en Reservas.</div>
@@ -192,7 +192,7 @@ No recibe alertas de seguimiento. En modo consulta solo vería sugerencias asist
 <figure class="board" id="b-CumplimientoMovil"><figcaption>21 · Cumplimiento · 390 px <small>390 × 560</small><a href="render.html?f=CumplimientoMovil.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=CumplimientoMovil.dc.html" width="390" height="560" loading="lazy" title="21 · Cumplimiento · 390 px"></iframe></div></figure>
 </div>
 <details class="notes"><summary>Notas del boceto (2)</summary><div class="notes-grid">
-<div class="note">Propuesta [PROPUESTA 03-nov] · comentario de Juan
+<div class="note">Propuesta [PROPUESTA 03-nov] · comentario de Diego
 · La serie mensual de la derecha sube a una fila de meses (como Cierre): cada mes con % y facturado de comprometido; tocar uno lo selecciona. La tabla gana todo el ancho.
 · «Facturado en Odoo» se abre en 4 columnas: Ingeniería, Viáticos, Equipos y Total, en líder, CECO y factura.
 · Cada factura es una fila: número y fecha a la izquierda, y sus líneas en la columna de su categoría. FV-14085 ocupa una sola fila con Ingeniería y Viáticos.
@@ -216,7 +216,7 @@ No recibe alertas de seguimiento. En modo consulta solo vería sugerencias asist
 · Resumen por líder → Cierre mensual, Paso 3 «Avisar a los líderes», habilitado al cerrar el snapshot: una tarjeta por líder con sus CECO (icono, código, nombre, por cliente) y montos congelados por categoría.
 · Por líder: «Copiar correo» (mismo resumen para Outlook) y «Avisar» (le llega en Kairos: campana y omnIA). Arriba: «Copiar todos» y «Avisar a los n pendientes». Cada tarjeta dice «Sin avisar» o «Avisado fecha»; se puede avisar de nuevo.
 · El paso 3 marca «n de 10 avisados».</div>
-<div class="note">Decisión de Juan [ACORDADO 03-nov] · reemplaza las tarjetas por líder de este tablero
+<div class="note">Decisión de Diego [ACORDADO 03-nov] · reemplaza las tarjetas por líder de este tablero
 · Sin «Copiar correo» ni aviso por líder: un solo botón «Avisar a todos los líderes».
 · Antes de avisar: fotos de los líderes del snapshot.
 · Después: «Avisado por … · fecha · 10 líderes», «Lo vieron · n de 10» (foto con chulo), «Faltan» en gris y «Avisar de nuevo a los n que faltan».
@@ -237,7 +237,7 @@ No recibe alertas de seguimiento. En modo consulta solo vería sugerencias asist
 · Paso 3 · Snapshot: bloqueado solo por diferencias sin resolver (cambian lo comprometido de oct), con el motivo visible. Líderes no listos solo advierten: «si cierras, se congela así».
 · Al cerrar: aviso informativo automático a cada líder con lo comprometido; sin paso aparte.
 · Líder (tableros 25-26): la diferencia de sep aparece como novedad en su CECO; propone la resolución en la misma fila («Enviar propuesta»). Luego su CECO dice «Propuesta enviada · esperando aprobación».</div>
-<div class="note">Respuestas de Juan [ACORDADO 03-nov]
+<div class="note">Respuestas de Diego [ACORDADO 03-nov]
 1. Fecha límite: día 5 calendario; si cae festivo o fin de semana, el siguiente día hábil.
 2. Recordatorio solo manual (gestión del analista).
 3. Un comentario libre no basta: el líder propone la resolución y la analista aprueba.</div>
@@ -334,7 +334,7 @@ Iteración 2 [PROPUESTA 03-nov]
 · Panel de filtros estándar: buscador, Unidad, Regional, Modalidad, Responsable, Agrupar, «Todas / Mías», limpiar con contador y línea de contexto.
 · Grilla agrupada por estado (o por cliente, unidad o responsable). Cada fila: cotización con consecutivo y revisión, unidad, regional, modalidad, horas, valor (USD con su equivalente en COP), estado con el siguiente paso, responsable con foto y fecha.
 · Celular: tarjetas.</div>
-<div class="note">Respuestas de Juan (04-nov)
+<div class="note">Respuestas de Diego (04-nov)
 1. [ACORDADO] La cotización lleva regional y se selecciona al armarla.
 3. [ACORDADO] Agrupar por estado es la vista por defecto.
 2. [ACORDADO] El siguiente paso bajo el estado lo escribe Kairos según lo que le falta a la cotización (estimación, actividades, aprobación, respuesta del cliente); el responsable no lo edita.</div>
@@ -367,7 +367,7 @@ Iteración 2 [PROPUESTA 03-nov]
 <div class="note">Servicios con el estándar de grilla de Forecast: actividad × rol, con horas editables, costo, venta y margen por fila.
 · Las tarifas vienen de la lista de precios del cluster.
 · En el PDF salen solo dos líneas: «Servicios profesionales de ingeniería» e «Ingeniero líder».</div>
-<div class="note">Viáticos como la hoja de cálculo de Juan: concepto × costo unitario × unidades por ingeniero (hasta 4).
+<div class="note">Viáticos como la hoja de cálculo de Diego: concepto × costo unitario × unidades por ingeniero (hasta 4).
 · Se marca si aplica o no. Cada concepto se puede apagar.
 · Al cliente le llega una sola línea, «Gastos asociados · GL».
 · PENDIENTE: ¿se trasladan al costo o con un porcentaje de administración? En el boceto van al costo.

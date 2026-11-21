@@ -364,9 +364,9 @@ table.mx { border-collapse: separate; border-spacing: 0; width: 100%; font-size:
 <div class="toast" id="toast" role="status" hidden></div>
 <script>
 /* Boceto independiente: simula el shell de Kairos (persona elegida en «Ver como») */
-(function () { var who = 'Juan Menco'; try { who = localStorage.getItem('sol-boceto-as') || who; } catch (e) {}
-  var R = { 'Juan Menco': 'ejecutor', 'Natalie Ramírez': 'lider', 'Kevin Peña': 'lider', 'Mireya Uribe': 'planeacion' };
-  if (!R[who]) who = 'Juan Menco';
+(function () { var who = 'Diego Menco'; try { who = localStorage.getItem('sol-boceto-as') || who; } catch (e) {}
+  var R = { 'Diego Menco': 'ejecutor', 'Natalie Ramírez': 'lider', 'Kevin Peña': 'lider', 'Mireya Uribe': 'planeacion' };
+  if (!R[who]) who = 'Diego Menco';
   window.KAIROS_SHELL = { role: R[who], user: who, users: [] }; })();
 </script>
 <script>
@@ -436,10 +436,10 @@ table.mx { border-collapse: separate; border-spacing: 0; width: 100%; font-size:
   ].map(function (r) { return { id: r[0], code: r[1], name: r[2], client: RCLIENTS[r[3]], type: r[4], rstate: r[5], absence: r[6] === 'abs', internal: r[4] === 'Interno' }; });
   var RPERS = [
     ['per-01', 'Brainer Ocampo'], ['per-02', 'Federman Tapia'], ['per-03', 'Luis Lara'], ['per-04', 'Natalie Ramírez'],
-    ['per-05', 'Rafael de Vega'], ['per-06', 'Cristian Pérez'], ['per-07', 'Juan Menco'], ['per-08', 'Kenya Sánchez'],
+    ['per-05', 'Rafael de Vega'], ['per-06', 'Cristian Pérez'], ['per-07', 'Diego Menco'], ['per-08', 'Kenya Sánchez'],
     ['per-09', 'Kevin Peña'], ['per-10', 'Laura Posso'], ['per-11', 'Simón Giraldo'], ['per-12', 'Víctor Rivera'],
     ['per-13', 'Nataly Méndez'], ['per-14', 'Carlos Restrepo'], ['per-15', 'Brayan Castro'], ['per-16', 'Willian Villalobos'],
-    ['per-17', 'Camilo Ávila'], ['per-18', 'Juan Quintero'], ['per-19', 'Santiago Tobar'], ['per-20', 'Carlos Morales'],
+    ['per-17', 'Camilo Ávila'], ['per-18', 'Diego Quintero'], ['per-19', 'Santiago Tobar'], ['per-20', 'Carlos Morales'],
     ['per-21', 'Cristian Mejía', false], ['per-22', 'Isabella Orozco', false]
   ].map(function (p) { return { id: p[0], name: p[1], active: p[2] !== false }; });
   function seedReservations() {
@@ -477,15 +477,15 @@ table.mx { border-collapse: separate; border-spacing: 0; width: 100%; font-size:
   /* ---------- Semilla de Proyectos (lider, categoria, unidad y estado por codigo) ---------- */
   var PSEED = {
     '30202004200': ['Ernesto Osorio', 'proyecto', 'AU', 'activo', ['Willian Villalobos', 'Camilo Ávila', 'Cristian Córdoba', 'Cristian Pérez', 'José Oviedo', 'Federman Tapia']],
-    '30401007200': ['Ernesto Osorio', 'servicio', 'AU', 'activo', ['Brayan Castro', 'Juan Quintero', 'Néstor Mazabuel', 'Juan Menco', 'Brainer Ocampo']],
+    '30401007200': ['Ernesto Osorio', 'servicio', 'AU', 'activo', ['Brayan Castro', 'Diego Quintero', 'Néstor Mazabuel', 'Diego Menco', 'Brainer Ocampo']],
     '30029800000': ['Jhon Herrera', 'proyecto', 'AU', 'activo', ['Simón Giraldo', 'Iván Velasco', 'Miguel Quintero', 'Kevin Peña']],
     '30301053200': ['Miguel Quintero', 'servicio', 'AU', 'activo', ['Miguel Quintero', 'Laura Posso']],
     '30027700000': ['Rafael de Vega', 'proyecto', 'SM', 'activo', ['Nataly Méndez', 'Carlos Restrepo', 'Luis Lara', 'Víctor Rivera']],
     '30014700000': ['Rafael de Vega', 'proyecto', 'SM', 'cerrado', ['Nataly Méndez']],
     '30311055800': ['Brainer Ocampo', 'proyecto', 'AU', 'activo', ['Brainer Ocampo', 'Brayan Castro']],
     '30311054100': ['Kevin Peña', 'servicio', 'AU', 'activo', ['Kevin Peña']],
-    '30032400000': ['Santiago Tobar', 'proyecto', 'AU', 'activo', ['Santiago Tobar', 'Carlos Morales', 'Juan Gutiérrez', 'Federman Tapia']],
-    '30701006500': ['Juan Dueñas', 'servicio', 'AU', 'activo', ['Juan Dueñas', 'Diego López', 'George Moreno', 'César Bolívar', 'Carlos Rodríguez']],
+    '30032400000': ['Santiago Tobar', 'proyecto', 'AU', 'activo', ['Santiago Tobar', 'Carlos Morales', 'Diego Gutiérrez', 'Federman Tapia']],
+    '30701006500': ['Diego Dueñas', 'servicio', 'AU', 'activo', ['Diego Dueñas', 'Diego López', 'George Moreno', 'César Bolívar', 'Carlos Rodríguez']],
     '30009400000': ['Natalie Ramírez', 'proyecto', 'SM', 'auditoria', ['Natalie Ramírez', 'Luis Orozco', 'Kenya Sánchez']],
     '30301044600': ['Rafael de Vega', 'proyecto', 'SM', 'cerrado', ['Luis Angulo', 'Daniela Perea', 'Víctor Rivera', 'Cristian Pérez']],
     'ANT-0003': ['Laura Posso', 'proyecto', 'CO', 'pendiente', ['Laura Posso'], 'Hoja de ruta de transformación digital', 'Alternegy S.A.']
@@ -591,7 +591,7 @@ table.mx { border-collapse: separate; border-spacing: 0; width: 100%; font-size:
         else put(person, w, code, ph[(w + j) % ph.length], hrs);
       });
     }
-    var exec43 = ['Brainer Ocampo', 'Federman Tapia', 'Natalie Ramírez', 'Kenya Sánchez', 'Juan Menco', 'Víctor Rivera', 'Nataly Méndez', 'Laura Posso', 'Brayan Castro', 'Santiago Tobar'];
+    var exec43 = ['Brainer Ocampo', 'Federman Tapia', 'Natalie Ramírez', 'Kenya Sánchez', 'Diego Menco', 'Víctor Rivera', 'Nataly Méndez', 'Laura Posso', 'Brayan Castro', 'Santiago Tobar'];
     ctx.persons.forEach(function (p) {
       if (!p.active && p.name !== 'Cristian Mejía') return;
       accept(p.name, 41); accept(p.name, 42);
@@ -738,7 +738,7 @@ table.mx { border-collapse: separate; border-spacing: 0; width: 100%; font-size:
   function ldChip(im) { var v = VB[im.vb] || VB.pend; return '<span class="ld ' + v[1] + '" title="' + esc(im.leader + ' · ' + v[0]) + '">' + av(im.leader, 'xs') + esc(im.leader.split(' ')[0]) + ' ' + ic(v[2]) + '</span>'; }
 
   /* ---------- asignaciones de ejemplo (dia de la semana -> CECO) ---------- */
-  var PATTERN = { 'Juan Menco': ['30401007200', '30401007200', '30009400000', '30009400000', '30027700000'] };
+  var PATTERN = { 'Diego Menco': ['30401007200', '30401007200', '30009400000', '30009400000', '30027700000'] };
   var HITOS = { '30009400000': [{ d: '2026-11-25', t: 'FAT con el cliente' }], '30032400000': [{ d: '2026-12-10', t: 'Arranque de línea TA3' }] };
   function pattern(person) {
     if (PATTERN[person]) return PATTERN[person];
@@ -751,7 +751,7 @@ table.mx { border-collapse: separate; border-spacing: 0; width: 100%; font-size:
     wd.forEach(function (s) { var c = pat[X.dow(s) - 1]; if (!c) return; var x = by[c] || (by[c] = { code: c, leader: prj(c).leader || 'Planeación', days: [], h: 0 }); x.days.push(s); x.h += hrs != null && wd.length === 1 ? hrs : dayH(s); });
     return Object.keys(by).map(function (c) { var x = by[c]; x.h = Math.round(x.h * 10) / 10; x.vb = x.leader === person ? 'self' : 'pend'; x.hito = (HITOS[c] || []).filter(function (t) { return x.days.indexOf(t.d) >= 0; })[0] || null; return x; });
   }
-  var SALDO = { 'Juan Menco': { vac: 12, comp: 0 }, 'Natalie Ramírez': { vac: 9, comp: 16 }, 'Kevin Peña': { vac: 15, comp: 0 }, 'Brainer Ocampo': { vac: 6, comp: 4 }, 'Kenya Sánchez': { vac: 11, comp: 0 } };
+  var SALDO = { 'Diego Menco': { vac: 12, comp: 0 }, 'Natalie Ramírez': { vac: 9, comp: 16 }, 'Kevin Peña': { vac: 15, comp: 0 }, 'Brainer Ocampo': { vac: 6, comp: 4 }, 'Kenya Sánchez': { vac: 11, comp: 0 } };
   function saldo(n) { return SALDO[n] || { vac: 10, comp: 0 }; }
 
   /* ---------- semilla ---------- */
@@ -764,10 +764,10 @@ table.mx { border-collapse: separate; border-spacing: 0; width: 100%; font-size:
   }
   function seed() {
     var L = [
-      mk({ id: 'S-1042', type: 'vac', person: 'Juan Menco', from: '2026-11-23', to: '2026-11-27', created: '2026-10-20', state: 'consulta', note: 'Viaje familiar, ya con tiquetes.',
-        vb: [['ok', 'Sin problema; Brayan cubre el mantenimiento de Celsia.', '21 oct'], ['obs', 'El 25 nov es la FAT con el cliente y Juan configura las pruebas. ¿Puede moverlas a la semana del 30 nov?', '22 oct'], ['pend']],
+      mk({ id: 'S-1042', type: 'vac', person: 'Diego Menco', from: '2026-11-23', to: '2026-11-27', created: '2026-10-20', state: 'consulta', note: 'Viaje familiar, ya con tiquetes.',
+        vb: [['ok', 'Sin problema; Brayan cubre el mantenimiento de Celsia.', '21 oct'], ['obs', 'El 25 nov es la FAT con el cliente y Diego configura las pruebas. ¿Puede moverlas a la semana del 30 nov?', '22 oct'], ['pend']],
         conflicts: [{ k: 'hito', t: 'Coincide con la FAT de Toluca MES (mié 25 nov).' }],
-        hist: [['20 oct', 'Juan Menco', 'Envió la solicitud. Kairos avisó a 3 líderes y a Planeación.'], ['21 oct', 'Ernesto Osorio', 'Dio visto bueno.'], ['22 oct', 'Natalie Ramírez', 'Dejó una observación.']] }),
+        hist: [['20 oct', 'Diego Menco', 'Envió la solicitud. Kairos avisó a 3 líderes y a Planeación.'], ['21 oct', 'Ernesto Osorio', 'Dio visto bueno.'], ['22 oct', 'Natalie Ramírez', 'Dejó una observación.']] }),
       mk({ id: 'S-1045', type: 'per', sub: 'Cita médica', person: 'Kenya Sánchez', from: '2026-10-28', hFrom: '14:00', hTo: '17:00', hours: 3, created: '2026-10-22', state: 'registrada', support: 'pend',
         vb: [['aviso']], hist: [['22 oct', 'Kenya Sánchez', 'Registró la ausencia. Kairos avisó a su líder sin mostrar el motivo.']] }),
       mk({ id: 'S-1039', type: 'inc', person: 'Víctor Rivera', from: '2026-10-20', to: '2026-10-22', created: '2026-10-20', by: 'Rafael de Vega', state: 'validacion', support: 'ok',
@@ -801,7 +801,7 @@ table.mx { border-collapse: separate; border-spacing: 0; width: 100%; font-size:
   var leads = ctx.projects.filter(function (p) { return p.leader === ME; }).map(function (p) { return p.code; });
   var isLead = ROLE === 'lider' || leads.length > 0;
   /* Boceto fuera de Kairos: «Ver como» cambia de persona sin recargar */
-  var AS = [['Juan Menco', 'ejecutor', 'Ingeniero'], ['Natalie Ramírez', 'lider', 'Ingeniera líder'], ['Kevin Peña', 'lider', 'Líder'], ['Mireya Uribe', 'planeacion', 'Planeación']];
+  var AS = [['Diego Menco', 'ejecutor', 'Ingeniero'], ['Natalie Ramírez', 'lider', 'Ingeniera líder'], ['Kevin Peña', 'lider', 'Líder'], ['Mireya Uribe', 'planeacion', 'Planeación']];
   function setAs(n) { var a = AS.filter(function (x) { return x[0] === n; })[0]; ME = a[0]; ROLE = a[1]; isPlan = ROLE === 'planeacion'; isDir = ROLE === 'direccion'; leads = ctx.projects.filter(function (p) { return p.leader === ME; }).map(function (p) { return p.code; }); isLead = ROLE === 'lider' || leads.length > 0; ui.nw = null; ui.sel = null; ui.open = {}; ui.obs = {}; try { localStorage.setItem('sol-boceto-as', ME); } catch (e) {} setTab('inicio'); }
   function asSwitch() { return '<div class="seg asw" role="group" aria-label="Ver como"><span class="aslab">Ver como</span>' + AS.map(function (a) { return '<button data-a="as" data-v="' + a[0] + '" aria-pressed="' + (ME === a[0]) + '" title="' + a[0] + ' · ' + a[2] + '">' + av(a[0], 'xs') + '<span>' + a[0].split(' ')[0] + '</span><small>' + a[2] + '</small></button>'; }).join('') + '</div>'; }
   var ui = { tab: 'inicio', nw: null, open: {}, sel: null, plf: 'gestion', imp: 'S-1042', after: true, dlg: null, obs: {} };
