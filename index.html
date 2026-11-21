@@ -201,25 +201,24 @@ h2 strong{font-weight:700}
 @media (max-width:900px){.omnia .wrap{grid-template-columns:1fr;gap:56px;justify-items:start}.uses{grid-template-columns:1fr}}
 
 /* Explore */
-.sketches{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
-.sk{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;text-decoration:none;transition:border-color .25s,transform .25s}
-.sk:hover{border-color:var(--bright);transform:translateY(-3px)}
-.sk .ph{height:120px;background-size:cover;background-position:center;position:relative}
-.sk .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,28,63,.1),rgba(0,28,63,.55))}
-.sk .ph span{position:absolute;left:14px;bottom:12px;z-index:1;font-size:11px;font-weight:600;color:#fff;background:rgba(0,28,63,.7);padding:3px 9px;border-radius:6px}
-.sk div.t{padding:18px 18px 20px;display:flex;flex-direction:column;gap:6px;flex:1}
-.sk strong{font-size:16px;font-weight:600;line-height:1.3}
-.sk small{font-size:13px;color:var(--muted)}
-@media (max-width:1000px){.sketches{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:520px){.sketches{grid-template-columns:1fr}}
-
-.docs{margin-top:64px;border-top:1px solid var(--line)}
-.doc{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:24px;align-items:center;padding:20px 4px;border-bottom:1px solid var(--line);text-decoration:none}
-.doc:hover strong{color:var(--bright)}
-.doc strong{font-weight:500;font-size:16px;transition:color .2s}
-.doc small{font-size:13px;color:var(--muted)}
-.doc svg{width:18px;height:18px;color:var(--muted)}
-.docs h3{font-size:14px;font-weight:600;color:var(--muted);margin:28px 0 4px}
+.ex-h{font-size:14px;font-weight:600;color:var(--muted);margin:8px 0 18px}
+.ex-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-bottom:56px}
+.ex-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.ex{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;text-decoration:none;transition:border-color .25s,transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .25s}
+.ex:hover{border-color:var(--bright);transform:translateY(-4px);box-shadow:0 24px 50px rgba(0,28,63,.14)}
+.ex-ph{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--navy)}
+.ex.vid .ex-ph{aspect-ratio:16/9}
+.ex-ph img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.ex:hover .ex-ph img{transform:scale(1.04)}
+.ex-tag{position:absolute;left:14px;bottom:12px;font-size:11px;font-weight:600;color:#fff;background:rgba(0,28,63,.78);padding:4px 10px;border-radius:6px}
+.play{position:absolute;right:16px;bottom:14px;width:52px;height:52px;border-radius:50%;background:rgba(0,220,250,.92);color:var(--navy);display:grid;place-items:center;box-shadow:0 0 0 8px rgba(0,220,250,.2);transition:transform .3s}
+.play svg{width:22px;height:22px;margin-left:3px}
+.ex:hover .play{transform:scale(1.08)}
+.ex-t{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.ex-t strong{font-size:16px;font-weight:600;line-height:1.3}
+.ex-t small{font-size:13.5px;color:var(--muted);line-height:1.55}
+@media (max-width:1000px){.ex-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.ex-grid,.ex-grid.two{grid-template-columns:minmax(0,1fr)}}
 
 footer{background:var(--deep);color:#9db0c5;padding:56px 0 calc(40px + env(safe-area-inset-bottom,0px))}
 footer .wrap{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
@@ -390,20 +389,25 @@ footer p{margin:0;font-size:13px;line-height:1.7}
     <div class="wrap">
       <div class="sec-head">
         <h2><span data-i18n="exTitleA">En exploración</span></h2>
-        <p data-i18n="exIntro">Bocetos y documentos de trabajo. Algunos son ideas que todavía no llegan a un producto.</p>
+        <p data-i18n="exIntro">Videos, bocetos y documentos de trabajo. Algunos son ideas que todavía no llegan a un producto.</p>
       </div>
-      <div class="sketches">
-        <a class="sk" href="https://claude.ai/artifact/P4t185ZGFqSnyrFTnbzigD" target="_blank" rel="noopener"><div class="ph" style="background-image:url(img/band1.jpg)"><span data-i18n="tSketch">Boceto</span></div><div class="t"><strong data-i18n="sk1">omnIA · Alertas de seguimiento</strong><small data-i18n="d17">Actualizado el 17 nov 2026</small></div></a>
-        <a class="sk" href="https://claude.ai/artifact/M5wzzfQeiegUtFeRJsyAMM" target="_blank" rel="noopener"><div class="ph" style="background-image:url(img/band2.jpg)"><span data-i18n="tEpisode">Episodio</span></div><div class="t"><strong data-i18n="sk2">Kairos · Episodio 1 · Cotizaciones</strong><small data-i18n="d05">Actualizado el 5 nov 2026</small></div></a>
-        <a class="sk" href="https://claude.ai/artifact/J6gDTdu1t53y7SE4uqsFJW" target="_blank" rel="noopener"><div class="ph" style="background-image:url(img/band3.jpg)"><span data-i18n="tSketch">Boceto</span></div><div class="t"><strong data-i18n="sk3">Solicitudes y novedades</strong><small data-i18n="d04">Actualizado el 4 nov 2026</small></div></a>
-        <a class="sk" href="https://claude.ai/artifact/JMWwe1P5zVNu6b15rDbHxc" target="_blank" rel="noopener"><div class="ph" style="background-image:url(img/cover.jpg)"><span data-i18n="tSketch">Boceto</span></div><div class="t"><strong data-i18n="sk4">ORA · Cadena de valor</strong><small data-i18n="d10">Actualizado el 10 nov 2026</small></div></a>
+      <h3 class="ex-h" data-i18n="exVideos">Videos</h3>
+      <div class="ex-grid two">
+        <a class="ex vid" href="exploracion/kairos-episodio-1/"><div class="ex-ph"><img src="img/ex-kairos-video.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span><span class="ex-tag" data-i18n="tVid1">Video · 1:45</span></div><div class="ex-t"><strong data-i18n="v1t">Kairos · Episodio 1 · Cotizaciones</strong><small data-i18n="v1s">Cómo nace una cotización en Kairos, con el ingeniero, Solution Design y el líder de cluster.</small></div></a>
+        <a class="ex vid" href="exploracion/productizacion/"><div class="ex-ph"><img src="img/ex-productizacion.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span><span class="ex-tag" data-i18n="tVid2">Video · 1:47</span></div><div class="ex-t"><strong data-i18n="v2t">De la experiencia en ingeniería a productos que escalan</strong><small data-i18n="v2s">La estrategia de productización de Omnicon.</small></div></a>
       </div>
-
-      <div class="docs">
-        <h3 data-i18n="docsTitle">Documentos</h3>
-        <a class="doc" href="https://claude.ai/artifact/VG9eGRzumUnPfiFwGQuKb6" target="_blank" rel="noopener"><strong data-i18n="doc1">Levantamiento de requerimientos de Kairos, de la cotización a la facturación</strong><small data-i18n="d31">31 oct 2026</small><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
-        <a class="doc" href="https://claude.ai/artifact/4msgxhDBbPCUhQmh7FG6NB" target="_blank" rel="noopener"><strong data-i18n="doc2">ORA · Alcance propuesto</strong><small data-i18n="d20">20 nov 2026</small><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
-        <a class="doc" href="https://claude.ai/artifact/7gpFWiQVTSyWzK9ZbFgvT5" target="_blank" rel="noopener"><strong data-i18n="doc3">ORA · Resumen propuesto</strong><small data-i18n="d20">20 nov 2026</small><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+      <h3 class="ex-h" data-i18n="exDocs">Presentaciones y documentos</h3>
+      <div class="ex-grid two">
+        <a class="ex" href="exploracion/informes-presentacion/"><div class="ex-ph"><img src="img/ex-informes-deck.jpg" alt="" loading="lazy"><span class="ex-tag" data-i18n="tDeck">Presentación · 15 láminas</span></div><div class="ex-t"><strong data-i18n="pd1t">Informes de servicio en campo</strong><small data-i18n="pd1s">La propuesta: el informe desde el celular, voz con IA, arquitectura, costos y hoja de ruta.</small></div></a>
+        <a class="ex" href="exploracion/kairos-conceptualizacion/"><div class="ex-ph"><img src="img/ex-concepto.jpg" alt="" loading="lazy"><span class="ex-tag" data-i18n="tDoc">Documento · 30 páginas</span></div><div class="ex-t"><strong data-i18n="pd2t">Conceptualización de Kairos</strong><small data-i18n="pd2s">Concepto funcional, omnIA, gestión por excepciones y arquitectura, en los registros del 17 al 23 de octubre.</small></div></a>
+      </div>
+      <h3 class="ex-h" data-i18n="exSketches">Bocetos y documentos de diseño</h3>
+      <div class="ex-grid">
+        <a class="ex" href="exploracion/omnia-alertas/"><div class="ex-ph"><img src="img/ex-omnia.jpg" alt="" loading="lazy"><span class="ex-tag" data-i18n="tSketch">Boceto</span></div><div class="ex-t"><strong data-i18n="sk1">omnIA · Alertas de seguimiento</strong><small data-i18n="sk1s">53 pantallas de Kairos: avisos, forecast, horas extra, cotizaciones y cierre.</small></div></a>
+        <a class="ex" href="exploracion/solicitudes-novedades/"><div class="ex-ph"><img src="img/ex-solicitudes.jpg" alt="" loading="lazy"><span class="ex-tag" data-i18n="tSketch">Boceto</span></div><div class="ex-t"><strong data-i18n="sk3">Solicitudes y novedades</strong><small data-i18n="sk3s">Vacaciones, permisos y compensatorios conectados con Reservas y Forecast.</small></div></a>
+        <a class="ex" href="exploracion/ora-cadena-valor/"><div class="ex-ph"><img src="img/ex-cadena.jpg" alt="" loading="lazy"><span class="ex-tag" data-i18n="tSketch">Boceto</span></div><div class="ex-t"><strong data-i18n="sk4">ORA · Cadena de valor</strong><small data-i18n="sk4s">Doce assessments de ejemplo en cinco industrias, hasta la hoja de ruta.</small></div></a>
+        <a class="ex" href="exploracion/ora-alcance/"><div class="ex-ph"><img src="img/ex-alcance.jpg" alt="" loading="lazy"><span class="ex-tag" data-i18n="tDesign">Documento de diseño</span></div><div class="ex-t"><strong data-i18n="doc2">ORA · Alcance propuesto</strong><small data-i18n="doc2s">Alcance en escritorio y celular, con opciones de interacción.</small></div></a>
+        <a class="ex" href="exploracion/ora-resumen/"><div class="ex-ph"><img src="img/ex-resumen.jpg" alt="" loading="lazy"><span class="ex-tag" data-i18n="tDesign">Documento de diseño</span></div><div class="ex-t"><strong data-i18n="doc3">ORA · Resumen propuesto</strong><small data-i18n="doc3s">El resumen del assessment en escritorio y celular.</small></div></a>
       </div>
     </div>
   </section>
@@ -453,12 +457,20 @@ var EN={
  pfS2k:'Product',pfS2t:'OPMM, from machine signal to decision',pfS2p:'Live status for every machine, every stop with its reason and OEE by machine, line and plant. Built on ISA-95, with Logix and FactoryTalk Optix.',pfS2g:'Explore OPMM',
  pfS3k:'Project',pfS3t:'Delivery, visible by stage',pfS3p:'Internal view of the pilot: five delivery stages, the architecture from PLC to operator screen, and the project questions and decisions.',pfS3g:'See the project',
  pfCta:'Open Omnicon Products',
- exTitleA:'In exploration',exIntro:'Sketches and working documents. Some are ideas that have not reached a product yet.',
- tSketch:'Sketch',tEpisode:'Episode',
- sk1:'omnIA · Follow-up alerts',sk2:'Kairos · Episode 1 · Quotes',sk3:'Requests and updates',sk4:'ORA · Value chain',
- d17:'Updated Nov 17, 2026',d05:'Updated Nov 5, 2026',d04:'Updated Nov 4, 2026',d10:'Updated Nov 10, 2026',
- docsTitle:'Documents',doc1:'Kairos requirements gathering, from quote to invoicing',doc2:'ORA · Proposed scope',doc3:'ORA · Proposed summary',
- d31:'Oct 31, 2026',d20:'Nov 20, 2026',consult:'Consulting',foot:'Test space. Demo data is sample data.'
+ exTitleA:'In exploration',exIntro:'Videos, sketches and working documents. Some are ideas that have not reached a product yet.',
+ exVideos:'Videos',exSketches:'Sketches and design documents',tVid1:'Video · 1:45',tVid2:'Video · 1:47',
+ v1t:'Kairos · Episode 1 · Quotes',v1s:'How a quote is born in Kairos, with the engineer, Solution Design and the cluster lead.',
+ v2t:'From engineering experience to products that scale',v2s:'Omnicon’s productization strategy.',
+ tSketch:'Sketch',tDesign:'Design document',
+ sk1:'omnIA · Follow-up alerts',sk1s:'53 Kairos screens: alerts, forecast, overtime, quotes and month-end close.',
+ sk3:'Requests and updates',sk3s:'Vacation, leave and time off in lieu connected with Bookings and Forecast.',
+ sk4:'ORA · Value chain',sk4s:'Twelve sample assessments across five industries, up to the roadmap.',
+ doc2:'ORA · Proposed scope',doc2s:'Scope on desktop and phone, with interaction options.',
+ doc3:'ORA · Proposed summary',doc3s:'The assessment summary on desktop and phone.',
+ exDocs:'Presentations and documents',tDeck:'Presentation · 15 slides',tDoc:'Document · 30 pages',
+ pd1t:'Field service reports',pd1s:'The proposal: the report from the phone, voice with AI, architecture, costs and roadmap.',
+ pd2t:'Kairos conceptualization',pd2s:'Functional concept, omnIA, management by exception and architecture, from the October 17 to 23 records.',
+ consult:'Consulting',foot:'Test space. Demo data is sample data.'
 };
 var ES={};
 document.querySelectorAll('[data-i18n]').forEach(function(el){ES[el.dataset.i18n]=el.textContent});

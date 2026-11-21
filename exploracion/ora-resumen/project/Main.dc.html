@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>ORA · Resumen propuesto (escritorio)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f2f5f9}
+a{color:#0a58eb}a:hover{color:#002473}
+</style>
+</helmet>
+<div style="font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif; color: #001c3f; background: #f2f5f9; display: flex; flex-wrap: wrap; min-height: 100%; font-size: 14px">
+
+  <!-- Barra lateral (sin cambios de fondo) -->
+  <nav aria-label="Navegación del assessment" style="flex: 1 1 248px; max-width: 100%; background: #001c3f; color: #c9d6e6; padding: 24px 16px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
+    <div style="display: flex; align-items: baseline; gap: 10px; padding: 0 8px">
+      <span style="font-weight: 600; font-size: 20px; color: #ffffff; letter-spacing: -0.3px">omnicon</span>
+      <span style="font-size: 13px; line-height: 1.1; color: #c9d6e6; border-left: 1px solid #22385a; padding-left: 10px">risk<br><span style="color: #00dcfa; font-weight: 600">assessment</span></span>
+    </div>
+    <a href="#" style="color: #c9d6e6; text-decoration: none; padding: 10px 8px">Todos los assessments</a>
+    <div style="display: flex; flex-direction: column; gap: 4px">
+      <span style="font-size: 11px; letter-spacing: 1px; color: #7d93ae; padding: 0 8px">ASSESSMENT ABIERTO</span>
+      <div style="border: 1px solid #00dcfa; border-radius: 12px; padding: 12px; background: rgba(0,220,250,.08)">
+        <div style="color: #ffffff; font-weight: 500">Terminal Marítimo Punta Brava</div>
+        <div style="font-size: 12px; color: #c9d6e6; margin-top: 4px">ORA-2026-022 · Dos semanas</div>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <a href="#" aria-current="page" style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; background: rgba(0,220,250,.12); color: #ffffff; font-weight: 600; text-decoration: none">Resumen</a>
+      <sc-for list="{{stages}}" as="s" hint-placeholder-count="6">
+        <a href="#" style="display: flex; align-items: center; gap: 12px; padding: 9px 12px; border-radius: 8px; color: #c9d6e6; text-decoration: none">
+          <span style="width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid #7d93ae; display: inline-flex; align-items: center; justify-content: center; font-size: 12px">{{s.n}}</span>
+          <span style="flex: 1">{{s.name}}</span>
+          <span style="min-width: 20px; height: 20px; border-radius: 10px; background: #f0b44c; color: #3d2600; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center">{{s.pend}}</span>
+        </a>
+      </sc-for>
+    </div>
+  </nav>
+
+  <!-- Contenido -->
+  <main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <header style="background: #ffffff; border-bottom: 1px solid #dbe2ea; padding: 12px 28px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+      <div style="flex: 1 1 260px">
+        <div style="font-size: 12px; color: #556578">ORA-2026-022 · Terminal Marítimo Punta Brava</div>
+        <h1 style="margin: 0; font-size: 18px; font-weight: 600">Resumen</h1>
+      </div>
+      <button type="button" style="font: inherit; font-size: 13px; padding: 8px 14px; border-radius: 8px; border: 1px solid #9fdbe6; background: #e6f8fb; color: #002473; cursor: pointer">Dictar</button>
+      <span style="font-size: 12px; color: #556578">Guardado 10:56 a. m.</span>
+      <button type="button" style="font: inherit; font-size: 13px; padding: 8px 14px; border-radius: 8px; border: 1px solid #dbe2ea; background: #ffffff; color: #001c3f; cursor: pointer">Trazabilidad</button>
+    </header>
+
+    <div style="padding: 24px 28px 48px; display: flex; flex-direction: column; gap: 28px; max-width: 1120px; width: 100%; box-sizing: border-box">
+
+      <!-- 1. ¿Cómo vamos? -->
+      <section aria-labelledby="h-avance" style="background: #ffffff; border: 1px solid #dbe2ea; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 20px">
+        <div style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 16px">
+          <div style="flex: 1 1 320px">
+            <div style="font-size: 12px; letter-spacing: 1px; color: #0a58eb; font-weight: 600">ORA-2026-022 · DOS SEMANAS</div>
+            <h2 id="h-avance" style="margin: 4px 0 2px; font-size: 26px; font-weight: 600; letter-spacing: -0.3px">Terminal Marítimo Punta Brava</h2>
+            <div style="color: #556578">Puerto Crudo S.A. (ficticio)</div>
+          </div>
+          <div style="text-align: right">
+            <div style="font-size: 32px; font-weight: 600; line-height: 1">28 %</div>
+            <div style="font-size: 13px; color: #556578; margin-top: 4px">17 de 60 criterios completos</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px">
+          <sc-for list="{{stages}}" as="s" hint-placeholder-count="6">
+            <a href="#" style="display: flex; flex-direction: column; gap: 8px; text-decoration: none; color: #001c3f; padding: 4px 0">
+              <span style="height: 8px; border-radius: 4px; background: #e3e9f0; overflow: hidden; display: block">
+                <span style="display: block; height: 100%; width: {{s.pctCss}}; background: {{s.barColor}}; border-radius: 4px"></span>
+              </span>
+              <span style="font-size: 13px; font-weight: 500">{{s.n}}. {{s.name}}</span>
+              <span style="font-size: 12px; color: #556578">{{s.statusLine}}</span>
+            </a>
+          </sc-for>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; border-top: 1px solid #eef2f6; padding-top: 16px">
+          <div style="display: flex">
+            <span style="width: 28px; height: 28px; border-radius: 50%; background: #c9d6e6; border: 2px solid #ffffff"></span>
+            <span style="width: 28px; height: 28px; border-radius: 50%; background: #a9bbd2; border: 2px solid #ffffff; margin-left: -8px"></span>
+            <span style="width: 28px; height: 28px; border-radius: 50%; background: #8aa0bd; border: 2px solid #ffffff; margin-left: -8px"></span>
+          </div>
+          <a href="#" style="font-size: 13px; text-decoration: none">Equipo e historial</a>
+        </div>
+      </section>
+
+      <!-- 2. ¿Qué hago ahora? -->
+      <section aria-labelledby="h-sig" style="display: flex; flex-direction: column; gap: 12px">
+        <h2 id="h-sig" style="margin: 0; font-size: 16px; font-weight: 600">Siguiente paso</h2>
+        <div style="background: #ffffff; border: 1px solid #0a58eb; border-radius: 12px; padding: 20px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px">
+          <div style="flex: 1 1 360px">
+            <div style="font-size: 12px; color: #556578">Etapa 1 · Alcance · Medición fiscal y custodia (LACT)</div>
+            <div style="font-size: 18px; font-weight: 600; margin-top: 4px">Define la tolerancia de este proceso</div>
+            <div style="color: #556578; margin-top: 4px">Cuánto tiempo puede estar detenido antes de que el impacto sea inaceptable. Sin este dato no se calcula la exposición en dinero.</div>
+          </div>
+          <button type="button" style="font: inherit; font-weight: 600; padding: 12px 22px; min-height: 44px; border-radius: 8px; border: 0; background: #002473; color: #ffffff; cursor: pointer">Completar</button>
+        </div>
+        <div style="background: #ffffff; border: 1px solid #dbe2ea; border-radius: 12px">
+          <sc-for list="{{tasks}}" as="t" hint-placeholder-count="2">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 14px 24px; border-bottom: 1px solid #eef2f6">
+              <span style="font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: {{t.tagBg}}; color: {{t.tagInk}}">{{t.tag}}</span>
+              <span style="flex: 1 1 280px">{{t.text}}</span>
+              <span style="font-size: 12px; color: #556578">{{t.stage}}</span>
+              <a href="#" style="font-size: 13px; font-weight: 500; text-decoration: none">{{t.cta}}</a>
+            </div>
+          </sc-for>
+          <div style="padding: 12px 24px">
+            <a href="#" style="font-size: 13px; text-decoration: none">Ver los 34 pendientes por etapa</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. ¿Qué hemos encontrado? -->
+      <section aria-labelledby="h-hall" style="display: flex; flex-direction: column; gap: 12px">
+        <h2 id="h-hall" style="margin: 0; font-size: 16px; font-weight: 600">Lo que hemos encontrado</h2>
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+          <div style="background: #ffffff; border: 1px solid #dbe2ea; border-radius: 12px; padding: 18px 20px">
+            <div style="font-size: 13px; color: #556578">Hallazgos</div>
+            <div style="font-size: 28px; font-weight: 600; margin-top: 4px">6</div>
+            <div style="font-size: 12px; color: #556578">de campo y documentos</div>
+          </div>
+          <div style="background: #ffffff; border: 1px solid #dbe2ea; border-radius: 12px; padding: 18px 20px">
+            <div style="font-size: 13px; color: #556578">Exposición en dinero</div>
+            <div style="font-size: 16px; font-weight: 600; margin-top: 8px">Aún no se puede calcular</div>
+            <div style="font-size: 12px; color: #556578">Falta la tolerancia y el costo de parada de los procesos.</div>
+          </div>
+          <div style="background: #ffffff; border: 1px solid #dbe2ea; border-radius: 12px; padding: 18px 20px">
+            <div style="font-size: 13px; color: #556578">Riesgos evaluados</div>
+            <div style="font-size: 16px; font-weight: 600; margin-top: 8px">Desde la etapa 5</div>
+            <div style="font-size: 12px; color: #556578">Aparecerán aquí al evaluar escenarios.</div>
+          </div>
+        </div>
+        <div style="background: #ffffff; border: 1px solid #dbe2ea; border-radius: 12px">
+          <div style="padding: 14px 24px 6px; font-size: 13px; color: #556578">Hallazgos más relevantes</div>
+          <sc-for list="{{findings}}" as="f" hint-placeholder-count="3">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 12px 24px; border-top: 1px solid #eef2f6">
+              <span style="font-size: 12px; color: #556578; width: 40px">{{f.id}}</span>
+              <span style="flex: 1 1 320px; font-weight: 500">{{f.title}}</span>
+              <span style="font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: #edf1f6; color: #4a5f80">{{f.level}}</span>
+            </div>
+          </sc-for>
+          <div style="padding: 12px 24px; border-top: 1px solid #eef2f6">
+            <a href="#" style="font-size: 13px; text-decoration: none">Ver los 6 hallazgos</a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1240}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var raw = [
+      { n: 1, name: 'Alcance', pct: 75, pend: 4 },
+      { n: 2, name: 'Planta', pct: 33, pend: 8 },
+      { n: 3, name: 'Cuestionario', pct: 13, pend: 7 },
+      { n: 4, name: 'Evidencias', pct: 0, pend: 8 },
+      { n: 5, name: 'Riesgos y oportunidades', pct: 0, pend: 4 },
+      { n: 6, name: 'Resultados', pct: 0, pend: 3 }
+    ];
+    var stages = raw.map(function (s) {
+      return {
+        n: s.n, name: s.name, pend: s.pend,
+        pctCss: s.pct + '%',
+        barColor: s.n === 1 ? '#0a58eb' : '#5b8ff0',
+        statusLine: s.pct > 0 ? s.pct + ' % · en curso' : 'Sin iniciar'
+      };
+    });
+    var tasks = [
+      { tag: 'omnIA', tagBg: '#efe9ff', tagInk: '#4a22b8', text: 'Revisa 3 propuestas de activos para el área Patio de tanques', stage: 'Planta', cta: 'Revisar' },
+      { tag: 'Pendiente', tagBg: '#fff4e0', tagInk: '#7a4a00', text: 'Responde las preguntas del proceso Transferencia y cargue', stage: 'Cuestionario', cta: 'Responder' }
+    ];
+    var findings = [
+      { id: 'F-05', title: 'Parada de emergencia implementada en el PLC de control', level: 'Dependencia' },
+      { id: 'F-01', title: 'Redundancia mecánica sin redundancia de control', level: 'Proceso' },
+      { id: 'F-03', title: 'CPU del PLC-01 descontinuada y sin repuesto', level: 'Activo' }
+    ];
+    return { stages: stages, tasks: tasks, findings: findings };
+  }
+}
+</script>
+</body>
+</html>

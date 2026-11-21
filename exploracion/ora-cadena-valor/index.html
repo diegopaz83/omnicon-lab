@@ -1,0 +1,699 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Boceto ORA · Cadena de valor</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
+<style>
+/* Layout: shell ORA/Kairos (barra lateral navy + cabecera con selector de assessment) y panel omnIA a la derecha, igual que en Kairos.
+   Tokens idénticos al artefacto ORA v13 y a Kairos Ecosistema (omnIA). */
+:root {
+  --font: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+  --navy: #001c3f; --navy-2: #00285a; --bright: #0a58eb; --cyan: #00dcfa; --violet: #7543ff;
+  --bg: #f2f5f9; --surface: #fff; --surface-2: #f6f8fb; --ink: #001c3f; --muted: #556578; --line: #dbe2ea; --line-2: #eef2f6;
+  --primary: #002473; --primary-ink: #fff; --primary-soft: #e8eefc; --focus: #0a58eb;
+  --ok-bg: #e5f7ee; --ok-ink: #145a37; --warn-bg: #fff4e0; --warn-ink: #7a4a00; --err-bg: #fbeaeb; --err-ink: #b0353c; --err: #b0353c;
+  --approval: #7543ff; --approval-soft: #f1ecff; --off-bg: #e9edf2; --off-ink: #6b7a8d;
+  --info-bg: #e8f4ff; --info-ink: #0a4a9e; --bubble-user: #002473; --bubble-user-ink: #fff; --panel-w: 400px;
+  --side-ink: #c9d6e6; --side-muted: #7d93ae; --side-active: rgba(0,220,250,.12);
+  --shadow: 0 12px 32px rgba(0,28,63,.18); --shadow-sm: 0 2px 8px rgba(0,28,63,.08);
+  --r-ctl: 8px; --r-surf: 12px;
+  --lv-high: #c2353d; --lv-high-bg: #fbeaeb; --lv-med: #c77700; --lv-med-bg: #fff4e0; --lv-low: #1d7a4a; --lv-low-bg: #e5f7ee; --lv-pend: #6b7a8d; --lv-pend-bg: #eef1f5;
+  --s-mant: #1d7a4a; --s-mant-bg: #e5f7ee; --s-est: #0a58eb; --s-est-bg: #e8eefc; --s-act: #c77700; --s-act-bg: #fff4e0; --s-mig: #7543ff; --s-mig-bg: #f1ecff;
+  --tol: #b0353c; --rec: #0a58eb; --grid: #e3e9f0;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #07111f; --surface: #0d1b2f; --surface-2: #112339; --ink: #e7eef7; --muted: #9db0c5; --line: #22385a; --line-2: #182b45;
+  --primary: #5d8dff; --primary-ink: #04122a; --primary-soft: #16294a; --focus: #7fb0ff; --bright: #7fb0ff;
+  --ok-bg: #0e3324; --ok-ink: #8fe3b6; --warn-bg: #3a2a0c; --warn-ink: #ffd28a; --err-bg: #3d1519; --err-ink: #ff7a80; --err: #ff7a80;
+  --approval: #a98bff; --approval-soft: #221a45; --off-bg: #132439; --off-ink: #8597ad; --info-bg: #10284a; --info-ink: #9cc6ff; --bubble-user: #2f5fd0;
+  --navy: #020c1a; --navy-2: #061a33; --shadow: 0 12px 32px rgba(0,0,0,.55); --shadow-sm: 0 2px 8px rgba(0,0,0,.4);
+  --lv-high: #ff7a80; --lv-high-bg: #3d1519; --lv-med: #ffc061; --lv-med-bg: #3a2a0c; --lv-low: #7fdcaa; --lv-low-bg: #0e3324; --lv-pend: #9db0c5; --lv-pend-bg: #172a43;
+  --s-mant: #7fdcaa; --s-mant-bg: #0e3324; --s-est: #7fb0ff; --s-est-bg: #16294a; --s-act: #ffc061; --s-act-bg: #3a2a0c; --s-mig: #a98bff; --s-mig-bg: #221a45;
+  --tol: #ff7a80; --rec: #7fb0ff; --grid: #1d3253; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #07111f; --surface: #0d1b2f; --surface-2: #112339; --ink: #e7eef7; --muted: #9db0c5; --line: #22385a; --line-2: #182b45;
+  --primary: #5d8dff; --primary-ink: #04122a; --primary-soft: #16294a; --focus: #7fb0ff; --bright: #7fb0ff;
+  --ok-bg: #0e3324; --ok-ink: #8fe3b6; --warn-bg: #3a2a0c; --warn-ink: #ffd28a; --err-bg: #3d1519; --err-ink: #ff7a80; --err: #ff7a80;
+  --approval: #a98bff; --approval-soft: #221a45; --off-bg: #132439; --off-ink: #8597ad; --info-bg: #10284a; --info-ink: #9cc6ff; --bubble-user: #2f5fd0;
+  --navy: #020c1a; --navy-2: #061a33; --shadow: 0 12px 32px rgba(0,0,0,.55); --shadow-sm: 0 2px 8px rgba(0,0,0,.4);
+  --lv-high: #ff7a80; --lv-high-bg: #3d1519; --lv-med: #ffc061; --lv-med-bg: #3a2a0c; --lv-low: #7fdcaa; --lv-low-bg: #0e3324; --lv-pend: #9db0c5; --lv-pend-bg: #172a43;
+  --s-mant: #7fdcaa; --s-mant-bg: #0e3324; --s-est: #7fb0ff; --s-est-bg: #16294a; --s-act: #ffc061; --s-act-bg: #3a2a0c; --s-mig: #a98bff; --s-mig-bg: #221a45;
+  --tol: #ff7a80; --rec: #7fb0ff; --grid: #1d3253; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 14px; line-height: 1.5; font-variant-numeric: tabular-nums; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: 0; padding: 0; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+h1, h2, h3, h4 { margin: 0; text-wrap: balance; }
+p { margin: 0; }
+.ic { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.ic.sm { width: 15px; height: 15px; }
+.mut { color: var(--muted); } .small { font-size: 12.5px; }
+
+/* shell */
+.shell { height: 100%; display: grid; grid-template-columns: 236px minmax(0, 1fr); }
+.side { background: var(--navy); color: var(--side-ink); display: flex; flex-direction: column; gap: 18px; padding: 22px 14px; overflow-y: auto; min-width: 0; }
+.side-logo { display: flex; align-items: center; gap: 10px; padding: 0 8px; }
+.side-logo img { height: 24px; width: auto; }
+.side-logo .wm { font-size: 14px; color: #fff; font-weight: 300; border-left: 1px solid rgba(201,214,230,.2); padding-left: 10px; line-height: 1.15; }
+.side-logo .wm b { color: var(--cyan); font-weight: 600; }
+.nav { display: flex; flex-direction: column; gap: 3px; }
+.nav-label { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--side-muted); padding: 10px 12px 6px; }
+.nav button { display: flex; align-items: center; gap: 12px; width: 100%; padding: 10px 12px; border-radius: var(--r-ctl); color: var(--side-ink); font-size: 14px; text-align: left; position: relative; }
+.nav button:hover { background: rgba(255,255,255,.06); color: #fff; }
+.nav button[aria-current="page"] { background: var(--side-active); color: #fff; font-weight: 500; }
+.nav button[aria-current="page"]::before { content: ""; position: absolute; left: -14px; top: 8px; bottom: 8px; width: 3px; border-radius: 0 3px 3px 0; background: var(--cyan); }
+.nav small { margin-left: auto; font-size: 10.5px; color: var(--side-muted); }
+.side-foot { margin-top: auto; display: flex; flex-direction: column; gap: 4px; border-top: 1px solid rgba(201,214,230,.12); padding-top: 12px; }
+.s-omnia { display: flex; align-items: center; gap: 12px; width: 100%; padding: 8px 12px; border-radius: var(--r-ctl); color: var(--side-ink); text-align: left; min-height: 50px; }
+.s-omnia:hover, .s-omnia[aria-pressed="true"] { background: var(--side-active); color: #fff; }
+.s-orb { width: 24px; height: 24px; border-radius: 50%; flex: none; background: radial-gradient(circle at 40% 35%, #00dcfa 0, #0a58eb 38%, #001c3f 78%); box-shadow: 0 0 0 2px rgba(0,220,250,.25); }
+.s-lbl { display: flex; flex-direction: column; line-height: 1.25; } .s-lbl b { color: #fff; font-weight: 600; font-size: 13.5px; } .s-lbl small { font-size: 11.5px; color: var(--side-muted); }
+.side-ver { font-size: 11px; color: var(--side-muted); padding: 6px 12px 0; }
+
+.work { display: flex; flex-direction: column; min-width: 0; height: 100%; overflow: hidden; }
+.top { display: flex; align-items: center; gap: 12px; padding-block: 10px; padding-left: 24px; padding-right: 24px; background: var(--surface); border-bottom: 1px solid var(--line); min-height: 64px; flex-wrap: wrap; }
+.crumb { display: flex; flex-direction: column; min-width: 0; flex: 1 1 260px; }
+.crumb small { font-size: 12px; color: var(--muted); }
+.crumb select { font-size: 16px; font-weight: 600; border: 1px solid transparent; border-radius: var(--r-ctl); background: transparent; padding: 2px 6px 2px 0; max-width: 100%; color: var(--ink); }
+.crumb select:hover { border-color: var(--line); }
+.top-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.icon-btn { width: 40px; height: 40px; border-radius: var(--r-ctl); display: inline-flex; align-items: center; justify-content: center; color: var(--muted); }
+.icon-btn:hover { background: var(--surface-2); color: var(--ink); }
+.stage { flex: 1; display: flex; min-height: 0; position: relative; }
+.main { flex: 1; min-width: 0; overflow-y: auto; padding-block: 24px 110px; padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
+.main-in { max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+
+/* common */
+.pill { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 500; padding: 2px 10px; border-radius: 999px; background: var(--off-bg); color: var(--off-ink); white-space: nowrap; }
+.pill.ok { background: var(--ok-bg); color: var(--ok-ink); } .pill.warn { background: var(--warn-bg); color: var(--warn-ink); } .pill.err { background: var(--err-bg); color: var(--err-ink); }
+.pill.pri { background: var(--primary-soft); color: var(--primary); } .pill.vio { background: var(--approval-soft); color: var(--approval); }
+.pill.demo { background: var(--warn-bg); color: var(--warn-ink); border: 1px dashed var(--warn-ink); }
+.pill.nv { background: var(--navy); color: #fff; }
+.lv { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; padding: 2px 10px 2px 8px; border-radius: 999px; white-space: nowrap; }
+.lv::before { content: ""; width: 8px; height: 8px; border-radius: 2px; background: currentColor; }
+.lv.Alto { background: var(--lv-high-bg); color: var(--lv-high); } .lv.Medio { background: var(--lv-med-bg); color: var(--lv-med); } .lv.Bajo { background: var(--lv-low-bg); color: var(--lv-low); }
+.lv.Pendiente { background: var(--lv-pend-bg); color: var(--lv-pend); } .lv.Pendiente::before { background: repeating-linear-gradient(45deg, currentColor 0 2px, transparent 2px 4px); }
+.st { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; padding: 2px 10px; border-radius: 6px; white-space: nowrap; }
+.st.mantener { background: var(--s-mant-bg); color: var(--s-mant); } .st.estabilizar { background: var(--s-est-bg); color: var(--s-est); } .st.actualizar { background: var(--s-act-bg); color: var(--s-act); } .st.migrar { background: var(--s-mig-bg); color: var(--s-mig); }
+.st small { font-weight: 400; opacity: .8; }
+.tag { display: inline-flex; font-size: 11.5px; padding: 1px 8px; border-radius: 6px; background: var(--surface-2); border: 1px solid var(--line-2); color: var(--ink); white-space: nowrap; }
+button.tag:hover { border-color: var(--bright); }
+.chips { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 14px; border-radius: var(--r-ctl); font-size: 13px; font-weight: 500; white-space: nowrap; min-height: 38px; border: 1px solid var(--line); background: var(--surface); }
+.btn:hover { border-color: var(--bright); } .btn.primary { background: var(--primary); color: var(--primary-ink); border-color: var(--primary); } .btn.sm { min-height: 32px; padding: 5px 11px; font-size: 12.5px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: var(--r-ctl); overflow: hidden; background: var(--surface); flex-wrap: wrap; }
+.seg button { padding: 8px 14px; font-size: 13px; font-weight: 500; color: var(--muted); border-left: 1px solid var(--line); min-height: 38px; }
+.seg button:first-child { border-left: 0; } .seg button[aria-pressed="true"] { background: var(--primary); color: var(--primary-ink); }
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-surf); min-width: 0; }
+.box-head { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--line-2); }
+.box-head h2, .box-head h3 { font-size: 15.5px; font-weight: 600; }
+.box-head p { width: 100%; font-size: 12.5px; color: var(--muted); margin-top: -2px; }
+.box-body { padding: 16px 18px; display: flex; flex-direction: column; gap: 14px; }
+.sec-title { font-size: 11.5px; font-weight: 600; color: var(--muted); letter-spacing: .07em; text-transform: uppercase; }
+.note { display: flex; gap: 10px; align-items: flex-start; font-size: 12.5px; padding: 10px 14px; border-radius: var(--r-ctl); background: var(--primary-soft); color: var(--primary); }
+.note.warn { background: var(--warn-bg); color: var(--warn-ink); }
+.hello { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px; }
+.hello h1 { font-size: 24px; font-weight: 600; letter-spacing: -.01em; } .hello p { color: var(--muted); max-width: 72ch; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-surf); padding: 14px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.kpi small { font-size: 12px; color: var(--muted); font-weight: 500; } .kpi b { font-size: 24px; font-weight: 600; line-height: 1.15; } .kpi span { font-size: 11.5px; color: var(--muted); }
+.av { width: 30px; height: 30px; border-radius: 50%; overflow: hidden; background: var(--navy); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex: none; border: 2px solid var(--surface); }
+.av { position: relative; } .av img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.stack { display: inline-flex; } .stack .av { margin-left: -8px; } .stack .av:first-child { margin-left: 0; }
+.empty { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; padding: 34px 20px; color: var(--muted); border: 1px dashed var(--line); border-radius: var(--r-surf); }
+.empty b { color: var(--ink); font-weight: 600; }
+
+/* hero */
+.hero { position: relative; overflow: hidden; border-radius: 16px; color: #fff; padding: 22px 24px; display: grid; gap: 14px; background: linear-gradient(100deg, rgba(0,28,63,.97) 0%, rgba(0,28,63,.9) 55%, rgba(0,36,115,.7) 100%), #001c3f url(assets/bg-home.jpg) center / cover; }
+.hero .eyebrow { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); font-weight: 500; }
+.hero h1 { font-size: 26px; font-weight: 300; letter-spacing: -.01em; } .hero h1 b { font-weight: 600; }
+.hero p { color: #c3d0e1; max-width: 70ch; font-size: 13.5px; }
+.chain { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 12.5px; color: #c3d0e1; }
+.chain span { padding: 4px 11px; border: 1px solid rgba(183,198,218,.3); border-radius: 999px; } .chain i { width: 12px; height: 1px; background: rgba(0,220,250,.6); }
+
+/* ejemplos */
+.filters { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-size: 12.5px; font-weight: 500; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); min-height: 34px; }
+.chip[aria-pressed="true"] { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+.acard { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; display: flex; flex-direction: column; min-width: 0; }
+.acard.on { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary); }
+.acard header { padding: 14px 16px 10px; display: flex; flex-direction: column; gap: 6px; }
+.acard header .row1 { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.acard h3 { font-size: 15.5px; font-weight: 600; line-height: 1.3; } .acard .cl { font-size: 12px; color: var(--muted); }
+.steps7 { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; padding: 0 16px; }
+.steps7 i { height: 5px; border-radius: 3px; background: var(--line-2); } .steps7 i.d { background: var(--bright); } .steps7 i.c { background: var(--cyan); }
+.acard .stt { padding: 8px 16px 0; font-size: 12.5px; }
+.acard .nums { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; padding: 12px 16px; }
+.acard .nums div { display: flex; flex-direction: column; } .acard .nums b { font-size: 17px; font-weight: 600; } .acard .nums span { font-size: 11px; color: var(--muted); }
+.acard footer { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; padding: 10px 16px; border-top: 1px solid var(--line-2); background: var(--surface-2); border-radius: 0 0 14px 14px; }
+
+/* cadena */
+.promises { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.prom { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-surf); padding: 14px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.prom .n { display: flex; gap: 8px; align-items: center; } .prom .n i { width: 24px; height: 24px; border-radius: 50%; background: var(--navy); color: var(--cyan); font-style: normal; font-weight: 600; font-size: 12px; display: grid; place-items: center; flex: none; }
+.prom h3 { font-size: 13.5px; font-weight: 600; line-height: 1.25; } .prom .en { font-size: 11px; color: var(--muted); }
+.prom .big { font-size: 22px; font-weight: 600; line-height: 1.1; } .prom .big small { font-size: 12px; font-weight: 400; color: var(--muted); }
+.prom ul.pl { list-style: none; padding-left: 0; } .prom ul { margin: 0; padding-left: 16px; font-size: 12px; display: flex; flex-direction: column; gap: 3px; }
+.prom .ui { font-size: 11px; color: var(--muted); border-top: 1px solid var(--line-2); padding-top: 8px; margin-top: auto; }
+.gap-l li { color: var(--warn-ink); }
+.hilo { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
+.tstep { border: 1px solid var(--line); border-radius: var(--r-surf); padding: 12px; display: flex; flex-direction: column; gap: 6px; background: var(--surface); position: relative; min-width: 0; }
+.tstep .k { font-size: 10.5px; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.tstep b { font-size: 13px; font-weight: 600; line-height: 1.3; overflow-wrap: anywhere; } .tstep p { font-size: 12px; color: var(--muted); overflow-wrap: anywhere; }
+.tstep:not(:last-child)::after { content: "→"; position: absolute; right: -10px; top: 14px; color: var(--muted); font-size: 14px; }
+
+/* evaluación */
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.tabs button { padding: 10px 14px; font-size: 13.5px; font-weight: 500; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--bright); }
+.cov { display: flex; flex-direction: column; }
+.cov-row { display: grid; grid-template-columns: minmax(0, 1.2fr) 120px minmax(0, 1.6fr); gap: 12px; align-items: start; padding: 12px 18px; border-top: 1px solid var(--line-2); }
+.cov-row:first-child { border-top: 0; } .cov-row b { font-weight: 600; font-size: 13.5px; } .cov-row .src { font-size: 12px; color: var(--muted); }
+.cov-row .g { font-size: 12.5px; }
+.cs.revisado { background: var(--ok-bg); color: var(--ok-ink); } .cs.en-curso { background: var(--primary-soft); color: var(--primary); } .cs.no-revisado { background: var(--warn-bg); color: var(--warn-ink); } .cs.no-aplica { background: var(--off-bg); color: var(--off-ink); }
+details.scn { border: 1px solid var(--line); border-radius: var(--r-surf); background: var(--surface); }
+details.scn > summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; gap: 12px; align-items: center; padding: 12px 16px; }
+details.scn > summary::-webkit-details-marker { display: none; }
+details.scn[open] > summary { border-bottom: 1px solid var(--line-2); }
+.sid { font-weight: 600; font-size: 12.5px; padding: 3px 10px; border-radius: 999px; background: var(--primary-soft); color: var(--primary); }
+.stitle { display: flex; flex-direction: column; min-width: 0; } .stitle b { font-size: 14px; font-weight: 600; } .stitle small { font-size: 11.5px; color: var(--muted); }
+.caret { color: var(--muted); transition: transform .15s; } details[open] .caret { transform: rotate(90deg); }
+.sbody { padding: 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.sbody .full { grid-column: 1 / -1; }
+.blk { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.blk h4 { font-size: 11.5px; font-weight: 600; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; display: flex; gap: 8px; align-items: baseline; }
+.blk h4 small { text-transform: none; letter-spacing: 0; font-weight: 400; }
+.blk ul { margin: 0; padding-left: 16px; font-size: 13px; display: flex; flex-direction: column; gap: 4px; }
+.kv { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 4px 10px; font-size: 12.5px; } .kv span:nth-child(odd) { color: var(--muted); }
+.ctl { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 13px; padding: 6px 0; border-top: 1px dashed var(--line-2); } .ctl:first-of-type { border-top: 0; }
+.ctl .nm { flex: 1 1 180px; min-width: 0; }
+.rbar { display: flex; flex-direction: column; gap: 6px; }
+.rbar svg { width: 100%; height: auto; display: block; overflow: visible; }
+.rbar text { font-family: var(--font); font-size: 11px; fill: var(--muted); }
+.rbar .gapmsg { font-size: 12.5px; font-weight: 500; }
+.gapmsg.bad { color: var(--err-ink); } .gapmsg.ok { color: var(--ok-ink); } .gapmsg.unk { color: var(--muted); }
+.mx { display: grid; grid-template-columns: 70px repeat(3, minmax(0, 1fr)); gap: 4px; max-width: 420px; }
+.mx .h { font-size: 11px; color: var(--muted); display: flex; align-items: center; justify-content: center; text-align: center; padding: 2px; }
+.mx .c { min-height: 54px; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 600; }
+.mx .c b { font-size: 20px; line-height: 1; } .mx .c span { font-size: 10px; font-weight: 500; }
+.mx .c.Alto { background: var(--lv-high-bg); color: var(--lv-high); } .mx .c.Medio { background: var(--lv-med-bg); color: var(--lv-med); } .mx .c.Bajo { background: var(--lv-low-bg); color: var(--lv-low); }
+.mx .c.z b { opacity: .3; }
+.fcoi { display: flex; flex-direction: column; container-type: inline-size; }
+.fcoi-h, .fcoi-r { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) 120px; gap: 14px; padding: 12px 18px; }
+.fcoi-h { background: var(--surface-2); border-bottom: 1px solid var(--line); font-size: 12px; color: var(--muted); font-weight: 500; }
+.fcoi-h span:nth-child(1)::before { content: "Finding · "; } .fcoi-h span:nth-child(2)::before { content: "Consequence · "; } .fcoi-h span:nth-child(3)::before { content: "Opportunity · "; } .fcoi-h span:nth-child(4)::before { content: "Impact · "; }
+.fcoi-r { border-top: 1px solid var(--line-2); font-size: 12.5px; align-items: start; } .fcoi-r:first-of-type { border-top: 0; }
+.fcoi-r > div { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.fcoi-r .lbl { display: none; font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+.fcoi-r b { font-weight: 600; font-size: 13px; }
+.est { font-weight: 600; } .est.pe { color: var(--warn-ink); }
+@container (max-width: 760px) {
+  .fcoi-h { display: none; }
+  .fcoi-r { grid-template-columns: minmax(0, 1fr); gap: 10px; border: 1px solid var(--line); border-radius: var(--r-surf); margin: 10px 14px 0; }
+  .fcoi-r .lbl { display: block; }
+}
+
+/* hoja de ruta */
+.rm-list { display: flex; flex-direction: column; }
+.rm-row { display: grid; grid-template-columns: 34px minmax(0, 1fr) 150px 120px 110px; gap: 12px; align-items: center; padding: 12px 18px; border-top: 1px solid var(--line-2); text-align: left; width: 100%; }
+.rm-row:first-child { border-top: 0; } .rm-row:hover { background: var(--surface-2); }
+.ord { width: 30px; height: 30px; border-radius: 50%; background: var(--navy); color: #fff; display: grid; place-items: center; font-weight: 600; font-size: 13px; }
+.rm-t { display: flex; flex-direction: column; gap: 3px; min-width: 0; } .rm-t b { font-weight: 600; font-size: 13.5px; } .rm-t small { font-size: 11.5px; color: var(--muted); }
+.cost { font-size: 12.5px; } .cost.pe { color: var(--warn-ink); font-weight: 500; }
+.phgrid { display: grid; grid-template-columns: 170px repeat(3, minmax(0, 1fr)); gap: 8px; }
+.ph-h { background: var(--navy); color: #fff; border-radius: var(--r-surf); padding: 12px; display: flex; flex-direction: column; gap: 6px; }
+.ph-h b { font-weight: 600; font-size: 14px; } .ph-h small { color: #c3d0e1; font-size: 12px; }
+.ms { display: flex; flex-direction: column; gap: 3px; font-size: 11.5px; }
+.ms span { display: flex; gap: 6px; align-items: center; } .ms i { width: 8px; height: 8px; border-radius: 50%; background: #6b7a8d; flex: none; } .ms i.aprobado { background: #3ed598; } .ms i.pendiente { background: #ffc061; }
+.fr-h { font-size: 12.5px; font-weight: 600; padding: 10px; border-radius: var(--r-surf); background: var(--surface-2); border: 1px solid var(--line-2); display: flex; flex-direction: column; gap: 2px; }
+.fr-h small { font-weight: 400; color: var(--muted); font-size: 11px; }
+.cell { border: 1px dashed var(--line); border-radius: var(--r-surf); padding: 6px; display: flex; flex-direction: column; gap: 6px; min-height: 52px; min-width: 0; }
+.icard { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); padding: 9px 10px; display: flex; flex-direction: column; gap: 5px; text-align: left; width: 100%; }
+.icard:hover { border-color: var(--bright); box-shadow: var(--shadow-sm); } .icard b { font-size: 12.5px; font-weight: 600; line-height: 1.3; } .icard small { font-size: 11px; color: var(--muted); }
+.icard .chips .tag { font-size: 10.5px; }
+.scroll-x { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; font-weight: 500; color: var(--muted); font-size: 12px; padding: 9px 14px; background: var(--surface-2); border-bottom: 1px solid var(--line); white-space: nowrap; }
+td { padding: 10px 14px; border-bottom: 1px solid var(--line-2); vertical-align: top; } tr:last-child td { border-bottom: 0; }
+.lc { font-size: 11.5px; font-weight: 500; padding: 2px 8px; border-radius: 6px; white-space: nowrap; }
+.lc.active { background: var(--ok-bg); color: var(--ok-ink); } .lc.mature { background: var(--primary-soft); color: var(--primary); } .lc.eol { background: var(--warn-bg); color: var(--warn-ink); } .lc.discontinued { background: var(--err-bg); color: var(--err-ink); } .lc.unknown { background: var(--off-bg); color: var(--off-ink); }
+.fam { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.fam div { border: 1px solid var(--line-2); border-radius: 10px; padding: 8px; display: flex; flex-direction: column; gap: 2px; font-size: 11.5px; } .fam b { font-size: 16px; }
+.fam div.zero { border-style: dashed; color: var(--muted); }
+
+/* modal */
+.scrim { position: fixed; inset: 0; background: rgba(0,28,63,.5); z-index: 70; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.modal { width: 100%; max-width: 760px; max-height: calc(100% - 20px); overflow-y: auto; background: var(--surface); border-radius: 16px; box-shadow: var(--shadow); }
+.modal-h { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px; border-bottom: 1px solid var(--line-2); position: sticky; top: 0; background: var(--surface); }
+.modal-h h2 { font-size: 16px; font-weight: 600; }
+.modal-b { padding: 16px 18px 20px; display: flex; flex-direction: column; gap: 14px; }
+.trail { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 12.5px; }
+.trail i { color: var(--muted); font-style: normal; }
+
+/* omnIA host (los estilos del panel vienen de omnia/omnia.css, reutilizado de Kairos) */
+.ox .prop-sec { display: grid; gap: 3px; }
+.ox .prop-sec > span { font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+.ox .prop-sec ul { margin: 0; padding-left: 16px; font-size: 12px; display: grid; gap: 2px; }
+.ox .src-chip { font-size: 10.5px; padding: 1px 7px; border-radius: 999px; background: var(--primary-soft); color: var(--primary); font-weight: 500; }
+.toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--navy); color: #fff; padding: 10px 16px; border-radius: var(--r-ctl); font-size: 13px; z-index: 90; box-shadow: var(--shadow); max-width: calc(100% - 32px); }
+
+/* responsive */
+@media (max-width: 1180px) { .promises { grid-template-columns: repeat(2, minmax(0, 1fr)); } .hilo { grid-template-columns: repeat(3, minmax(0, 1fr)); } .tstep:nth-child(3n)::after { content: none; } }
+@media (max-width: 900px) {
+  .shell { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+  .side { flex-direction: row; align-items: center; gap: 8px; padding: 8px max(12px, env(safe-area-inset-left, 0px)); overflow-x: auto; }
+  .side-logo .wm, .nav-label, .side-ver, .s-lbl, .nav small { display: none; }
+  .nav { flex-direction: row; } .nav button { padding: 8px 10px; font-size: 13px; white-space: nowrap; gap: 6px; } .nav button[aria-current="page"]::before { content: none; }
+  .side-foot { margin: 0 0 0 auto; border: 0; padding: 0; } .s-omnia { min-height: 40px; padding: 6px 8px; }
+  .top { padding-left: max(12px, env(safe-area-inset-left, 0px)); padding-right: max(12px, env(safe-area-inset-right, 0px)); }
+  .phgrid { grid-template-columns: minmax(0, 1fr); } .fr-h.corner { display: none; }
+  .rm-row { grid-template-columns: 34px minmax(0, 1fr); } .rm-row > :nth-child(n+3) { grid-column: 2; }
+  .cov-row { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+}
+@media (max-width: 640px) {
+  .main { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .promises, .hilo { grid-template-columns: minmax(0, 1fr); } .tstep::after { content: none !important; }
+  .sbody { grid-template-columns: minmax(0, 1fr); } .fam { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .cards { grid-template-columns: minmax(0, 1fr); } .kv { grid-template-columns: minmax(0, 1fr); }
+  details.scn > summary { grid-template-columns: auto minmax(0, 1fr) auto; } details.scn > summary .lv { grid-column: 2; justify-self: start; grid-row: 2; } details.scn > summary .caret { grid-row: 1; grid-column: 3; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-chain" viewBox="0 0 24 24"><path d="M4 12h3M10 12h4M17 12h3"/><circle cx="8.5" cy="12" r="1.5"/><circle cx="15.5" cy="12" r="1.5"/></symbol>
+  <symbol id="i-radar" viewBox="0 0 24 24"><path d="M12 3l8.5 6.2-3.2 10H6.7L3.5 9.2z"/><path d="M12 8l4 3-1.5 4.5h-5L8 11z"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2zM9 4v14M15 6v14"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l10 18H2zM12 10v5M12 18h.01"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+</svg>
+
+<div class="shell" id="shell">
+  <aside class="side" aria-label="Menú principal">
+    <div class="side-logo"><img src="assets/logo-white.png" alt="Omnicon"><span class="wm">Operational <b>Risk</b><br>Assessment</span></div>
+    <nav class="nav" id="nav"></nav>
+    <div class="side-foot">
+      <button class="s-omnia" id="sideOmnia" aria-pressed="false" aria-controls="panel"><span class="s-orb" aria-hidden="true"></span><span class="s-lbl"><b>omnIA</b><small>Propuestas con fuentes</small></span></button>
+      <p class="side-ver">Boceto · modelo v6 · catálogo v4</p>
+    </div>
+  </aside>
+  <div class="work">
+    <header class="top">
+      <div class="crumb"><small id="crumbSub">Assessment</small><label class="sr" for="asSel" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Assessment</label><select id="asSel"></select></div>
+      <div class="top-right" id="topRight"></div>
+      <button class="icon-btn" id="themeBtn" aria-label="Cambiar tema claro u oscuro" title="Tema"><svg class="ic"><use href="#i-moon"></use></svg></button>
+    </header>
+    <div class="stage">
+      <main class="main" id="main"><div class="main-in" id="mainIn"></div></main>
+      <aside class="panel ox" id="panel" aria-label="omnIA" hidden>
+        <header class="p-head" id="pHead"></header>
+        <div class="p-body" id="pBody"></div>
+        <div class="composer" id="composer">
+          <div class="inbox"><label class="sr" for="oInput">Mensaje para omnIA</label><textarea id="oInput" rows="1" placeholder="Escribe a omnIA…"></textarea><button class="send" id="oSend" aria-label="Enviar"><svg class="ic" aria-hidden="true"><use href="#i-send"></use></svg></button></div>
+          <div class="hint"><span>Boceto: responde con reglas sobre los datos del assessment</span><span>Uso interno de Omnicon</span></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+<button class="fab ox" id="omniaBtn" aria-controls="panel" aria-expanded="false" title="omnIA"><canvas class="orb-cv" id="fabOrb" data-size="50" width="100" height="100" aria-hidden="true"></canvas><span class="fab-tip" aria-hidden="true">omnIA</span></button>
+<div id="layer"></div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<link rel="stylesheet" href="omnia/omnia.css">
+<script src="omnia/orb.js"></script>
+<script src="data/ora-demo.js"></script>
+<script>
+(function () {
+  'use strict';
+  var D = window.ORA_DEMO, A = D.assessments;
+  var $ = function (s) { return document.querySelector(s); };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  var ic = function (n, c) { return '<svg class="ic ' + (c || '') + '" aria-hidden="true"><use href="#i-' + n + '"></use></svg>'; };
+  var IND = { oilgas: 'Oil & Gas', cemento: 'Cemento', mineria: 'Minería', energia: 'Generación de energía', quimica: 'Química' };
+  var MOD = { light: 'Light', two: 'Dos semanas', custom: 'Custom' };
+  var STG = ['Configuración y alcance', 'Procesos críticos', 'Recorrido y activos', 'Cuestionario', 'Evidencias', 'Evaluación', 'Resultados y PDF'];
+  var DOM = {}; D.domains.forEach(function (d) { DOM[d.key] = d.name; });
+  var STRAT = { mantener: ['Mantener', 'Maintain'], estabilizar: ['Estabilizar', 'Stabilize'], actualizar: ['Actualizar', 'Update'], migrar: ['Migrar', 'Migrate'] };
+  var FRONT = { exposicion: ['Exposición crítica', 'Acciones sobre los mayores riesgos'], recuperacion: ['Brechas de recuperación', 'Mejorar la capacidad de respuesta'], actualizacion: ['Actualizaciones selectivas', 'Modernizar activos escogidos'], migracion: ['Migración de plataforma', 'Transición cuando sea pertinente'] };
+  var MS = { scope: 'Alcance aprobado', funding: 'Financiación confirmada', released: 'Fase autorizada' };
+  var LCN = { active: 'Activo', mature: 'Activo maduro', eol: 'Fin de vida', discontinued: 'Descontinuado', unknown: 'Por verificar' };
+  var FAM = [['control', 'Control'], ['software', 'Software'], ['redes', 'Redes'], ['infra', 'Infraestructura'], ['energia', 'Energía']];
+  var USERS = {}; D.users.forEach(function (u) { USERS[u.id] = u; });
+  var S = { id: A[0].id, view: 'ejemplos', tab: 'cobertura', rm: 'lista', ind: 'todas', panel: false, threads: {}, aiState: {} };
+  try { var sv = JSON.parse(localStorage.getItem('ora-boceto') || '{}'); if (sv.id && A.some(function (a) { return a.id === sv.id; })) S.id = sv.id; } catch (e) {}
+  var VIEWS = ['ejemplos', 'cadena', 'evaluacion', 'hoja-de-ruta'];
+  if (VIEWS.indexOf(location.hash.slice(1)) > -1) S.view = location.hash.slice(1);
+  function save() { try { localStorage.setItem('ora-boceto', JSON.stringify({ id: S.id })); } catch (e) {} }
+  function cur() { return A.find(function (a) { return a.id === S.id; }); }
+  function level(c, p) { if (!c || !p) return 'Pendiente'; var m = [[0, 0, 0, 0], [0, 'Bajo', 'Bajo', 'Medio'], [0, 'Bajo', 'Medio', 'Alto'], [0, 'Medio', 'Alto', 'Alto']]; return m[p][c]; }
+  function fmtH(h) { if (h == null) return '—'; if (h < 1) return Math.round(h * 60) + ' min'; if (h < 48) return (Math.round(h * 10) / 10) + ' h'; var d = h / 24; return (d < 14 ? Math.round(d) + ' días' : Math.round(d / 7) + ' semanas'); }
+  function av(id) { var u = USERS[id]; if (!u) return ''; var ini = u.name.split(' ').map(function (x) { return x[0]; }).join('').slice(0, 2); return '<span class="av" title="' + esc(u.name) + '">' + ini + '<img src="assets/faces/' + id + '.jpg" alt="' + esc(u.name) + '" onerror="this.remove()"></span>'; }
+  function uname(id) { return (USERS[id] || {}).name || id; }
+  function procOf(a, k) { return a.processes.find(function (p) { return p.catId === k; }) || { name: k }; }
+  function find(a, kind, id) { return (a[kind] || []).find(function (x) { return x.id === id; }); }
+  function lbl(a, id) { var x = find(a, 'assets', id) || find(a, 'systems', id) || find(a, 'areas', id); return x ? (x.tag || x.name) : id; }
+  function pill(st) { var m = { 'aprobada': 'ok', 'completada': 'ok', 'en ejecución': 'pri', 'por validar': 'warn', 'propuesta': '', 'aceptada': 'ok', 'borrador': '' }; return '<span class="pill ' + (m[st] || '') + '">' + esc(st) + '</span>'; }
+  function stChip(s, en) { return s ? '<span class="st ' + s + '">' + STRAT[s][0] + (en ? ' <small>· ' + STRAT[s][1] + '</small>' : '') + '</span>' : ''; }
+  function toast(t) { var el = $('#toast'); el.textContent = t; el.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(function () { el.hidden = true; }, 2600); }
+  function pl(n, one, many) { return n + ' ' + (n === 1 ? one : many); }
+  function inc(a) { return a.processes.filter(function (p) { return p.status === 'incluido'; }); }
+
+  /* ---------- reglas compartidas (también las usa omnIA) ---------- */
+  function gaps(a) {
+    var g = { p1: [], p2: [], p3: [], p4: [], p5: [] };
+    var und = a.processes.filter(function (p) { return !p.status; }).length; if (und) g.p1.push(pl(und, 'proceso del catálogo por decidir', 'procesos del catálogo por decidir'));
+    inc(a).forEach(function (p) { if (!p.tolerance && p.type !== 'salvaguarda') g.p1.push(p.name + ': sin tolerancia registrada'); });
+    if (!inc(a).length) g.p1.push('Ningún proceso incluido todavía');
+    var unk = a.assets.filter(function (x) { return x.family && x.lifecycle.status === 'unknown'; }).length; if (unk) g.p2.push(pl(unk, 'activo sin ciclo de vida verificado', 'activos sin ciclo de vida verificado'));
+    var sug = a.assets.filter(function (x) { return x.val === 'sugerido'; }).length + a.systems.filter(function (x) { return x.val === 'sugerido'; }).length; if (sug) g.p2.push(pl(sug, 'elemento sugerido sin validar', 'elementos sugeridos sin validar'));
+    FAM.forEach(function (f) { if (a.assets.length && !a.assets.some(function (x) { return x.family === f[0]; }) && !a.systems.some(function (x) { return x.family === f[0]; })) g.p2.push('Familia «' + f[1] + '» sin registros'); });
+    if (!a.assets.length) g.p2.push('Sin activos registrados');
+    var nr = a.coverage.filter(function (c) { return c.state === 'no revisado'; }); if (nr.length) g.p3.push(pl(nr.length, 'dominio no revisado', 'dominios no revisados') + (nr.some(function (c) { return c.just; }) ? ' (con justificación)' : ''));
+    if (!a.coverage.length) g.p3.push('Cobertura de dominios sin iniciar');
+    var pend = a.scenarios.filter(function (s) { return level(s.C, s.P) === 'Pendiente'; }); if (pend.length) g.p3.push(pl(pend.length, 'escenario pendiente de valoración', 'escenarios pendientes de valoración'));
+    var norec = a.scenarios.filter(function (s) { return !s.recovery.total; }).length; if (norec) g.p3.push(pl(norec, 'escenario sin tiempo de recuperación', 'escenarios sin tiempo de recuperación'));
+    var pv = a.findings.filter(function (f) { return f.status === 'pendiente de verificación'; }).length; if (pv) g.p4.push(pl(pv, 'hallazgo pendiente de verificación', 'hallazgos pendientes de verificación'));
+    var noOpp = a.findings.filter(function (f) { return !a.opportunities.some(function (o) { return o.findings.indexOf(f.id) > -1; }); }).length; if (a.findings.length && noOpp) g.p4.push(pl(noOpp, 'hallazgo sin oportunidad', 'hallazgos sin oportunidad'));
+    if (!a.findings.length) g.p4.push('Sin hallazgos registrados');
+    var pe = a.interventions.filter(function (v) { return v.cost.level === 'Por estimar'; }).length; if (pe) g.p5.push(pl(pe, 'intervención con costo «Por estimar»', 'intervenciones con costo «Por estimar»'));
+    var hiNoIv = a.scenarios.filter(function (s) { var l = level(s.C, s.P); return (l === 'Alto' || l === 'Medio') && !a.interventions.some(function (v) { return v.scenarios.indexOf(s.id) > -1; }); }).length; if (hiNoIv) g.p5.push(pl(hiNoIv, 'riesgo alto o medio sin intervención', 'riesgos altos o medios sin intervención'));
+    if (!a.interventions.length) g.p5.push('Hoja de ruta sin intervenciones');
+    var ph = a.phases.filter(function (p) { return p.milestones.funding !== 'aprobado'; }).length; if (a.phases.length && ph) g.p5.push(pl(ph, 'fase sin financiación confirmada', 'fases sin financiación confirmada'));
+    return g;
+  }
+
+  /* ---------- shell ---------- */
+  function renderShell() {
+    var a = cur();
+    $('#nav').innerHTML = '<div class="nav-label">Ejemplos</div>' + nb('ejemplos', 'grid', 'Todos los ejemplos', A.length) +
+      '<div class="nav-label">Assessment abierto</div>' + nb('cadena', 'chain', 'Cadena de valor', '1–5') + nb('evaluacion', 'radar', 'Evaluación', 'etapa 6') + nb('hoja-de-ruta', 'map', 'Hoja de ruta', 'etapa 7');
+    var groups = {}; A.forEach(function (x) { (groups[x.industry] = groups[x.industry] || []).push(x); });
+    $('#asSel').innerHTML = Object.keys(IND).map(function (k) { return '<optgroup label="' + IND[k] + '">' + (groups[k] || []).map(function (x) { return '<option value="' + x.id + '"' + (x.id === S.id ? ' selected' : '') + '>' + esc(x.cfg.plant) + ' · ' + x.code + '</option>'; }).join('') + '</optgroup>'; }).join('');
+    $('#crumbSub').textContent = IND[a.industry] + ' · ' + MOD[a.modality] + ' · etapa ' + a.stage + '/7';
+    $('#topRight').innerHTML = '<span class="pill pri">' + esc(a.state) + '</span>' + (a.catalogNote ? '<span class="pill vio" title="' + esc(a.catalogNote) + '">Catálogo en borrador</span>' : '') + '<span class="pill demo">Boceto · datos ficticios</span>';
+  }
+  function nb(v, icn, t, small) { return '<button data-view="' + v + '" aria-current="' + (S.view === v ? 'page' : 'false') + '">' + ic(icn) + '<span>' + t + '</span><small>' + small + '</small></button>'; }
+
+  /* ---------- vista: ejemplos ---------- */
+  function vEjemplos() {
+    var list = A.filter(function (a) { return S.ind === 'todas' || a.industry === S.ind; });
+    var comp = A.filter(function (a) { return a.interventions.length; }).length;
+    return '<section class="hero"><span class="eyebrow">Operational Risk Assessment · ejemplos</span><h1>Understand your operational risks to ensure <b>long-term operational sustainability</b></h1>' +
+      '<p>' + A.length + ' assessments ficticios en cinco industrias: ' + comp + ' completos hasta la hoja de ruta y ' + (A.length - comp) + ' parciales en distintas etapas. Los fabricantes, cifras y fuentes de ciclo de vida son inventados para la demostración.</p>' +
+      '<div class="chain"><span>1 · Prioridades del negocio</span><i></i><span>2 · Infraestructura crítica</span><i></i><span>3 · Riesgo operacional</span><i></i><span>4 · Hallazgos y oportunidades</span><i></i><span>5 · Hoja de ruta por fases</span></div></section>' +
+      '<div class="filters" role="group" aria-label="Filtrar por industria">' + ['todas'].concat(Object.keys(IND)).map(function (k) { return '<button class="chip" data-ind="' + k + '" aria-pressed="' + (S.ind === k) + '">' + (k === 'todas' ? 'Todas (' + A.length + ')' : IND[k] + ' (' + A.filter(function (a) { return a.industry === k; }).length + ')') + '</button>'; }).join('') + '</div>' +
+      '<div class="cards">' + list.map(card).join('') + '</div>';
+  }
+  function card(a) {
+    var lv = a.scenarios.map(function (s) { return level(s.C, s.P); });
+    var hi = lv.filter(function (x) { return x === 'Alto'; }).length;
+    return '<article class="acard' + (a.id === S.id ? ' on' : '') + '"><header><div class="row1"><span class="pill nv">' + IND[a.industry] + '</span><span class="pill">' + MOD[a.modality] + '</span>' + (a.interventions.length ? '<span class="pill ok">Completo</span>' : '<span class="pill warn">Parcial</span>') + (a.catalogNote ? '<span class="pill vio">Catálogo borrador</span>' : '') + '</div>' +
+      '<h3>' + esc(a.cfg.plant) + '</h3><span class="cl">' + esc(a.cfg.client) + ' · ' + a.code + '</span></header>' +
+      '<div class="steps7" aria-label="Etapa ' + a.stage + ' de 7">' + STG.map(function (s, i) { return '<i class="' + (i + 1 < a.stage ? 'd' : i + 1 === a.stage ? 'c' : '') + '" title="' + (i + 1) + '. ' + s + '"></i>'; }).join('') + '</div>' +
+      '<div class="stt">' + a.stage + '. ' + STG[a.stage - 1] + ' · <span class="mut">' + esc(a.state) + '</span></div>' +
+      '<div class="nums"><div><b>' + inc(a).length + '</b><span>procesos</span></div><div><b>' + a.assets.length + '</b><span>activos</span></div><div><b>' + a.scenarios.length + '</b><span>escenarios' + (hi ? ' · ' + hi + ' altos' : '') + '</span></div><div><b>' + a.interventions.length + '</b><span>intervenciones</span></div></div>' +
+      '<footer><span class="stack">' + [a.leadId].concat(a.team).map(function (u) { return av(u); }).join('') + '</span><span class="row" style="display:flex;gap:6px;flex-wrap:wrap">' +
+      '<button class="btn sm" data-open="' + a.id + '" data-to="cadena">Cadena</button>' + (a.scenarios.length || a.coverage.length ? '<button class="btn sm" data-open="' + a.id + '" data-to="evaluacion">Evaluación</button>' : '') + (a.interventions.length ? '<button class="btn sm primary" data-open="' + a.id + '" data-to="hoja-de-ruta">Hoja de ruta</button>' : '') + '</span></footer></article>';
+  }
+
+  /* ---------- vista: cadena de valor ---------- */
+  function vCadena() {
+    var a = cur(), g = gaps(a), I = inc(a);
+    var tol = I.filter(function (p) { return p.tolerance; });
+    var lcc = {}; a.assets.forEach(function (x) { if (x.family) lcc[x.lifecycle.status] = (lcc[x.lifecycle.status] || 0) + 1; });
+    var rev = a.coverage.filter(function (c) { return c.state === 'revisado'; }).length;
+    var lv = { Alto: 0, Medio: 0, Bajo: 0, Pendiente: 0 }; a.scenarios.forEach(function (s) { lv[level(s.C, s.P)]++; });
+    var ph = [1, 2, 3].map(function (n) { return a.interventions.filter(function (v) { return v.phase === n; }).length; });
+    function gl(L) { return L.length ? '<ul class="gap-l">' + L.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' : '<p class="small" style="color:var(--ok-ink)">Sin vacíos detectados por las reglas.</p>'; }
+    var head = '<div class="hello"><div><h1>' + esc(a.cfg.plant) + '</h1><p>' + esc(a.cfg.objectives || 'Objetivos por definir con el cliente.') + '</p></div><span class="stack">' + [a.leadId].concat(a.team).map(function (u) { return av(u); }).join('') + '</span></div>';
+    var proms = '<div class="promises">' +
+      prom(1, 'Plant Modeling & Business Priorities', 'Prioridades del negocio', '<span class="big">' + I.length + ' <small>de ' + a.processes.length + ' procesos incluidos</small></span>',
+        I.slice(0, 4).map(function (p) { return '<li>' + esc(p.name) + ' · <b>' + (p.bizPriority || '—') + '</b>' + (p.tolerance ? ' · tolera ' + fmtH(p.tolerance.value) : '') + '</li>'; }).join(''), g.p1, 'Etapas 1 y 2') +
+      prom(2, 'Critical Infrastructure', 'Base instalada y ciclo de vida', '<span class="big">' + a.assets.length + ' <small>activos · ' + a.systems.length + ' sistemas</small></span>',
+        Object.keys(LCN).filter(function (k) { return lcc[k]; }).map(function (k) { return '<li><span class="lc ' + k + '">' + LCN[k] + '</span> ' + lcc[k] + '</li>'; }).join(''), g.p2, 'Etapa 3 (y 4)') +
+      prom(3, 'Operational Risk', 'Impacto y recuperación', '<span class="big">' + a.scenarios.length + ' <small>escenarios · ' + rev + '/8 dominios revisados</small></span>',
+        ['Alto', 'Medio', 'Bajo', 'Pendiente'].filter(function (k) { return lv[k]; }).map(function (k) { return '<li><span class="lv ' + k + '">' + k + '</span> ' + lv[k] + '</li>'; }).join(''), g.p3, 'Etapas 4 y 6') +
+      prom(4, 'Findings & Opportunities', 'Mejoras prácticas', '<span class="big">' + a.findings.length + ' <small>hallazgos · ' + a.opportunities.length + ' oportunidades</small></span>',
+        a.opportunities.slice(0, 3).map(function (o) { return '<li>' + esc(o.title) + '</li>'; }).join(''), g.p4, 'Etapa 6') +
+      prom(5, 'Prioritized Roadmap', 'Intervenciones por fases', '<span class="big">' + a.interventions.length + ' <small>intervenciones</small></span>',
+        a.interventions.length ? ph.map(function (n, i) { return '<li>Fase ' + (i + 1) + ': ' + n + '</li>'; }).join('') : '', g.p5, 'Etapa 7 y PDF') + '</div>';
+    function prom(n, en, es, big, list, gp, ui) { return '<section class="prom"><div class="n"><i>' + n + '</i><div><h3>' + es + '</h3><div class="en">' + en + '</div></div></div>' + big + (list ? '<ul class="pl">' + list + '</ul>' : '') + '<div class="sec-title">Qué falta</div>' + gl(gp) + '<div class="ui">Interfaz: ' + ui + '</div></section>'; }
+    return head + proms + hilo(a);
+  }
+  function hilo(a) {
+    var iv = a.interventions.slice().sort(function (x, y) { return x.order - y.order; }).find(function (v) { return v.scenarios.length; });
+    if (!iv) return '<section class="box"><div class="box-head"><h3>Hilo de punta a punta</h3><p>Aparece cuando hay al menos una intervención vinculada a un escenario.</p></div><div class="box-body"><div class="empty"><b>Este assessment va en la etapa ' + a.stage + ': ' + STG[a.stage - 1] + '</b><span>' + esc(a.state) + '</span></div></div></section>';
+    var sc = iv.scenarios.map(function (x) { return find(a, 'scenarios', x); }); var s = sc.find(function (x) { return level(x.C, x.P) !== 'Pendiente' && x.recovery.total; }) || sc[0]; var p = procOf(a, s.proc);
+    var as = s.assets.map(function (id) { return find(a, 'assets', id); }).filter(function (x) { return x && x.family; })[0];
+    var f = find(a, 'findings', s.findings[0]); var o = iv.opportunities.length ? find(a, 'opportunities', iv.opportunities[0]) : null;
+    var r = s.recovery.total;
+    var steps = [
+      ['1 · Prioridad', p.name, 'Prioridad ' + (p.bizPriority || '—') + (p.tolerance ? ' · tolera ' + fmtH(p.tolerance.value) + ' (' + p.tolerance.conf + ')' : ' · sin tolerancia')],
+      ['2 · Base instalada', as ? as.tag + ' · ' + as.name : '—', as ? LCN[as.lifecycle.status] + (as.mfr ? ' · ' + as.mfr : '') : ''],
+      ['3 · Escenario', s.id + ' · ' + s.title, 'Nivel ' + level(s.C, s.P) + (r ? ' · recupera en ' + fmtH(r.min) + '–' + fmtH(r.max) : '')],
+      ['4 · Hallazgo', f ? f.id + ' · ' + f.title : '—', f ? f.status : ''],
+      ['4 · Oportunidad', o ? o.id + ' · ' + o.title : '—', o ? o.impact.dimension + ' · ' + o.impact.estimate : ''],
+      ['5 · Intervención', iv.id + ' · ' + iv.title, 'Fase ' + iv.phase + ' · ' + STRAT[iv.strategy][0] + ' · ' + iv.status]];
+    return '<section class="box"><div class="box-head"><h3>Hilo de punta a punta</h3><p>La primera intervención de la hoja de ruta, rastreada hasta la prioridad del negocio que la justifica.</p></div><div class="box-body"><div class="hilo">' +
+      steps.map(function (x) { return '<div class="tstep"><span class="k">' + x[0] + '</span><b>' + esc(x[1]) + '</b><p>' + esc(x[2]) + '</p></div>'; }).join('') + '</div>' +
+      '<div class="row" style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" data-iv="' + iv.id + '">' + ic('link', 'sm') + 'Ver trazabilidad de ' + iv.id + '</button><button class="btn sm" data-go="evaluacion" data-tab="escenarios">Ver ' + s.id + ' en Evaluación</button></div></div></section>';
+  }
+
+  /* ---------- vista: evaluación (etapa 6) ---------- */
+  function vEval() {
+    var a = cur();
+    var tabs = [['cobertura', 'Cobertura por dominio'], ['escenarios', 'Escenarios (' + a.scenarios.length + ')'], ['fcoi', 'Hallazgos y oportunidades']];
+    var body = S.tab === 'cobertura' ? tCov(a) : S.tab === 'escenarios' ? tScn(a) : tFcoi(a);
+    return '<div class="hello"><div><h1>Evaluación</h1><p>Etapa 6 · Riesgo operacional (impacto y recuperación) y hallazgos con oportunidades. No evaluado nunca equivale a riesgo bajo.</p></div></div>' +
+      '<div class="tabs" role="tablist">' + tabs.map(function (t) { return '<button role="tab" data-tab="' + t[0] + '" aria-selected="' + (S.tab === t[0]) + '">' + t[1] + '</button>'; }).join('') + '</div>' + body;
+  }
+  function tCov(a) {
+    if (!a.coverage.length) return '<div class="empty"><b>Cobertura sin iniciar</b><span>Los 8 dominios aparecen al comenzar el recorrido.</span></div>';
+    var cls = function (s) { return s.replace(' ', '-'); };
+    return '<section class="box"><div class="box-head"><h3>Ocho dominios de revisión</h3><p>Cada dominio declara si aplica, la fuente y los vacíos. Un dominio no revisado se informa como limitación, no como riesgo bajo.</p></div><div class="cov">' +
+      a.coverage.map(function (c) { return '<div class="cov-row"><div><b>' + DOM[c.domain] + '</b><div class="src">' + esc(c.source || 'Sin fuente') + '</div></div><div><span class="pill cs ' + cls(c.state) + '">' + esc(c.state) + '</span></div>' +
+        '<div class="g">' + (c.findings.length ? '<div class="chips">' + c.findings.map(function (f) { return '<span class="tag" title="' + esc((find(a, 'findings', f) || {}).title) + '">' + f + '</span>'; }).join('') + '</div>' : '') + (c.gaps ? '<div class="mut">Vacío: ' + esc(c.gaps) + '</div>' : '') + (c.just ? '<div class="mut">Justificación: ' + esc(c.just) + '</div>' : '') + (!c.findings.length && !c.gaps && !c.just ? '<span class="mut">—</span>' : '') + '</div></div>'; }).join('') + '</div></section>';
+  }
+  function matrix(a) {
+    var cnt = {}; a.scenarios.forEach(function (s) { if (s.C && s.P) cnt[s.C + ',' + s.P] = (cnt[s.C + ',' + s.P] || 0) + 1; });
+    var pend = a.scenarios.filter(function (s) { return !s.C || !s.P; }).length;
+    var rows = [3, 2, 1].map(function (p) { return '<div class="h">' + ['', 'Baja', 'Media', 'Alta'][p] + '</div>' + [1, 2, 3].map(function (c) { var n = cnt[c + ',' + p] || 0, l = level(c, p); return '<div class="c ' + l + (n ? '' : ' z') + '"><b>' + n + '</b><span>' + l + '</span></div>'; }).join(''); }).join('');
+    return '<section class="box"><div class="box-head"><h3>Matriz de exposición × consecuencia</h3><p>Escala 3×3 provisional, pendiente de aprobación de Omnicon. ' + pl(pend, 'escenario pendiente de valoración no se ubica', 'escenarios pendientes de valoración no se ubican') + ' en la matriz.</p></div><div class="box-body"><div class="mx"><div class="h"></div><div class="h">Consecuencia baja</div><div class="h">Media</div><div class="h">Alta</div>' + rows + '</div><span class="small mut">Filas: exposición (probabilidad estimada). Columnas: consecuencia.</span></div></section>';
+  }
+  function rbar(a, s) {
+    var p = procOf(a, s.proc), t = p.tolerance, r = s.recovery.total;
+    if (!t && !r) return '<p class="gapmsg unk">Sin tolerancia del proceso ni tiempo de recuperación: no se puede comparar.</p>';
+    var lo = 0.1, hi = 3000, W = 520, X = function (h) { return 40 + (Math.log10(Math.max(lo, Math.min(hi, h))) - Math.log10(lo)) / (Math.log10(hi) - Math.log10(lo)) * (W - 80); };
+    var ticks = [[0.25, '15 min'], [1, '1 h'], [8, '8 h'], [24, '1 día'], [168, '1 sem'], [720, '1 mes']];
+    var svg = '<svg viewBox="0 0 ' + W + ' 74" role="img" aria-label="Recuperación frente a tolerancia"><line x1="40" x2="' + (W - 40) + '" y1="34" y2="34" stroke="var(--grid)" stroke-width="2"/>' +
+      ticks.map(function (k) { return '<line x1="' + X(k[0]) + '" x2="' + X(k[0]) + '" y1="30" y2="38" stroke="var(--grid)"/><text x="' + X(k[0]) + '" y="70" text-anchor="middle">' + k[1] + '</text>'; }).join('') +
+      (r ? '<rect x="' + X(r.min) + '" y="26" width="' + Math.max(6, X(r.max) - X(r.min)) + '" height="16" rx="5" fill="var(--rec)" opacity=".85"/><text x="' + X(r.min) + '" y="18" fill="var(--ink)" style="fill:var(--rec);font-weight:600">Recuperación ' + fmtH(r.min) + '–' + fmtH(r.max) + '</text>' : '') +
+      (t ? '<line x1="' + X(t.value || 0.1) + '" x2="' + X(t.value || 0.1) + '" y1="20" y2="48" stroke="var(--tol)" stroke-width="3"/><text x="' + X(t.value || 0.1) + '" y="60" text-anchor="middle" style="fill:var(--tol);font-weight:600">Tolera ' + (t.value ? fmtH(t.value) : '0 h') + '</text>' : '') + '</svg>';
+    var msg = !t ? '<p class="gapmsg unk">El proceso no tiene tolerancia registrada (' + esc(p.name) + ').</p>' : !r ? '<p class="gapmsg unk">Tiempo de recuperación desconocido: falta para comparar con la tolerancia de ' + fmtH(t.value) + '.</p>'
+      : r.min > t.value ? '<p class="gapmsg bad">Brecha: aun en el mejor caso la recuperación (' + fmtH(r.min) + ') supera lo tolerable (' + fmtH(t.value) + ').</p>'
+      : r.max > t.value ? '<p class="gapmsg bad">Brecha posible: el peor caso (' + fmtH(r.max) + ') supera lo tolerable (' + fmtH(t.value) + ').</p>' : '<p class="gapmsg ok">La recuperación estimada queda dentro de lo tolerable.</p>';
+    return '<div class="rbar">' + svg + msg + '</div>';
+  }
+  function tScn(a) {
+    if (!a.scenarios.length) return '<div class="empty"><b>Sin escenarios todavía</b><span>Este assessment va en la etapa ' + a.stage + '. Los escenarios se registran en la evaluación.</span></div>';
+    return matrix(a) + a.scenarios.map(function (s, i) {
+      var p = procOf(a, s.proc), r = s.recovery, l = level(s.C, s.P);
+      return '<details class="scn" id="scn-' + s.id + '"' + (i === 0 ? ' open' : '') + '><summary><span class="sid">' + s.id + '</span><span class="stitle"><b>' + esc(s.title) + '</b><small>' + DOM[s.domain] + ' · ' + esc(p.name) + '</small></span><span class="lv ' + l + '">' + l + '</span><span class="caret">' + ic('chev') + '</span></summary><div class="sbody">' +
+        '<div class="blk"><h4>Failure <small>· Falla</small></h4><p class="small"><b>' + esc(s.event) + '</b></p><ul>' + s.causes.map(function (c) { return '<li>' + esc(c) + '</li>'; }).join('') + '</ul></div>' +
+        '<div class="blk"><h4>Impact <small>· Impacto</small></h4><div class="kv"><span>Operacional</span><span>' + esc(s.impact.operational) + '</span><span>Negocio</span><span>' + esc(s.impact.business) + '</span><span>Magnitud</span><span>' + esc(s.impact.magnitude) + '</span><span>Fundamento</span><span>' + esc(s.impact.basis) + '</span></div></div>' +
+        '<div class="blk"><h4>Controls <small>· Controles existentes</small></h4>' + (s.controls.length ? s.controls.map(function (c) { return '<div class="ctl"><span class="nm">' + esc(c.name) + '</span><span class="tag">' + esc(c.type) + '</span><span class="pill ' + (c.st === 'Verificado' ? 'ok' : c.st === 'Ausente' ? 'err' : 'warn') + '">' + esc(c.st) + '</span></div>'; }).join('') : '<p class="small mut">Sin controles registrados.</p>') + '</div>' +
+        '<div class="blk"><h4>Alternatives <small>· Alternativas</small></h4>' + (s.alternatives.length ? '<ul>' + s.alternatives.map(function (x) { return '<li><b>' + esc(x.kind) + ':</b> ' + esc(x.desc) + (x.limitation ? ' <span class="mut">— Limitación: ' + esc(x.limitation) + '</span>' : '') + '</li>'; }).join('') + '</ul>' : '<p class="small mut">Sin alternativas registradas.</p>') + '</div>' +
+        '<div class="blk full"><h4>Recovery Time <small>· Recuperación frente a la tolerancia del negocio</small></h4>' + rbar(a, s) +
+        '<div class="kv"><span>Diagnóstico</span><span>' + esc(r.diagnosis) + '</span><span>Suministro</span><span>' + esc(r.supply) + '</span><span>Reparación</span><span>' + esc(r.repair) + '</span><span>Retorno</span><span>' + esc(r['return']) + '</span><span>Fuente · confianza</span><span>' + esc(r.source) + ' · ' + esc(r.conf) + (r.tested ? ' · probado' : '') + '</span></div></div>' +
+        '<div class="blk"><h4>Valoración</h4><div class="kv"><span>Consecuencia</span><span>' + (s.C || '—') + ' · ' + esc(s.justC) + '</span><span>Exposición</span><span>' + (s.P || '—') + ' · ' + esc(s.justP || 'Sin valorar') + '</span><span>Incertidumbre</span><span>' + esc(s.uncertainty || '—') + '</span></div></div>' +
+        '<div class="blk"><h4>Vínculos</h4><div class="chips">' + s.findings.map(function (x) { return '<span class="tag">' + x + '</span>'; }).join('') + s.assets.map(function (x) { return '<span class="tag">' + esc(lbl(a, x)) + '</span>'; }).join('') + s.deps.map(function (x) { return '<span class="tag">' + x + '</span>'; }).join('') + '</div>' +
+        '<div class="chips">' + a.interventions.filter(function (v) { return v.scenarios.indexOf(s.id) > -1; }).map(function (v) { return '<button class="tag" data-iv="' + v.id + '">' + v.id + ' · ' + STRAT[v.strategy][0] + '</button>'; }).join('') + '</div></div>' +
+        '</div></details>';
+    }).join('');
+  }
+  function tFcoi(a) {
+    if (!a.findings.length) return '<div class="empty"><b>Sin hallazgos todavía</b><span>Los hallazgos se registran en el recorrido o el cuestionario con su contexto heredado.</span></div>';
+    var used = {};
+    var rows = a.opportunities.map(function (o) {
+      o.findings.forEach(function (f) { used[f] = 1; });
+      var est = o.impact.estimate || 'Por estimar';
+      return '<div class="fcoi-r"><div><span class="lbl">Finding · Hallazgo</span>' + o.findings.map(function (fid) { var f = find(a, 'findings', fid); return '<span><b>' + fid + '</b> ' + esc(f.title) + '</span><span><span class="pill ' + (f.status === 'confirmado' ? 'ok' : 'warn') + '">' + esc(f.status) + '</span> <span class="tag">' + esc(f.level) + '</span></span>'; }).join('') + '</div>' +
+        '<div><span class="lbl">Consequence · Consecuencia</span><span>' + esc(o.consequence) + '</span><span class="chips">' + o.scenarios.map(function (x) { return '<span class="tag">' + x + '</span>'; }).join('') + '</span></div>' +
+        '<div><span class="lbl">Opportunity · Oportunidad</span><b>' + o.id + ' · ' + esc(o.title) + '</b>' + (o.alternatives ? '<span class="mut">Alternativas: ' + esc(o.alternatives) + '</span>' : '') + '</div>' +
+        '<div><span class="lbl">Impact · Impacto esperado</span><span><span class="tag">' + esc(o.impact.dimension) + '</span> ' + esc(o.impact.text) + '</span><span class="est ' + (/por estimar/i.test(est) ? 'pe' : '') + '">' + esc(est) + '</span>' + (o.impact.basis ? '<span class="mut">Base: ' + esc(o.impact.basis) + '</span>' : '') + (o.impact.assumption ? '<span class="mut">Supuesto: ' + esc(o.impact.assumption) + '</span>' : '') + '</div>' +
+        '<div><span class="lbl">Estado</span>' + pill(o.status) + (o.reviewer ? '<span class="small mut">Revisa ' + esc(uname(o.reviewer)) + '</span>' : '') + '</div></div>';
+    }).join('');
+    var orphan = a.findings.filter(function (f) { return !used[f.id]; });
+    return '<section class="box fcoi"><div class="box-head"><h3>Matriz Finding → Consequence → Opportunity → Impact</h3><p>Una oportunidad puede atender varios hallazgos y un hallazgo puede tener varias oportunidades. El impacto sin base se marca «Por estimar».</p></div>' +
+      '<div class="fcoi-h"><span>Hallazgo</span><span>Consecuencia</span><span>Oportunidad</span><span>Impacto esperado</span><span>Estado</span></div>' + (rows || '<div class="fcoi-r"><div class="mut">Sin oportunidades registradas.</div></div>') + '</section>' +
+      (orphan.length ? '<section class="box"><div class="box-head"><h3>Hallazgos sin oportunidad (' + orphan.length + ')</h3><p>Quedan visibles hasta que se asocien a una oportunidad o se descarten con motivo.</p></div><div class="box-body">' + orphan.map(function (f) { return '<div class="ctl"><span class="nm"><b>' + f.id + '</b> ' + esc(f.title) + '</span><span class="tag">' + esc(f.level) + '</span><span class="pill ' + (f.status === 'confirmado' ? 'ok' : 'warn') + '">' + esc(f.status) + '</span></div>'; }).join('') + '</div></section>' : '');
+  }
+
+  /* ---------- vista: hoja de ruta (etapa 7) ---------- */
+  function vRoad() {
+    var a = cur(), V = a.interventions.slice().sort(function (x, y) { return x.order - y.order; });
+    if (!V.length) return '<div class="hello"><div><h1>Hoja de ruta</h1><p>Etapa 7 · intervenciones priorizadas por fases.</p></div></div><div class="empty"><b>Sin intervenciones todavía</b><span>' + esc(a.state) + '. La hoja de ruta se arma desde las oportunidades de la evaluación.</span></div>';
+    var pe = V.filter(function (v) { return v.cost.level === 'Por estimar'; }).length;
+    var kp = '<div class="kpis"><div class="kpi"><small>Intervenciones</small><b>' + V.length + '</b><span>' + pl(V.filter(function (v) { return v.kind === 'estudio'; }).length, 'estudio previo', 'estudios previos') + '</span></div>' +
+      [1, 2, 3].map(function (n) { return '<div class="kpi"><small>Fase ' + n + '</small><b>' + V.filter(function (v) { return v.phase === n; }).length + '</b><span>' + esc(a.phases[n - 1].name) + '</span></div>'; }).join('') +
+      '<div class="kpi"><small>Costo por estimar</small><b>' + pe + '</b><span>No se inventan cifras</span></div></div>';
+    var body = S.rm === 'lista' ? rmList(a, V) : rmPhases(a, V);
+    return '<div class="hello"><div><h1>Hoja de ruta priorizada</h1><p>Qué hacer primero, después y por qué. Las estrategias no son etapas obligatorias: Mantener también es una decisión válida.</p></div>' +
+      '<div class="seg" role="group" aria-label="Vista"><button data-rm="lista" aria-pressed="' + (S.rm === 'lista') + '">Lista priorizada</button><button data-rm="fases" aria-pressed="' + (S.rm === 'fases') + '">Fases y frentes</button></div></div>' + kp + body + disp(a);
+  }
+  function rmList(a, V) {
+    return '<section class="box"><div class="box-head"><h3>Orden de ejecución</h3><p>El orden se justifica y se puede cambiar a mano con motivo (queda auditado).</p></div><div class="rm-list">' + V.map(function (v) {
+      return '<button class="rm-row" data-iv="' + v.id + '"><span class="ord">' + v.order + '</span><span class="rm-t"><b>' + v.id + ' · ' + esc(v.title) + '</b><small>' + esc(v.orderReason || v.priorityRationale) + (v.dependsOn.length ? ' · depende de ' + v.dependsOn.join(', ') : '') + '</small></span>' +
+        '<span class="chips">' + stChip(v.strategy) + '<span class="tag">Fase ' + v.phase + '</span>' + (v.kind === 'estudio' ? '<span class="tag">Estudio</span>' : '') + '</span>' +
+        '<span class="cost ' + (v.cost.level === 'Por estimar' ? 'pe' : '') + '">' + esc(v.cost.range) + '</span>' + pill(v.status) + '</button>';
+    }).join('') + '</div></section>';
+  }
+  function rmPhases(a, V) {
+    var head = '<div class="fr-h corner">Frente / fase</div>' + a.phases.map(function (p) { return '<div class="ph-h"><b>Fase ' + p.n + ' · ' + esc(p.name) + '</b><small>' + esc(p.horizon) + '</small><div class="ms">' + Object.keys(MS).map(function (k) { return '<span><i class="' + p.milestones[k].replace(' ', '-') + '"></i>' + MS[k] + ': ' + p.milestones[k] + '</span>'; }).join('') + '</div></div>'; }).join('');
+    var rows = Object.keys(FRONT).map(function (f) {
+      return '<div class="fr-h">' + FRONT[f][0] + '<small>' + FRONT[f][1] + '</small></div>' + [1, 2, 3].map(function (n) {
+        var cs = V.filter(function (v) { return v.front === f && v.phase === n; });
+        return '<div class="cell" aria-label="' + FRONT[f][0] + ', fase ' + n + '">' + cs.map(function (v) { return '<button class="icard" data-iv="' + v.id + '"><b>' + v.id + ' · ' + esc(v.title) + '</b><span class="chips">' + stChip(v.strategy) + (v.kind === 'estudio' ? '<span class="tag">Estudio</span>' : '') + '</span><small>' + esc(v.cost.range) + (v.dependsOn.length ? ' · depende de ' + v.dependsOn.join(', ') : '') + '</small></button>'; }).join('') + '</div>';
+      }).join('');
+    }).join('');
+    return '<section class="box"><div class="box-head"><h3>Fases según la capacidad de inversión del cliente</h3><p>Los nombres de fase no fijan meses universales; el horizonte lo acuerda el cliente. Los hitos indican qué falta para ejecutar cada fase.</p></div><div class="box-body"><div class="phgrid">' + head + rows + '</div></div></section>';
+  }
+  function disp(a) {
+    if (!a.dispositions.length) return '';
+    return '<section class="box"><div class="box-head"><h3>Disposición recomendada por activo o sistema</h3><p>No se prescribe modernización por antigüedad: cada disposición tiene justificación y quién la valida.</p></div><div class="scroll-x"><table><thead><tr><th>Activo / sistema</th><th>Ciclo de vida</th><th>Estrategia</th><th>Justificación</th><th>Valida</th></tr></thead><tbody>' +
+      a.dispositions.map(function (d) { var x = find(a, 'assets', d.target) || find(a, 'systems', d.target) || {}; return '<tr><td><b>' + esc(x.tag || x.name || d.target) + '</b><div class="small mut">' + esc(x.name || '') + '</div></td><td>' + (x.lifecycle ? '<span class="lc ' + x.lifecycle.status + '">' + LCN[x.lifecycle.status] + '</span>' : '—') + '</td><td>' + stChip(d.strategy, true) + '</td><td>' + esc(d.justification) + (d.alternatives ? '<div class="small mut">Alternativa considerada: ' + esc(d.alternatives) + '</div>' : '') + '</td><td>' + esc(uname(d.validatedBy)) + '</td></tr>'; }).join('') + '</tbody></table></div></section>';
+  }
+  function ivModal(id) {
+    var a = cur(), v = find(a, 'interventions', id); if (!v) return;
+    var opps = v.opportunities.map(function (x) { return find(a, 'opportunities', x); }).filter(Boolean);
+    var scns = v.scenarios.map(function (x) { return find(a, 'scenarios', x); }).filter(Boolean);
+    var procs = scns.map(function (s) { return procOf(a, s.proc); }).filter(function (p, i, L) { return L.indexOf(p) === i; });
+    var ev = a.evidence.filter(function (e) { return v.findings.indexOf(e.links.finding) > -1 || v.targets.indexOf(e.links.asset) > -1; });
+    var trail = '<div class="trail"><span class="tag">' + v.id + '</span><i>←</i>' + (opps.map(function (o) { return '<span class="tag">' + o.id + '</span>'; }).join('') || '<span class="mut">sin oportunidad</span>') + '<i>←</i>' + (v.findings.map(function (f) { return '<span class="tag">' + f + '</span>'; }).join('') || '<span class="mut">—</span>') + '<i>←</i>' + (scns.map(function (s) { return '<span class="tag">' + s.id + ' · ' + level(s.C, s.P) + '</span>'; }).join('') || '<span class="mut">—</span>') + '<i>←</i>' + procs.map(function (p) { return '<span class="tag">' + esc(p.name) + (p.tolerance ? ' · tolera ' + fmtH(p.tolerance.value) : '') + '</span>'; }).join('') + (ev.length ? '<i>←</i>' + ev.map(function (e) { return '<span class="tag">' + e.id + ' · ' + e.kind + '</span>'; }).join('') : '') + '</div>';
+    var kv = [['Alcance', v.scope || '—'], ['Tipo', v.kind === 'estudio' ? 'Estudio previo' : 'Ejecución'], ['Frente', FRONT[v.front][0]], ['Fase', v.phase + ' · ' + a.phases[v.phase - 1].name + ' (' + a.phases[v.phase - 1].horizon + ')'], ['Por qué esta prioridad', v.priorityRationale], ['Por qué este orden', v.orderReason || '—'],
+      ['Duración', v.duration], ['Responsable sugerido', v.owner + ' · ' + v.acceptance], ['Costo / esfuerzo', v.cost.range + (v.cost.source ? ' · ' + v.cost.source : '') + ' · ' + v.cost.level + (v.effort ? ' · esfuerzo ' + v.effort : '')], ['Depende de', v.dependsOn.join(', ') || '—'],
+      ['Prerrequisitos', v.prerequisites || '—'], ['Autorizaciones', v.authorizations || '—'], ['Ventana de parada', v.shutdownWindow || '—'], ['Criterio de cierre', v.closeCriterion || 'Por definir'], ['Exposición residual', v.residual || 'Reevaluar el escenario al cerrar']];
+    $('#layer').innerHTML = '<div class="scrim" data-close="1"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="mT"><div class="modal-h"><h2 id="mT">' + v.id + ' · ' + esc(v.title) + '</h2><button class="icon-btn" data-close="1" aria-label="Cerrar">' + ic('x') + '</button></div><div class="modal-b">' +
+      '<div class="chips">' + stChip(v.strategy, true) + (v.strategy2 ? stChip(v.strategy2) : '') + pill(v.status) + '<span class="tag">Orden ' + v.order + '</span></div>' +
+      '<div class="sec-title">Trazabilidad hasta la prioridad del negocio</div>' + trail + '<div class="kv">' + kv.map(function (x) { return '<span>' + x[0] + '</span><span>' + esc(x[1]) + '</span>'; }).join('') + '</div>' +
+      '<div class="note warn">' + ic('info') + '<span>Completar la tarea no equivale a riesgo mitigado: al cerrar se verifica la eficacia y se reevalúa el escenario.</span></div></div></div></div>';
+    var b = document.querySelector('.modal .icon-btn'); if (b) b.focus();
+  }
+
+  /* ---------- omnIA (experiencia Kairos; motor de reglas en este boceto) ---------- */
+  var fabOrb = null, headOrb = null;
+  function th() { var a = cur(); if (!S.threads[a.id]) S.threads[a.id] = seedThread(a); return S.threads[a.id]; }
+  function seedThread(a) {
+    var n = a.ai.length;
+    var m = [{ who: 'bot', origin: 'Riesgo', text: n ? 'Revisé ' + a.cfg.plant + '. Tengo ' + n + (n === 1 ? ' propuesta' : ' propuestas') + ' para revisar. Son borradores con sus fuentes: la decisión es tuya y nada cambia en la evaluación hasta que lo apruebes.' : 'Revisé ' + a.cfg.plant + '. Todavía no tengo propuestas: puedo listar los vacíos del assessment.' }];
+    a.ai.forEach(function (p) { m.push({ who: 'card', ai: p.id }); });
+    return m;
+  }
+  function aiCard(a, p) {
+    var st = S.aiState[a.id + p.id] || p.status;
+    var kind = { escenario: 'Propuesta de escenario', vacio: 'Vacío detectado', oportunidad: 'Fila FCOI propuesta' }[p.kind] || 'Propuesta';
+    var sec = function (t, L) { return L && L.length ? '<div class="prop-sec"><span>' + t + '</span><ul>' + L.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' : ''; };
+    var done = st !== 'por revisar';
+    return '<div class="ocard"><div class="hd"><span class="mini-orb"></span><span class="t">' + kind + '</span><span class="pills"><span class="pill ' + (st === 'por revisar' ? 'pending' : st === 'descartada' ? 'rejected' : st === 'verificación solicitada' ? 'missing' : 'approved') + '">' + esc(st) + '</span></span></div>' +
+      '<div class="bd"><b style="font-size:13px">' + esc(p.title) + '</b>' + sec('Hechos (del assessment)', p.facts) + sec('Supuestos', p.assumptions) + sec('Falta para confirmarlo', p.missing) + sec('Controles conocidos', p.controls) +
+      '<div class="prop-sec"><span>Fuentes</span><div class="row">' + p.sources.map(function (s) { return '<span class="src-chip">' + esc(s) + '</span>'; }).join('') + '</div></div>' +
+      '<div class="trace">Motor: ' + esc(p.engine) + ' · versión ' + p.version + '</div></div>' +
+      '<div class="ft"><div class="row">' + (done ? '<button class="btn sm ghost" data-ai="' + p.id + '" data-do="por revisar">Deshacer</button>' :
+        '<button class="btn sm primary" data-ai="' + p.id + '" data-do="aceptada como borrador">Aceptar como borrador</button><button class="btn sm" data-ai="' + p.id + '" data-do="editar">Editar</button><button class="btn sm" data-ai="' + p.id + '" data-do="verificación solicitada">Solicitar verificación</button><button class="btn sm danger" data-ai="' + p.id + '" data-do="descartada">Descartar</button>') + '</div></div></div>';
+  }
+  function renderPanel() {
+    var a = cur(), panel = $('#panel'), fab = $('#omniaBtn');
+    panel.hidden = !S.panel; fab.setAttribute('aria-expanded', S.panel); $('#sideOmnia').setAttribute('aria-pressed', S.panel);
+    if (fabOrb) fabOrb.setVisible(!S.panel);
+    if (!S.panel) return;
+    $('#pHead').innerHTML = '<span class="grab" aria-hidden="true"></span><div class="p-title"><canvas class="orb-cv sm" id="headOrb" data-size="24" width="48" height="48" aria-hidden="true"></canvas><span class="name">omnIA</span><span class="status' + (S.busy ? ' busy' : '') + '"><i></i>' + (S.busy ? 'Pensando' : 'En línea') + '</span>' +
+      '<div class="p-actions"><button class="icon-btn" data-hact="close" title="Cerrar" aria-label="Cerrar omnIA">' + ic('x') + '</button></div></div>' +
+      '<div class="ctx-chip" title="omnIA usa este assessment como contexto"><span class="lbl">Contexto</span><b>' + a.code + ' · ' + esc(a.cfg.plant) + '</b></div>';
+    var cv = $('#headOrb'); if (window.OmniaOrb && cv) { headOrb = new window.OmniaOrb(cv); headOrb.setState(S.busy ? 'thinking' : 'idle'); }
+    var t = th();
+    $('#pBody').innerHTML = '<div class="thread">' + t.map(function (m) {
+      if (m.who === 'user') return '<div class="msg user"><div class="bubble">' + esc(m.text) + '</div></div>';
+      if (m.who === 'event') return '<div class="event">' + ic('info', 'sm') + '<span>' + esc(m.text) + '</span></div>';
+      if (m.who === 'typing') return '<div class="msg bot"><div class="typing"><i></i><i></i><i></i></div></div>';
+      if (m.who === 'card') { var p = a.ai.find(function (x) { return x.id === m.ai; }) || m.p; return '<div class="msg bot">' + aiCard(a, p) + '</div>'; }
+      return '<div class="msg bot"><div class="who"><span class="mini-orb"></span><b>omnIA</b>' + (m.origin ? '<span class="origin">' + esc(m.origin) + '</span>' : '') + '</div><div class="text">' + m.text.split('\n').map(function (x) { return '<p>' + esc(x) + '</p>'; }).join('') + '</div></div>';
+    }).join('') + '<div class="sugs">' + ['¿Qué vacíos tiene este assessment?', 'Propón escenarios con lo que hay', 'Resume la hoja de ruta'].map(function (s) { return '<button class="sug" data-sug="' + esc(s) + '"><span class="mini-orb"></span>' + esc(s) + '</button>'; }).join('') + '</div></div>';
+    var pb = $('#pBody'); pb.scrollTop = pb.scrollHeight;
+  }
+  function reply(q) {
+    var a = cur(), t = th(); t.push({ who: 'user', text: q }); t.push({ who: 'typing' }); S.busy = true; renderPanel();
+    setTimeout(function () {
+      t.pop(); S.busy = false; var low = q.toLowerCase();
+      if (/vac[ií]o|falta|pendiente/.test(low)) {
+        var g = gaps(a), L = [['1 · Prioridades', g.p1], ['2 · Infraestructura', g.p2], ['3 · Riesgo', g.p3], ['4 · Hallazgos', g.p4], ['5 · Hoja de ruta', g.p5]].filter(function (x) { return x[1].length; });
+        t.push({ who: 'bot', origin: 'Reglas', text: L.length ? 'Estos son los vacíos que detecto con las reglas del assessment:\n' + L.map(function (x) { return x[0] + ': ' + x[1].join('; ') + '.'; }).join('\n') + '\nSon avisos sobre el assessment, no alarmas de la operación.' : 'No detecto vacíos con las reglas actuales.' });
+      } else if (/escenario|prop[oó]n/.test(low)) {
+        var inS = {}; a.scenarios.forEach(function (s) { s.assets.forEach(function (x) { inS[x] = 1; }); });
+        var cand = a.assets.filter(function (x) { return x.family && !inS[x.id] && (/único|Sin |Equipo único|Host único/i.test(x.redundancy || '') || x.lifecycle.status === 'eol' || x.lifecycle.status === 'discontinued'); }).slice(0, 2);
+        if (!cand.length) t.push({ who: 'bot', origin: 'Riesgo', text: 'Con los datos actuales no encuentro activos sin redundancia o en fin de vida que no estén ya en un escenario.' });
+        cand.forEach(function (x, i) {
+          var id = 'AI-R' + (i + 1) + '-' + x.id;
+          var p = { id: id, kind: 'escenario', title: 'Falla de ' + x.tag + ' (' + x.name + ')', facts: [x.tag + ': ' + LCN[x.lifecycle.status] + (x.lifecycle.source ? ' (' + x.lifecycle.source + ')' : ''), 'Redundancia registrada: ' + (x.redundancy || 'sin dato'), 'Procesos que soporta: ' + x.procs.map(function (k) { return procOf(a, k).name; }).join(', ')],
+            assumptions: ['La falla afecta a todos los procesos que soporta'], missing: ['Tiempo de recuperación', 'Controles existentes'], controls: [], sources: ['asset:' + x.id].concat(x.procs.map(function (k) { return 'process:' + k; })), engine: 'reglas (DEMO)', version: 1, status: 'por revisar' };
+          a.ai.push(p); t.push({ who: 'card', ai: p.id });
+        });
+        if (cand.length) t.push({ who: 'bot', origin: 'Riesgo', text: 'Propuse ' + cand.length + ' escenario(s) desde activos sin redundancia o en fin de vida que todavía no participan en ningún escenario. No asigné nivel de riesgo.' });
+      } else if (/hoja|ruta|roadmap/.test(low)) {
+        if (!a.interventions.length) t.push({ who: 'bot', origin: 'Hoja de ruta', text: 'Este assessment todavía no tiene intervenciones.' });
+        else t.push({ who: 'bot', origin: 'Hoja de ruta', text: a.phases.map(function (p) { var V = a.interventions.filter(function (v) { return v.phase === p.n; }); return 'Fase ' + p.n + ' (' + p.name + ', ' + p.horizon + '): ' + V.length + ' intervenciones · financiación ' + p.milestones.funding + '.'; }).join('\n') + '\nPrimero: ' + a.interventions.slice().sort(function (x, y) { return x.order - y.order; })[0].title + '.' });
+      } else t.push({ who: 'bot', origin: 'Reglas', text: 'En este boceto respondo con reglas sobre los datos del assessment. Prueba con: vacíos, escenarios u hoja de ruta.' });
+      renderPanel();
+    }, 700);
+  }
+
+  /* ---------- render y eventos ---------- */
+  function render() {
+    renderShell();
+    var v = S.view === 'ejemplos' ? vEjemplos() : S.view === 'cadena' ? vCadena() : S.view === 'evaluacion' ? vEval() : vRoad();
+    $('#mainIn').innerHTML = v; renderPanel();
+  }
+  function go(v) { S.view = v; if (location.hash.slice(1) !== v) history.replaceState(null, '', '#' + v); render(); $('#main').scrollTop = 0; }
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('button, [data-close]'); if (!t) return;
+    if (t.dataset.close && (e.target === t || t.classList.contains('icon-btn'))) { $('#layer').innerHTML = ''; return; }
+    if (t.dataset.view) return go(t.dataset.view);
+    if (t.dataset.ind) { S.ind = t.dataset.ind; return render(); }
+    if (t.dataset.open) { S.id = t.dataset.open; save(); return go(t.dataset.to); }
+    if (t.dataset.tab) { S.tab = t.dataset.tab; if (t.dataset.go) return go(t.dataset.go); return render(); }
+    if (t.dataset.rm) { S.rm = t.dataset.rm; return render(); }
+    if (t.dataset.iv) return ivModal(t.dataset.iv);
+    if (t.id === 'omniaBtn' || t.id === 'sideOmnia') { S.panel = !S.panel; return renderPanel(); }
+    if (t.dataset.hact === 'close') { S.panel = false; return renderPanel(); }
+    if (t.dataset.sug) return reply(t.dataset.sug);
+    if (t.dataset.ai) {
+      var a = cur(), d = t.dataset.do, p = a.ai.find(function (x) { return x.id === t.dataset.ai; });
+      if (d === 'editar') { toast('En la versión final abre el escenario en borrador para editarlo.'); return; }
+      S.aiState[a.id + p.id] = d;
+      if (d !== 'por revisar') th().push({ who: 'event', text: p.id + ': ' + d + ' por ' + uname(a.leadId) + '. ' + (d === 'aceptada como borrador' ? 'Queda como borrador; la evaluación no cambia hasta que lo apruebes.' : d === 'descartada' ? 'Se conserva la propuesta y el motivo en el historial.' : 'Se crea una tarea de verificación.') });
+      return renderPanel();
+    }
+    if (t.id === 'oSend') { var i = $('#oInput'); if (i.value.trim()) { reply(i.value.trim()); i.value = ''; } return; }
+    if (t.id === 'themeBtn') { var r = document.documentElement, dk = r.dataset.theme ? r.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; r.dataset.theme = dk ? 'light' : 'dark'; return; }
+  });
+  $('#asSel').addEventListener('change', function (e) { S.id = e.target.value; save(); if (S.view === 'ejemplos') S.view = 'cadena'; go(S.view); });
+  $('#oInput').addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); $('#oSend').click(); } });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { if ($('#layer').innerHTML) $('#layer').innerHTML = ''; else if (S.panel) { S.panel = false; renderPanel(); } } });
+  window.addEventListener('hashchange', function () { var h = location.hash.slice(1); if (VIEWS.indexOf(h) > -1 && h !== S.view) { S.view = h; render(); } });
+  if (window.OmniaOrb) { fabOrb = new window.OmniaOrb($('#fabOrb')); }
+  render();
+})();
+</script>
+
+</body></html>

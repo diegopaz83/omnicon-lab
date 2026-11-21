@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Configuración · Alertas de seguimiento</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Poppins,system-ui,sans-serif;color:#001c3f}
+a{color:#0a58eb}a:hover{color:#002473}
+</style>
+</helmet>
+<div style="width:1280px;height:820px;display:flex;background:#f4f7fb;font-family:Poppins,system-ui,sans-serif;color:#001c3f;overflow:hidden">
+
+  <nav aria-label="Menú de Kairos" style="width:220px;flex:none;background:#001c3f;color:#b9c6da;display:flex;flex-direction:column;padding:18px 12px;box-sizing:border-box;gap:4px">
+    <div style="display:flex;align-items:center;gap:10px;padding:4px 8px 18px;color:#fff;font-weight:600;font-size:17px">
+      <span style="width:28px;height:28px;border-radius:8px;background:#0a58eb;display:inline-block" aria-hidden="true"></span>Kairos
+    </div>
+    <a href="#" style="padding:9px 12px;border-radius:8px;color:#b9c6da;font-size:13.5px;font-weight:500;text-decoration:none">Inicio</a>
+    <a href="#" style="padding:9px 12px;border-radius:8px;color:#b9c6da;font-size:13.5px;font-weight:500;text-decoration:none">Cotizaciones</a>
+    <a href="#" style="padding:9px 12px;border-radius:8px;color:#b9c6da;font-size:13.5px;font-weight:500;text-decoration:none">Proyectos y servicios</a>
+    <a href="#" style="padding:9px 12px;border-radius:8px;color:#b9c6da;font-size:13.5px;font-weight:500;text-decoration:none">Reservas</a>
+    <a href="#" style="padding:9px 12px;border-radius:8px;color:#b9c6da;font-size:13.5px;font-weight:500;text-decoration:none">Ejecución</a>
+    <a href="#" style="padding:9px 12px;border-radius:8px;color:#b9c6da;font-size:13.5px;font-weight:500;text-decoration:none">Analítica</a>
+    <a href="#" style="padding:9px 12px;border-radius:8px;background:#002473;color:#fff;font-size:13.5px;font-weight:500;text-decoration:none">Configuración</a>
+  </nav>
+
+  <main style="flex:1;min-width:0;padding:22px 28px;box-sizing:border-box;display:flex;flex-direction:column;gap:16px">
+    <div>
+      <h1 style="margin:0;font-size:20px;font-weight:600">Configuración</h1>
+      <span style="font-size:12px;color:#5a6b85">Solo con la capacidad Administrar</span>
+    </div>
+    <div style="display:flex;gap:4px;border-bottom:1px solid #dbe2ea;font-size:13px">
+      <span style="padding:8px 10px;color:#5a6b85">Personas y capacidades</span>
+      <span style="padding:8px 10px;color:#5a6b85">Metodología</span>
+      <span style="padding:8px 10px;color:#5a6b85">Analítica</span>
+      <span style="padding:8px 10px;color:#002473;font-weight:600;border-bottom:2px solid #0a58eb">omnIA</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start">
+      <form style="background:#fff;border:1px solid #dbe2ea;border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:16px">
+        <div>
+          <h2 style="margin:0;font-size:15px;font-weight:600">Alertas de seguimiento</h2>
+          <p style="margin:4px 0 0;font-size:12.5px;color:#5a6b85">Comparan el % de horas consumidas con el % de avance reportado de cada proyecto activo, en cada corte semanal.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:12.5px;font-weight:500">Importante desde
+            <span style="display:flex;align-items:center;gap:8px"><input value="15" inputmode="numeric" style="width:72px;font:600 15px Poppins,sans-serif;border:1px solid #c9d5e6;border-radius:8px;padding:8px 10px;color:#001c3f"><span style="font-size:12.5px;color:#5a6b85;font-weight:400">puntos</span></span>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:12.5px;font-weight:500">Crítica desde
+            <span style="display:flex;align-items:center;gap:8px"><input value="30" inputmode="numeric" style="width:72px;font:600 15px Poppins,sans-serif;border:1px solid #c9d5e6;border-radius:8px;padding:8px 10px;color:#001c3f"><span style="font-size:12.5px;color:#5a6b85;font-weight:400">puntos</span></span>
+          </label>
+        </div>
+        <label style="display:flex;align-items:center;gap:10px;font-size:13px"><input type="checkbox" checked style="width:18px;height:18px">Alertar la semana sin reporte de avance</label>
+        <div style="background:#f4f7fb;border-radius:8px;padding:10px 12px;font-size:12.5px;color:#33475f">Regla: diferencia = % horas − % avance. Importante si la diferencia ≥ 15; crítica si ≥ 30. La crítica debe ser mayor que la importante.</div>
+        <div style="display:flex;gap:8px">
+          <button type="button" style="border:0;background:#002473;color:#fff;font:600 13px Poppins,sans-serif;padding:9px 16px;border-radius:8px;cursor:pointer">Guardar</button>
+          <button type="button" style="border:0;background:#e8eefc;color:#002473;font:600 13px Poppins,sans-serif;padding:9px 16px;border-radius:8px;cursor:pointer">Restablecer 15 / 30</button>
+        </div>
+      </form>
+
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <section style="background:#fff;border:1px solid #dbe2ea;border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:12px">
+          <h2 style="margin:0;font-size:15px;font-weight:600">Con estos umbrales, hoy</h2>
+          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px">
+            <div style="background:#fdecea;border-radius:8px;padding:10px 12px"><b style="font-size:22px;color:#a3200f">1</b><br><span style="font-size:12px;color:#7d1a0c">crítica</span></div>
+            <div style="background:#fff1cf;border-radius:8px;padding:10px 12px"><b style="font-size:22px;color:#7a4e00">1</b><br><span style="font-size:12px;color:#7a4e00">importante</span></div>
+            <div style="background:#fff1cf;border-radius:8px;padding:10px 12px"><b style="font-size:22px;color:#7a4e00">1</b><br><span style="font-size:12px;color:#7a4e00">sin reporte</span></div>
+          </div>
+          <p style="margin:0;font-size:12px;color:#5a6b85">Vista previa sobre los 9 proyectos activos con línea base. Cambiar un umbral no reescribe el historial de alertas.</p>
+        </section>
+
+        <section style="background:#fff;border:1px dashed #c9d5e6;border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <h2 style="margin:0;font-size:15px;font-weight:600;flex:1">Avisos y resumen</h2>
+            <span style="font-size:11px;font-weight:600;padding:3px 8px;border-radius:999px;background:#fff1cf;color:#7a4e00">Pendiente de definir</span>
+          </div>
+          <div style="font-size:12.5px;color:#33475f;display:flex;flex-direction:column;gap:6px">
+            <span>Crítica: aviso inmediato al líder y a Dirección.</span>
+            <span>Importante: resumen [DÍA Y HORA] a [DESTINATARIOS].</span>
+            <span>Cierre: tras [N] cortes por debajo del umbral.</span>
+          </div>
+        </section>
+
+        <section style="background:#fff;border:1px solid #dbe2ea;border-radius:12px;padding:14px 20px;display:flex;align-items:center;gap:10px">
+          <h2 style="margin:0;font-size:14px;font-weight:600;flex:1">Límite de uso de omnIA</h2>
+          <span style="font-size:13px">50 mensajes por día por usuario</span>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":820}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex"><title>Boceto omnIA · Alertas de seguimiento · Omnicon Lab</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧪</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_dc/viewer.css"></head>
+<body>
+<header class="top"><div class="in"><a href="../../" aria-label="Omnicon Lab"><img src="../../img/logo-white.png" alt="Omnicon"></a>
+<a class="back" href="../../#exploracion"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>Volver a Omnicon Lab</a></div></header>
+<section class="hero"><div class="in"><span class="kind">Boceto</span><h1>Boceto omnIA · Alertas de seguimiento</h1><p>Pantallas del boceto de alertas de seguimiento de omnIA en Kairos: avisos, consulta, cotizaciones, forecast, horas extra y cierre mensual. 53 pantallas.</p>
+<nav class="tabs" aria-label="Secciones"><a href="#s-0">omnIA · Alertas de seguimiento (Maestro 13, punto 15)</a><a href="#s-1">omnIA en modo consulta (perfiles sin Chat)</a><a href="#s-2">Vista rápida por cluster y regional</a><a href="#s-3">Forecast y Backlog · grilla</a><a href="#s-4">Iconos de tipo y limpiar filtros</a><a href="#s-5">Seguimiento a líderes y Bitácora Forecast</a><a href="#s-6">Seguimiento por CECO · bitácora en línea</a><a href="#s-7">Cierre mensual</a><a href="#s-8">Cumplimiento · facturado por categoría</a><a href="#s-9">Menos pestañas · Avisar a los líderes</a><a href="#s-10">Cierre: pedir a los líderes antes de congelar</a><a href="#s-11">Horas extra · estándar de grillas y filtros</a><a href="#s-12">Horas extra · distribuir con el estilo de la grilla de Forecast</a><a href="#s-13">Compensatorio · se gana en Horas extra, se usa en Solicitudes</a><a href="#s-14">Cotizaciones · rediseño con el estándar del ecosistema</a><a href="#s-15">Cotizaciones · wizard completo, aprobación, vista previa y PDF</a><a href="#s-16">omnIA en cada módulo · botones de IA simulados (patrón)</a></nav></div></section>
+<main>
+<h2 id="s-0">omnIA · Alertas de seguimiento (Maestro 13, punto 15)</h2>
+<div class="boards">
+<figure class="board wide" id="b-Main"><figcaption>1 · Avisos en omnIA · Dirección <small>1280 × 820</small><a href="render.html?f=Main.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=Main.dc.html" width="1280" height="820" loading="lazy" title="1 · Avisos en omnIA · Dirección"></iframe></div></figure>
+<figure class="board wide" id="b-Explicacion"><figcaption>2 · Líder registra la explicación <small>1280 × 820</small><a href="render.html?f=Explicacion.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=Explicacion.dc.html" width="1280" height="820" loading="lazy" title="2 · Líder registra la explicación"></iframe></div></figure>
+<figure class="board wide" id="b-Configuracion"><figcaption>3 · Configuración · umbrales <small>1280 × 820</small><a href="render.html?f=Configuracion.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=Configuracion.dc.html" width="1280" height="820" loading="lazy" title="3 · Configuración · umbrales"></iframe></div></figure>
+<figure class="board" id="b-Ejecutor"><figcaption>4 · Ejecutor · 390 px, solo lectura <small>390 × 844</small><a href="render.html?f=Ejecutor.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=Ejecutor.dc.html" width="390" height="844" loading="lazy" title="4 · Ejecutor · 390 px, solo lectura"></iframe></div></figure>
+</div>
+<details class="notes"><summary>Notas del boceto (4)</summary><div class="notes-grid">
+<div class="note">Reglas [ACORDADO]
+· Importante: % horas consumidas supera el % de avance en 15 puntos o más.
+· Crítica: lo supera en 30 o más.
+· También alerta la semana sin reporte de avance.
+· Umbrales administrables en Configuración (capacidad Administrar).
+· Cálculo determinista: la IA no decide el nivel. omnIA solo pide y ordena la explicación.
+· Una alerta por proyecto y regla, con historial; puede agravarse aunque el líder ya haya respondido.</div>
+<div class="note">Comportamiento [ACORDADO 22 y 23-oct]
+· Informativa: solo en el panel. Importante: resumen. Crítica: aviso inmediato fuera del panel.
+· Nadie edita una alerta. Líder (y Dirección) registran explicación con autor y hora; va a la Bitácora.
+· Responder cierra la retroalimentación, no el riesgo.
+· Ejecutor y Administrativo ven avisos, no conversan.
+· Sin planes de recuperación de oficio.</div>
+<div class="note">Preguntas para Diego [PENDIENTE]
+1. Nivel de «semana sin reporte»: propongo Importante, y Crítica a la segunda semana seguida.
+2. Cierre: propongo que la alerta se cierre sola tras 2 cortes semanales seguidos por debajo del umbral.
+3. Resumen de importantes: propongo lunes 7:00 al líder y a Dirección.
+4. Servicios (bolsa, mantenimiento) no tienen % de avance: propongo excluirlos de la regla horas vs avance.</div>
+<div class="note">Supuestos del boceto [PROPUESTA]
+· Corte semanal: la regla corre con el reporte de avance y las horas de la semana cerrada.
+· Solo proyectos activos con línea base de avance.
+· Causas sugeridas (de la conceptualización del 22-oct): recursos insuficientes, perfil inadecuado, materiales tardíos, subestimación, bloqueo técnico, cambio de alcance, otra.
+· Datos de prototipo, ficticios.</div>
+</div></details>
+<h2 id="s-1">omnIA en modo consulta (perfiles sin Chat)</h2>
+<div class="boards">
+<figure class="board wide" id="b-ConsultaEscritorio"><figcaption>5 · omnIA en modo consulta · Ejecutor, escritorio <small>1280 × 820</small><a href="render.html?f=ConsultaEscritorio.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=ConsultaEscritorio.dc.html" width="1280" height="820" loading="lazy" title="5 · omnIA en modo consulta · Ejecutor, escritorio"></iframe></div></figure>
+<figure class="board" id="b-ConsultaMovil"><figcaption>6 · omnIA en modo consulta · 390 px <small>390 × 844</small><a href="render.html?f=ConsultaMovil.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=ConsultaMovil.dc.html" width="390" height="844" loading="lazy" title="6 · omnIA en modo consulta · 390 px"></iframe></div></figure>
+</div>
+<details class="notes"><summary>Notas del boceto (2)</summary><div class="notes-grid">
+<div class="note">Modo consulta [PROPUESTA 31-oct]
+· Para quien no tiene la capacidad Chat (por defecto Ejecutor y Administrativo).
+· El panel abre en Avisos; no hay cuadro de texto, nueva conversación ni historial.
+· Estado «Avisos», no «Sin permiso». El orbe se ve normal y late con novedades.
+· Debajo de los avisos, «Para ti»: sugerencias asistidas del registro abierto, calculadas por reglas.
+· Nada de esto usa el modelo de IA ni cuenta para el límite de 50 mensajes.
+· Si Administrar le asigna Chat a la persona, aparece la conversación en el mismo panel.</div>
+<div class="note">Administrativo [PREGUNTA]
+No recibe alertas de seguimiento. En modo consulta solo vería sugerencias asistidas. Propongo ocultarle el lanzador de omnIA mientras no tenga nada que mostrar.</div>
+</div></details>
+<h2 id="s-2">Vista rápida por cluster y regional</h2>
+<div class="boards">
+<figure class="board wide" id="b-InicioCluster"><figcaption>7 · Inicio · Líder de cluster LATAM <small>1280 × 900</small><a href="render.html?f=InicioCluster.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=InicioCluster.dc.html" width="1280" height="900" loading="lazy" title="7 · Inicio · Líder de cluster LATAM"></iframe></div></figure>
+<figure class="board wide" id="b-AnaliticaSegmentos"><figcaption>8 · Analítica · agrupar por cluster, regional y líder <small>1280 × 900</small><a href="render.html?f=AnaliticaSegmentos.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=AnaliticaSegmentos.dc.html" width="1280" height="900" loading="lazy" title="8 · Analítica · agrupar por cluster, regional y líder"></iframe></div></figure>
+</div>
+<details class="notes"><summary>Notas del boceto (2)</summary><div class="notes-grid">
+<div class="note">Propuesta [PROPUESTA 31-oct]
+· Inicio: el líder de cluster ve una tarjeta por regional con CECO activos, avance de facturación (facturado / vendido), pendiente por facturar y alertas de seguimiento. Clic → Analítica filtrada por esa regional.
+· El responsable de regional ve la misma tarjeta solo para su regional.
+· Analítica: barra de segmentación (cluster, regional, líder, cliente) y «Agrupar por» regional, líder o cliente. Por defecto, el grupo de la persona.
+· Montos consolidados en la moneda del cluster (LATAM COP, North America USD) con la TRM de Odoo. Utilidad y productividad siguen siendo de ejemplo hasta conectar costos.</div>
+<div class="note">Preguntas
+1. ¿Qué cuatro indicadores importan más al líder de cluster en la tarjeta de cada regional? Propongo: facturación, pendiente por facturar, alertas, ocupación.
+2. ¿El responsable de regional también ve su tarjeta en Inicio?</div>
+</div></details>
+<h2 id="s-3">Forecast y Backlog · grilla</h2>
+<div class="boards">
+<figure class="board wide" id="b-ForecastGrilla"><figcaption>9 · Forecast y Backlog · grilla rediseñada (LATAM, Isabela) <small>1440 × 1180</small><a href="render.html?f=ForecastGrilla.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=ForecastGrilla.dc.html" width="1440" height="1180" loading="lazy" title="9 · Forecast y Backlog · grilla rediseñada (LATAM, Isabela)"></iframe></div></figure>
+<figure class="board wide" id="b-ForecastGrillaCerrado"><figcaption>10 · Ventana movida un mes atrás: Sep 26 cerrado, solo consulta <small>1440 × 1180</small><a href="render.html?f=ForecastGrillaCerrado.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=ForecastGrillaCerrado.dc.html" width="1440" height="1180" loading="lazy" title="10 · Ventana movida un mes atrás: Sep 26 cerrado, solo consulta"></iframe></div></figure>
+</div>
+<details class="notes"><summary>Notas del boceto (3)</summary><div class="notes-grid">
+<div class="note">Qué cambia [PROPUESTA 01-nov]
+· Carrusel de meses como el de semanas de Reservas y Ejecución: siempre 3 meses visibles (en azul oscuro). Por defecto la ventana es el mes en curso y los 2 siguientes. Las flechas ‹ › mueven la ventana un mes atrás o adelante (como en Reservas); tocar un mes la deja empezando ahí; «Volver a hoy» regresa a la ventana por defecto. «Hoy» marca el mes en curso.
+· La capacidad pasa al chip de cada mes (ingenieros requeridos · ocupación) y reemplaza las 3 tarjetas grandes. Los meses cerrados muestran el cumplimiento y se ven con candado.
+· Filtros agrupados en un solo panel, igual que Reservas: buscador, Regional, Líder, Cliente y Estado como combos con conteo; Tipo como botón segmentado con iconos (Proyectos, Servicios); LIMPIAR FILTROS. Debajo, los filtros activos como chips que se quitan con la X y el conteo de CECO.
+· Grilla al estilo de Reservas: un CECO por fila con su icono de tipo, nombre y cliente; líder con foto; una subfila por categoría (Ingeniería, Equipos) solo si tiene valores.
+· Backlog con barra de avance (facturado de lo vendido) en vez de 3 columnas de números.
+· «Por proyectar» es una columna de estado con chips sin símbolos: Completo, Falta $ X, Sobra $ X.
+· Valores con separador de miles y signo; la moneda va arriba: un bloque por moneda (COP, USD) con sus totales por mes y, al final, el total consolidado en la moneda del cluster.
+· Celdas editables como campos; la cambiada queda resaltada y la barra de guardado aparece abajo solo cuando hay cambios.
+· Analista: lápiz en el backlog para ajustarlo. Historial de la celda al pasar el puntero.</div>
+<div class="note">Respuestas de Juan [ACORDADO 01-nov]
+1. Vendido y facturado dentro de la barra del backlog: sí.
+2. Meses cerrados: se pueden ver, solo como referencia; no se editan (tablero 10).
+3. Siempre 3 meses por defecto, con botones para desplazar la ventana hacia adelante y hacia atrás, como en Reservas.</div>
+<div class="note">Mes cerrado en la ventana [PROPUESTA 01-nov]
+· El chip del mes cerrado seleccionado va en gris (no en azul) y con candado.
+· Su columna lleva fondo rayado y «solo consulta»; no hay campos.
+· Cada celda muestra lo facturado en Odoo, lo comprometido en el snapshot y el % de cumplimiento (verde si llega a 100 %, ámbar si no). «Sin compromiso» cuando el CECO no estaba en el snapshot.
+· El total del bloque en el mes cerrado es lo facturado.
+· Las diferencias se revisan en Movimientos y Cumplimiento; desde aquí no se cambian.</div>
+</div></details>
+<h2 id="s-4">Iconos de tipo y limpiar filtros</h2>
+<div class="boards">
+<figure class="board wide" id="b-IconosTipo"><figcaption>11 · Iconos de tipo (proyecto y servicios) y botón de limpiar filtros <small>1440 × 1480</small><a href="render.html?f=IconosTipo.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=IconosTipo.dc.html" width="1440" height="1480" loading="lazy" title="11 · Iconos de tipo (proyecto y servicios) y botón de limpiar filtros"></iframe></div></figure>
+</div>
+<details class="notes"><summary>Notas del boceto (2)</summary><div class="notes-grid">
+<div class="note">Propuesta [PROPUESTA 01-nov]
+· Cada tipo tiene glifo propio y color propio en una baldosa redondeada: así se distingue de un vistazo y no depende solo del color (daltonismo, impresión).
+· Proyecto: bandera (hito, línea base), azul Omnicon.
+· Servicios, un color por subtipo: Mantenimiento llave (verde azulado), Suministro caja (ocre, distinto del ámbar de alertas), Bolsa de horas reloj de arena (violeta), Puntual rayo (gris pizarra). Urgencia es un Puntual con punto rojo.
+· Tooltip corto: «Proyecto» o «Servicio · Mantenimiento».
+· El selector de filtros solo distingue Proyectos y Servicios; el botón de Servicios lleva los 4 colores como pista.
+· Limpiar filtros: botón con icono de embudo con X, tooltip «Limpiar filtros (n)», contador de filtros activos y apagado cuando no hay filtros. Reemplaza el texto LIMPIAR FILTROS en todas las vistas.
+· Se adopta en grillas y tarjetas: Forecast, Proyectos, Reservas, Ejecución, Analítica, Cotizaciones e Inicio.</div>
+<div class="note">Preguntas
+1. Subtipos de servicio: hoy Proyectos usa Puntual, Urgencia, Contrato de mantenimiento y Bolsa de horas, y Cotizaciones usa la modalidad Suministro. Propongo 4: Mantenimiento, Suministro, Bolsa de horas y Puntual (Urgencia como marca del Puntual). ¿Así?
+2. ¿Te gustan los glifos marcados o prefieres alguno de los candidatos (por ejemplo Cronograma para Proyecto o Entrega para Suministro)?
+3. ¿De dónde sale el subtipo? Propongo que sea un atributo del CECO en Kairos (se elige al crear el proyecto o servicio) y que Odoo no lo traiga.</div>
+</div></details>
+<h2 id="s-5">Seguimiento a líderes y Bitácora Forecast</h2>
+<div class="boards">
+<figure class="board wide" id="b-Seguimiento"><figcaption>12 · Seguimiento a líderes (antes Reuniones) · LATAM, Isabela <small>1440 × 1720</small><a href="render.html?f=Seguimiento.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=Seguimiento.dc.html" width="1440" height="1720" loading="lazy" title="12 · Seguimiento a líderes (antes Reuniones) · LATAM, Isabela"></iframe></div></figure>
+<figure class="board" id="b-SeguimientoMovil"><figcaption>13 · Seguimiento a líderes · 390 px <small>390 × 960</small><a href="render.html?f=SeguimientoMovil.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=SeguimientoMovil.dc.html" width="390" height="960" loading="lazy" title="13 · Seguimiento a líderes · 390 px"></iframe></div></figure>
+</div>
+<details class="notes"><summary>Notas del boceto (2)</summary><div class="notes-grid">
+<div class="note">Propuesta [PROPUESTA 02-nov]
+· La pestaña Reuniones pasa a llamarse Seguimiento. No hay «Pendiente»: cada mes cada líder está «Con novedades» o «Sin novedades», y se recalcula solo.
+· Novedad = algo que revisar en sus CECO: proyección incompleta, proyectado de más, sin facturar este mes, facturó más de lo vendido, diferencias del cierre, movimientos en borrador, inconsistencias de Odoo.
+· El tamaño del líder (cuentas, proyectos) se muestra pero ya no lo vuelve «con novedades».
+· CECO activos: número grande + una baldosa por CECO con su icono de tipo. La que tiene novedad lleva borde y punto ámbar; al pasar el puntero dice el CECO y qué tiene. Debajo, proyectos y servicios, y en el estado «1 servicio de 4».
+· Pagos o forecast anticipados del mes: punto gris, informativo. Explica por qué un mes se ve bien.
+· «+ Bitácora» siempre disponible para el analista, también sin novedades. Al guardar se toma la foto de lo que Kairos ve (CECO, novedades, anticipados) junto con las conclusiones.
+· Columna Bitácora: fecha de la del mes, si existe. Escribirla no borra «Con novedades»: la novedad se va al corregirla en la grilla.
+· Se mantienen el número de bitácoras (historia por CECO) y «Ver en la grilla».</div>
+<div class="note">Preguntas
+1. ¿Más de una bitácora por líder en el mismo mes? Propongo que sí (por ejemplo a mitad de mes y al cierre).
+2. La regla anterior («3 cuentas activas o más, o algún proyecto, requiere reunión»): propongo quitarla como motivo. Si viene del Maestro, queda como [CAMBIA MAESTRO].
+3. ¿Te sirve el filtro Todos / Con novedades / Sin novedades, o prefieres ver solo los que tienen novedades por defecto?</div>
+</div></details>
+<h2 id="s-6">Seguimiento por CECO · bitácora en línea</h2>
+<div class="boards">
+<figure class="board wide" id="b-SeguimientoCeco"><figcaption>14 · Seguimiento por CECO, bitácora en la fila · LATAM, Isabela <small>1440 × 1530</small><a href="render.html?f=SeguimientoCeco.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=SeguimientoCeco.dc.html" width="1440" height="1530" loading="lazy" title="14 · Seguimiento por CECO, bitácora en la fila · LATAM, Isabela"></iframe></div></figure>
+<figure class="board" id="b-SeguimientoCecoMovil"><figcaption>16 · Seguimiento por CECO · 390 px <small>390 × 870</small><a href="render.html?f=SeguimientoCecoMovil.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=SeguimientoCecoMovil.dc.html" width="390" height="870" loading="lazy" title="16 · Seguimiento por CECO · 390 px"></iframe></div></figure>
+<figure class="board wide" id="b-GrillaBitacora"><figcaption>15 · Grilla: bitácora del CECO en una fila debajo <small>1440 × 720</small><a href="render.html?f=GrillaBitacora.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=GrillaBitacora.dc.html" width="1440" height="720" loading="lazy" title="15 · Grilla: bitácora del CECO en una fila debajo"></iframe></div></figure>
+<figure class="board wide" id="b-GrillaNovedades"><figcaption>17 · Grilla con filtro Novedades y bitácora en línea (sin pestaña Seguimiento) <small>1440 × 1460</small><a href="render.html?f=GrillaNovedades.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=GrillaNovedades.dc.html" width="1440" height="1460" loading="lazy" title="17 · Grilla con filtro Novedades y bitácora en línea (sin pestaña Seguimiento)"></iframe></div></figure>
+</div>
+<details class="notes"><summary>Notas del boceto (3)</summary><div class="notes-grid">
+<div class="note">Propuesta [PROPUESTA 02-nov] · reemplaza los tableros 12 y 13
+· La bitácora Forecast es por CECO (proyecto o servicio), no por líder. La historia sigue al CECO si cambia de líder; cada entrada dice «Líder entonces».
+· Seguimiento: una fila por CECO con icono de tipo, código, nombre, cliente y regional, agrupada por líder (foto, activos, proyectos, servicios, cuántos con novedad, botón a la grilla).
+· «Con novedades» (por defecto) muestra solo los CECO con problema; el encabezado del líder dice cuántos quedan ocultos. «Todos» deja escribir sobre un CECO sin novedades.
+· Sin ventana: campo «Observación de oct 26…» en la fila y botón de guardar al lado (se activa con 10 caracteres; Enter guarda). Al guardar: «Guardada como bitácora Forecast · fecha» y el campo queda listo para otra.
+· La bitácora guarda autor, fecha, líder del momento y la novedad que tenía el CECO.
+· «Última bitácora»: fecha, autor y el inicio del texto; el contador despliega la historia debajo de la fila.
+· En la Grilla, el contador junto al código abre una fila debajo con el campo y la historia.
+· Solo el analista escribe; los demás ven la historia sin campo.
+· Las 5 bitácoras de ejemplo pasan a CECO.</div>
+<div class="note">Preguntas
+1. En la Grilla, ¿también se puede escribir (como en el tablero 15) o solo ver la historia y escribir en Seguimiento?
+2. ¿Los líderes ven las bitácoras de sus CECO? Propongo que sí, solo lectura.</div>
+<div class="note">Menos es más [ACORDADO 02-nov]
+· Se quita la pestaña Seguimiento (tableros 12, 13, 14 y 16 quedan como historia del diseño).
+· Grilla: filtro nuevo «Novedades» (Con novedades / Sin novedades) junto a Estado, con chip y conteo de CECO. Cuenta todo lo que hay que revisar: proyección incompleta o de más, sin facturar este mes, facturó más de lo vendido, diferencias del cierre, borradores, forecast vencido, inconsistencias de Odoo.
+· La novedad se ve en la celda del CECO: baldosa con borde y punto ámbar y una línea con la novedad.
+· Bitácora Forecast por CECO: contador azul si ya tiene, «+» punteado si no. Al tocarlo se abre una fila debajo con el campo «Observación de oct 26…», el botón de guardar y la historia («Líder entonces»). Sin ventana.
+· Solo el analista escribe; el líder ve la historia de sus CECO.
+· La vista por líder queda en el filtro Líder y en Resumen por líder.</div>
+</div></details>
+<h2 id="s-7">Cierre mensual</h2>
+<div class="boards">
+<figure class="board wide" id="b-CierreMensual"><figcaption>18 · Cierre mensual rediseñado · LATAM, Isabela <small>1440 × 1060</small><a href="render.html?f=CierreMensual.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=CierreMensual.dc.html" width="1440" height="1060" loading="lazy" title="18 · Cierre mensual rediseñado · LATAM, Isabela"></iframe></div></figure>
+<figure class="board" id="b-CierreMensualMovil"><figcaption>19 · Cierre mensual · 390 px <small>390 × 940</small><a href="render.html?f=CierreMensualMovil.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=CierreMensualMovil.dc.html" width="390" height="940" loading="lazy" title="19 · Cierre mensual · 390 px"></iframe></div></figure>
+</div>
+<details class="notes"><summary>Notas del boceto (2)</summary><div class="notes-grid">
+<div class="note">Propuesta [PROPUESTA 02-nov]
+· Arriba, la fila de snapshots del cluster como el carrusel de meses: cerrados con candado y líneas; el mes en curso «Por tomar» (o «Abierto»).
+· Los 2 pasos como tarjetas: el activo resaltado; el paso 2 dice «Bloqueado» hasta resolver el paso 1.
+· Indicadores del mes anterior: comprometido, facturado con barra y %, diferencias por resolver con el neto.
+· Tabla con el patrón de la grilla y Movimientos: CECO con icono, nombre, cliente y regional; líder con foto; comprometido → facturado con barra; chip de dirección (Facturó de menos naranja, de más azul) con el monto.
+· Resolución en palabras, no en códigos: «Aplazar a [mes]» o «Eliminar» para lo que faltó; «Pago anticipado» para lo que sobró. El tipo técnico (Payment - Delayed, Deleted, Payment - Anticipated) queda en Movimientos. Razón obligatoria; el botón se activa al escribirla.
+· Resueltas: fila en verde con la decisión, razón, autor y fecha.
+· Paso 2: qué se va a congelar (líneas, CECO, total por moneda) y el botón Tomar snapshot; luego Volver a tomar / Cerrar snapshot.
+· Celular: una tarjeta por diferencia, botón de 44 px.</div>
+<div class="note">Pregunta
+¿Las resueltas siguen visibles en la tabla (en verde, al final) o se ocultan con un «Ver resueltas (n)»? Propongo verlas al final hasta cerrar el snapshot.</div>
+</div></details>
+<h2 id="s-8">Cumplimiento · facturado por categoría</h2>
+<div class="boards">
+<figure class="board wide" id="b-Cumplimiento"><figcaption>20 · Cumplimiento: facturado por categoría y factura · LATAM sep 26 <small>1440 × 1330</small><a href="render.html?f=Cumplimiento.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=Cumplimiento.dc.html" width="1440" height="1330" loading="lazy" title="20 · Cumplimiento: facturado por categoría y factura · LATAM sep 26"></iframe></div></figure>
+<figure class="board" id="b-CumplimientoMovil"><figcaption>21 · Cumplimiento · 390 px <small>390 × 560</small><a href="render.html?f=CumplimientoMovil.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=CumplimientoMovil.dc.html" width="390" height="560" loading="lazy" title="21 · Cumplimiento · 390 px"></iframe></div></figure>
+</div>
+<details class="notes"><summary>Notas del boceto (2)</summary><div class="notes-grid">
+<div class="note">Propuesta [PROPUESTA 03-nov] · comentario de Juan
+· La serie mensual de la derecha sube a una fila de meses (como Cierre): cada mes con % y facturado de comprometido; tocar uno lo selecciona. La tabla gana todo el ancho.
+· «Facturado en Odoo» se abre en 4 columnas: Ingeniería, Viáticos, Equipos y Total, en líder, CECO y factura.
+· Cada factura es una fila: número y fecha a la izquierda, y sus líneas en la columna de su categoría. FV-14085 ocupa una sola fila con Ingeniería y Viáticos.
+· Se quita Tipo. Las notas crédito se distinguen por el monto en rojo y negativo.
+· Facturas en USD dentro de LATAM: valor original y debajo el convertido con la TRM de la factura.
+· Sale la columna «Mezcla facturada»: las 3 columnas ya la dicen. La tarjeta de Facturado arriba muestra el reparto del mes.
+· Celular: tarjeta por líder; por CECO cada factura con número, fecha y sus categorías a la derecha.</div>
+<div class="note">Preguntas
+1. ¿Quitamos la barra de mezcla (Ingeniería %) o la dejas además de las columnas?
+2. En North America, ¿también 3 columnas (Ingeniería, Viáticos, Equipos)? Propongo que sí: allá viáticos ya va aparte.</div>
+</div></details>
+<h2 id="s-9">Menos pestañas · Avisar a los líderes</h2>
+<div class="boards">
+<figure class="board wide" id="b-CierreAvisar"><figcaption>22 · Cierre mensual · Paso 3 Avisar a los líderes (reemplaza Resumen por líder) <small>1440 × 1060</small><a href="render.html?f=CierreAvisar.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=CierreAvisar.dc.html" width="1440" height="1060" loading="lazy" title="22 · Cierre mensual · Paso 3 Avisar a los líderes (reemplaza Resumen por líder)"></iframe></div></figure>
+<figure class="board" id="b-CierreAvisarMovil"><figcaption>23 · Paso 3 · 390 px <small>390 × 500</small><a href="render.html?f=CierreAvisarMovil.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=CierreAvisarMovil.dc.html" width="390" height="500" loading="lazy" title="23 · Paso 3 · 390 px"></iframe></div></figure>
+</div>
+<details class="notes"><summary>Notas del boceto (2)</summary><div class="notes-grid">
+<div class="note">Propuesta [PROPUESTA 03-nov]
+· Se quitan las pestañas Resumen por líder y Alertas. Quedan 6: Grilla, Tableros, Movimientos, Cierre mensual, Cumplimiento y Datos.
+· Alertas → Grilla: el filtro Novedades ya cubre proyección incompleta, de más, sin facturar, forecast vencido, borradores, sobrefacturación e inconsistencias. Se suma «cuenta nueva con pendiente» como novedad. La franja «Pendiente en tu alcance» sigue arriba.
+· Resumen por líder → Cierre mensual, Paso 3 «Avisar a los líderes», habilitado al cerrar el snapshot: una tarjeta por líder con sus CECO (icono, código, nombre, por cliente) y montos congelados por categoría.
+· Por líder: «Copiar correo» (mismo resumen para Outlook) y «Avisar» (le llega en Kairos: campana y omnIA). Arriba: «Copiar todos» y «Avisar a los n pendientes». Cada tarjeta dice «Sin avisar» o «Avisado fecha»; se puede avisar de nuevo.
+· El paso 3 marca «n de 10 avisados».</div>
+<div class="note">Decisión de Juan [ACORDADO 03-nov] · reemplaza las tarjetas por líder de este tablero
+· Sin «Copiar correo» ni aviso por líder: un solo botón «Avisar a todos los líderes».
+· Antes de avisar: fotos de los líderes del snapshot.
+· Después: «Avisado por … · fecha · 10 líderes», «Lo vieron · n de 10» (foto con chulo), «Faltan» en gris y «Avisar de nuevo a los n que faltan».
+· El líder ve el aviso en su Inicio con «Ver mis CECO»; al abrir Forecast queda visto.
+· Construido en el prototipo.</div>
+</div></details>
+<h2 id="s-10">Cierre: pedir a los líderes antes de congelar</h2>
+<div class="boards">
+<figure class="board wide" id="b-CierrePedir"><figcaption>24 · Cierre mensual: pedir actualización antes de congelar · Isabela <small>1440 × 1570</small><a href="render.html?f=CierrePedir.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=CierrePedir.dc.html" width="1440" height="1570" loading="lazy" title="24 · Cierre mensual: pedir actualización antes de congelar · Isabela"></iframe></div></figure>
+<figure class="board wide" id="b-CierreLider"><figcaption>25 · Lo que ve el líder: pedido en Inicio y explicación de la diferencia en la Grilla <small>1440 × 600</small><a href="render.html?f=CierreLider.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=CierreLider.dc.html" width="1440" height="600" loading="lazy" title="25 · Lo que ve el líder: pedido en Inicio y explicación de la diferencia en la Grilla"></iframe></div></figure>
+<figure class="board" id="b-CierreLiderMovil"><figcaption>26 · Líder · 390 px <small>390 × 440</small><a href="render.html?f=CierreLiderMovil.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=CierreLiderMovil.dc.html" width="390" height="440" loading="lazy" title="26 · Líder · 390 px"></iframe></div></figure>
+</div>
+<details class="notes"><summary>Notas del boceto (2)</summary><div class="notes-grid">
+<div class="note">Propuesta [PROPUESTA 03-nov] · reemplaza el paso «Avisar» del tablero 22
+· Paso 1 · Pedir actualización (al abrir el cierre): un botón con fecha límite (por defecto el día 5). Cada líder recibe en Inicio el pedido con sus novedades y «Ver mis CECO».
+· Seguimiento por líder: Visto (abrió Forecast), Listo (sin novedades de proyección Y todas sus diferencias propuestas) y Diferencias de sep (propuso / falta proponer). Arriba «6 de 10 lo vieron · 7 de 10 listos» y «Recordar a los que faltan».
+· Paso 2 · Diferencias de sep, en paralelo con el paso 1. El líder PROPONE la resolución (aplazar a mes / eliminar / pago anticipado + razón, ambos obligatorios). La analista Aprueba con un clic o Cambia; al aprobar, el sistema mueve el valor en la grilla y registra el movimiento (propuso X, aprobó Y). Se puede resolver sin esperar.
+· Paso 3 · Snapshot: bloqueado solo por diferencias sin resolver (cambian lo comprometido de oct), con el motivo visible. Líderes no listos solo advierten: «si cierras, se congela así».
+· Al cerrar: aviso informativo automático a cada líder con lo comprometido; sin paso aparte.
+· Líder (tableros 25-26): la diferencia de sep aparece como novedad en su CECO; propone la resolución en la misma fila («Enviar propuesta»). Luego su CECO dice «Propuesta enviada · esperando aprobación».</div>
+<div class="note">Respuestas de Juan [ACORDADO 03-nov]
+1. Fecha límite: día 5 calendario; si cae festivo o fin de semana, el siguiente día hábil.
+2. Recordatorio solo manual (gestión del analista).
+3. Un comentario libre no basta: el líder propone la resolución y la analista aprueba.</div>
+</div></details>
+<h2 id="s-11">Horas extra · estándar de grillas y filtros</h2>
+<div class="boards">
+<figure class="board wide" id="b-HorasExtra"><figcaption>27 · Horas extra con el estándar de grilla y filtros (Isabela, Planeación) <small>1440 × 1160</small><a href="render.html?f=HorasExtra.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=HorasExtra.dc.html" width="1440" height="1160" loading="lazy" title="27 · Horas extra con el estándar de grilla y filtros (Isabela, Planeación)"></iframe></div></figure>
+<figure class="board" id="b-HorasExtraMovil"><figcaption>28 · Horas extra · 390 px <small>390 × 780</small><a href="render.html?f=HorasExtraMovil.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=HorasExtraMovil.dc.html" width="390" height="780" loading="lazy" title="28 · Horas extra · 390 px"></iframe></div></figure>
+</div>
+<details class="notes"><summary>Notas del boceto (2)</summary><div class="notes-grid">
+<div class="note">Propuesta [PROPUESTA 03-nov] · primer módulo de la estandarización
+· Indicadores arriba: Por distribuir, En aprobación (cuántas te corresponden), Aprobadas en el mes y Semanas abiertas.
+· La política pasa a una línea con ícono (antes una tarjeta grande).
+· Filtros en el panel estándar de Forecast: buscador, Semana, Persona, Aprueba, Estado, selector «Todas / Me corresponde» (por defecto Me corresponde si tienes algo por aprobar), botón de limpiar con contador y chips de filtros activos.
+· Una sola grilla en vez de tres listas (Por distribuir, Por aprobar, Seguimiento): un bloque por persona y semana con foto, ejecutado frente a capacidad en barra (azul capacidad, naranja extra) y las horas extra; debajo, una fila por línea distribuida con el CECO e ícono de tipo, día, tipo de hora como chip de color, horas, quién aprueba con foto y estado.
+· Lo que te toca aprobar se resalta y trae Aprobar / Devolver en la fila. Por distribuir: chip ámbar, aviso de vencimiento y «Recordar».
+· Celular: tarjeta por persona con sus líneas y botones de 44 px.</div>
+<div class="note">Pregunta
+El estándar quedaría: panel de filtros + chips + botón limpiar; grilla con encabezado gris en mayúsculas, CECO con ícono, personas con foto, chips de estado y acciones en la fila; tarjetas en celular. ¿Lo aplicamos después, módulo por módulo, a Reservas, Ejecución, Proyectos, Cotizaciones y Analítica?</div>
+</div></details>
+<h2 id="s-12">Horas extra · distribuir con el estilo de la grilla de Forecast</h2>
+<div class="boards">
+<figure class="board wide" id="b-DistribuirGrilla"><figcaption>29 · Distribuir horas extra como grilla CECO × día (Natalie, W43) <small>1440 × 760</small><a href="render.html?f=DistribuirGrilla.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=DistribuirGrilla.dc.html" width="1440" height="760" loading="lazy" title="29 · Distribuir horas extra como grilla CECO × día (Natalie, W43)"></iframe></div></figure>
+<figure class="board" id="b-DistribuirGrillaMovil"><figcaption>30 · Distribuir · 390 px <small>390 × 800</small><a href="render.html?f=DistribuirGrillaMovil.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=DistribuirGrillaMovil.dc.html" width="390" height="800" loading="lazy" title="30 · Distribuir · 390 px"></iframe></div></figure>
+<figure class="board wide" id="b-DistribuirGrilla2"><figcaption>31 · Distribuir v2 · una fila por CECO, la nocturna dentro de la celda <small>1440 × 880</small><a href="render.html?f=DistribuirGrilla2.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=DistribuirGrilla2.dc.html" width="1440" height="880" loading="lazy" title="31 · Distribuir v2 · una fila por CECO, la nocturna dentro de la celda"></iframe></div></figure>
+<figure class="board" id="b-DistribuirGrilla2Movil"><figcaption>32 · Distribuir v2 · 390 px, desglose en hoja inferior <small>390 × 844</small><a href="render.html?f=DistribuirGrilla2Movil.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=DistribuirGrilla2Movil.dc.html" width="390" height="844" loading="lazy" title="32 · Distribuir v2 · 390 px, desglose en hoja inferior"></iframe></div></figure>
+<figure class="board wide" id="b-DistribuirGrilla3"><figcaption>33 · Distribuir v3 · todas las semanas pendientes, cada día con D y N <small>1440 × 900</small><a href="render.html?f=DistribuirGrilla3.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=DistribuirGrilla3.dc.html" width="1440" height="900" loading="lazy" title="33 · Distribuir v3 · todas las semanas pendientes, cada día con D y N"></iframe></div></figure>
+<figure class="board" id="b-DistribuirGrilla3Movil"><figcaption>34 · Distribuir v3 · 390 px <small>390 × 980</small><a href="render.html?f=DistribuirGrilla3Movil.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=DistribuirGrilla3Movil.dc.html" width="390" height="980" loading="lazy" title="34 · Distribuir v3 · 390 px"></iframe></div></figure>
+<figure class="board wide" id="b-DistribuirGrilla4"><figcaption>35 · Distribuir v4 · cada semana con su encabezado de días y fechas <small>1440 × 830</small><a href="render.html?f=DistribuirGrilla4.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=DistribuirGrilla4.dc.html" width="1440" height="830" loading="lazy" title="35 · Distribuir v4 · cada semana con su encabezado de días y fechas"></iframe></div></figure>
+</div>
+<details class="notes"><summary>Notas del boceto (6)</summary><div class="notes-grid">
+<div class="note">Propuesta [PROPUESTA 03-nov]
+· La distribución deja de ser filas con tres listas (Proyecto, Día, Tipo) y pasa a una grilla como la de Forecast: filas = CECO que trabajaste esa semana (con ícono, nombre, cliente y lo ejecutado), columnas = Lun a Dom.
+· Escribes las horas en la celda del día. Cada CECO arranca con la franja Diurna; «+ Nocturna» agrega la segunda fila.
+· El tipo de hora se deduce: franja + día. Domingo o festivo (columna sombreada) pasa a Dominical o festiva.
+· Totales por fila, por día y barra contra lo que puedes solicitar; «Enviar a aprobación» al pie.
+· Aprueba (líder del CECO, o Planeación si quien trabajó es el líder) queda como columna.
+· Celular: tarjeta por CECO con 7 celdas de 40 px por franja.</div>
+<div class="note">Decidido 03-nov (pregunta 1): la franja va dentro de la celda, no en filas aparte. Ver tableros 31-32.
+Pregunta abierta: ¿solo los CECO donde trabajaste esa semana, o también dejamos agregar otro?</div>
+<div class="note">Iteración 2 · DESCARTADA 03-nov: el desglose en la celda suma clics. Ver iteración 3 (tableros 33-34).
+Iteración 2 [PROPUESTA 03-nov]
+· Una fila por CECO trabajado en la semana; columnas Lun a Dom; Total; Aprueba. Sin columna Franja, sin X y sin «+ Nocturna».
+· Lo que escribes en la celda es diurna. Al tocar la celda se abre un desglose Diurna / Nocturna (6 a. m.–7 p. m. y 7 p. m.–6 a. m.). Si lleva nocturna, la celda muestra una luna.
+· El tipo lo deduce Kairos: día hábil o domingo/festivo (columna sombreada) + franja → uno de los 4 tipos de hora extra.
+· Al pie, «Se envía como»: horas por tipo, para que la persona vea qué se va a aprobar.
+· Quitar = dejar vacías las celdas.
+· Celular: tarjeta por CECO con 7 celdas; el desglose se abre en una hoja inferior con campos de 44 px.</div>
+<div class="note">Iteración 3 [PROPUESTA 03-nov]
+· Todo lo que el ingeniero tiene por distribuir en una sola grilla: un bloque por semana (la más antigua primero), dentro de la ventana de 8 semanas.
+· Cabecera de cada semana: ejecutado frente a capacidad, cuánto puede solicitar, barra de distribuidas, plazo (en rojo si vence pronto) y «Enviar W41».
+· Filas = CECO trabajados en esa semana. Cada día tiene dos columnas: D diurna y N nocturna. Se escribe directo, sin abrir nada; la nocturna se pinta violeta.
+· Domingos y festivos sombreados pasan a dominical o festiva (ejemplo: lunes 12 oct en W42).
+· Al pie, «Se envía como» por tipo y «Enviar las semanas completas». Una semana incompleta no se puede enviar.
+· Celular: tarjeta por semana; por CECO una mini grilla de 2 filas (sol / luna) × 7 días, celdas de 40 px.</div>
+<div class="note">Preguntas
+1. ¿Se puede enviar una semana con parte de lo disponible (pedir menos del total), o solo cuando queda completa?
+2. ¿Solo los CECO trabajados en esa semana, o también agregar otro?</div>
+<div class="note">Iteración 4 [PROPUESTA 03-nov] · comentario: el encabezado queda por fuera de la semana y se ve cortado
+· Cada semana es su propia tarjeta: cabecera (chevron, semana, barra, plazo, Enviar) y, debajo, su encabezado de días con la FECHA real (Lun 5 oct, Mar 6 oct…) y D / N.
+· El festivo se nombra en el encabezado («12 oct · festivo») y la columna se sombrea.
+· Plegada, la semana queda en una sola línea con «2 CECO · plegada».
+· La semana que vence pronto lleva un borde naranja a la izquierda.
+· El pie (distribuido por tipo y «Enviar las semanas con horas») queda como tarjeta aparte.</div>
+</div></details>
+<h2 id="s-13">Compensatorio · se gana en Horas extra, se usa en Solicitudes</h2>
+<div class="boards">
+<figure class="board wide" id="b-HorasExtraCompensatorio"><figcaption>36 · Horas extra · el excedente también se puede pasar a compensatorio <small>1440 × 950</small><a href="render.html?f=HorasExtraCompensatorio.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=HorasExtraCompensatorio.dc.html" width="1440" height="950" loading="lazy" title="36 · Horas extra · el excedente también se puede pasar a compensatorio"></iframe></div></figure>
+<figure class="board" id="b-HorasExtraCompensatorioMovil"><figcaption>37 · Compensatorio · 390 px <small>390 × 900</small><a href="render.html?f=HorasExtraCompensatorioMovil.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=HorasExtraCompensatorioMovil.dc.html" width="390" height="900" loading="lazy" title="37 · Compensatorio · 390 px"></iframe></div></figure>
+</div>
+<details class="notes"><summary>Notas del boceto (2)</summary><div class="notes-grid">
+<div class="note">Propuesta [PROPUESTA 04-nov]
+· El excedente de la semana (ejecutado − capacidad) se reparte en: hora extra diurna (D) o nocturna (N) por día, o Compensar, una sola casilla por CECO y semana [ACORDADO: por semana].
+· D + N + Compensar no supera el excedente: el compensatorio sale de horas ejecutadas, nadie se lo inventa.
+· Hora extra: la aprueba el líder (o Planeación si quien trabajó es el líder). Compensatorio: se avisa al líder, que puede dejar observación; no aprueba.
+· El compensatorio no va a nómina como hora extra: suma al saldo de la persona (ganadas, usadas, a favor).
+· Usar el compensatorio sigue en Solicitudes, descontando de ese saldo [ACORDADO].
+· Se quita de Solicitudes «Tiempo compensatorio» (reportar domingo o festivo trabajado).</div>
+<div class="note">Pendientes
+1. Domingos y festivos trabajados: el derecho a compensación en tiempo lo define la ley, no Kairos. Gestión Humana nos dice cómo se reconoce y Kairos lo refleja. «Compensar» en Horas extra solo cubre el excedente semanal acordado internamente.
+2. ¿El saldo vence? ¿Tiene tope?
+3. ¿Planeación ve y ajusta saldos?</div>
+</div></details>
+<h2 id="s-14">Cotizaciones · rediseño con el estándar del ecosistema</h2>
+<div class="boards">
+<figure class="board wide" id="b-CotizacionesPrincipal"><figcaption>38 · Cotizaciones · página principal con el estándar de Forecast <small>1440 × 1270</small><a href="render.html?f=CotizacionesPrincipal.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=CotizacionesPrincipal.dc.html" width="1440" height="1270" loading="lazy" title="38 · Cotizaciones · página principal con el estándar de Forecast"></iframe></div></figure>
+<figure class="board" id="b-CotizacionesPrincipalMovil"><figcaption>39 · Cotizaciones · 390 px <small>390 × 980</small><a href="render.html?f=CotizacionesPrincipalMovil.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=CotizacionesPrincipalMovil.dc.html" width="390" height="980" loading="lazy" title="39 · Cotizaciones · 390 px"></iframe></div></figure>
+</div>
+<details class="notes"><summary>Notas del boceto (2)</summary><div class="notes-grid">
+<div class="note">Propuesta [PROPUESTA 04-nov]
+· Cabecera como Forecast: título, explicación corta, selector de cluster LATAM · COP / North America · USD (antes Nacional, Latinoamérica, Norteamérica y Europa), alcance, «Odoo · simulado» y «Nueva cotización».
+· 4 KPIs con valor y no solo conteo: En curso, Por aprobar, Con el cliente (días sin respuesta) y Ganadas en el año con tasa de éxito.
+· Embudo de estados en una franja: Borrador → En revisión → Aprobada sin presentar → Presentada → Ganada / No ganada. Cada tramo filtra la grilla.
+· Panel de filtros estándar: buscador, Unidad, Regional, Modalidad, Responsable, Agrupar, «Todas / Mías», limpiar con contador y línea de contexto.
+· Grilla agrupada por estado (o por cliente, unidad o responsable). Cada fila: cotización con consecutivo y revisión, unidad, regional, modalidad, horas, valor (USD con su equivalente en COP), estado con el siguiente paso, responsable con foto y fecha.
+· Celular: tarjetas.</div>
+<div class="note">Respuestas de Juan (04-nov)
+1. [ACORDADO] La cotización lleva regional y se selecciona al armarla.
+3. [ACORDADO] Agrupar por estado es la vista por defecto.
+2. [ACORDADO] El siguiente paso bajo el estado lo escribe Kairos según lo que le falta a la cotización (estimación, actividades, aprobación, respuesta del cliente); el responsable no lo edita.</div>
+</div></details>
+<h2 id="s-15">Cotizaciones · wizard completo, aprobación, vista previa y PDF</h2>
+<div class="boards">
+<figure class="board wide" id="b-CotWizGeneral"><figcaption>40 · Wizard · General: de Odoo vs. lo que defines, tipo Nueva / Adicional <small>1440 × 1095</small><a href="render.html?f=CotWizGeneral.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=CotWizGeneral.dc.html" width="1440" height="1095" loading="lazy" title="40 · Wizard · General: de Odoo vs. lo que defines, tipo Nueva / Adicional"></iframe></div></figure>
+<figure class="board wide" id="b-CotWizAlcance"><figcaption>41 · Wizard · Alcance técnico y documento de diseño adjunto <small>1440 × 1357</small><a href="render.html?f=CotWizAlcance.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=CotWizAlcance.dc.html" width="1440" height="1357" loading="lazy" title="41 · Wizard · Alcance técnico y documento de diseño adjunto"></iframe></div></figure>
+<figure class="board wide" id="b-CotWizServicios"><figcaption>42 · Wizard · Servicios con el estándar de grilla <small>1440 × 1303</small><a href="render.html?f=CotWizServicios.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=CotWizServicios.dc.html" width="1440" height="1303" loading="lazy" title="42 · Wizard · Servicios con el estándar de grilla"></iframe></div></figure>
+<figure class="board wide" id="b-CotWizViaticos"><figcaption>43 · Wizard · Viáticos como la hoja de cálculo: conceptos × costo × ingenieros <small>1440 × 1098</small><a href="render.html?f=CotWizViaticos.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=CotWizViaticos.dc.html" width="1440" height="1098" loading="lazy" title="43 · Wizard · Viáticos como la hoja de cálculo: conceptos × costo × ingenieros"></iframe></div></figure>
+<figure class="board" id="b-CotWizViaticosMovil"><figcaption>50 · Viáticos · 390 px <small>390 × 900</small><a href="render.html?f=CotWizViaticosMovil.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=CotWizViaticosMovil.dc.html" width="390" height="900" loading="lazy" title="50 · Viáticos · 390 px"></iframe></div></figure>
+<figure class="board wide" id="b-CotWizSuministro"><figcaption>44 · Wizard · Suministro (aplica / no aplica) <small>1440 × 828</small><a href="render.html?f=CotWizSuministro.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=CotWizSuministro.dc.html" width="1440" height="828" loading="lazy" title="44 · Wizard · Suministro (aplica / no aplica)"></iframe></div></figure>
+<figure class="board wide" id="b-CotWizRevision"><figcaption>45 · Wizard · Revisión y envío: checklist, resumen interno, condiciones y aprobación <small>1440 × 972</small><a href="render.html?f=CotWizRevision.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=CotWizRevision.dc.html" width="1440" height="972" loading="lazy" title="45 · Wizard · Revisión y envío: checklist, resumen interno, condiciones y aprobación"></iframe></div></figure>
+<figure class="board wide" id="b-CotAprobador"><figcaption>46 · Lo que ve el líder de cluster al aprobar <small>1440 × 749</small><a href="render.html?f=CotAprobador.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=CotAprobador.dc.html" width="1440" height="749" loading="lazy" title="46 · Lo que ve el líder de cluster al aprobar"></iframe></div></figure>
+<figure class="board wide" id="b-CotVistaPrevia"><figcaption>47 · Vista previa de la propuesta comercial (CO-F58) al aprobar · PDF y envío <small>1440 × 1396</small><a href="render.html?f=CotVistaPrevia.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=CotVistaPrevia.dc.html" width="1440" height="1396" loading="lazy" title="47 · Vista previa de la propuesta comercial (CO-F58) al aprobar · PDF y envío"></iframe></div></figure>
+<figure class="board" id="b-CotVistaPreviaMovil"><figcaption>51 · Vista previa · 390 px <small>390 × 820</small><a href="render.html?f=CotVistaPreviaMovil.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=CotVistaPreviaMovil.dc.html" width="390" height="820" loading="lazy" title="51 · Vista previa · 390 px"></iframe></div></figure>
+<figure class="board wide" id="b-CotCorreo"><figcaption>48 · Enviar por correo (simulado) con los dos adjuntos <small>1440 × 780</small><a href="render.html?f=CotCorreo.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=CotCorreo.dc.html" width="1440" height="780" loading="lazy" title="48 · Enviar por correo (simulado) con los dos adjuntos"></iframe></div></figure>
+<figure class="board wide" id="b-CotAnaliticaRent"><figcaption>49 · Analítica · Rentabilidad de cotizaciones (tablero para aprobar) <small>1440 × 811</small><a href="render.html?f=CotAnaliticaRent.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=CotAnaliticaRent.dc.html" width="1440" height="811" loading="lazy" title="49 · Analítica · Rentabilidad de cotizaciones (tablero para aprobar)"></iframe></div></figure>
+</div>
+<details class="notes"><summary>Notas del boceto (10)</summary><div class="notes-grid">
+<div class="note">Wizard [PROPUESTA 04-nov] · 6 pasos: General → Alcance técnico → Servicios → Viáticos → Suministro → Revisión y envío. Sin paso de Análisis: la rentabilidad vive en Analítica.
+· Arriba, fijo en todos los pasos: cabecera (consecutivo, cliente, cluster, regional, unidad, tipo, responsable, quién aprueba, estado), 5 KPIs (horas, venta, costo, margen frente al mínimo, pasos listos) y la barra de pasos.
+· General separa «De Odoo» (solo lectura) de «Lo que defines».
+· La regional define el cluster y el aprobador: LATAM → Gonzalo Perdomo; North America → Rafael de Vega.
+· Tipo: Nueva por defecto. Adicional pide «Adicional de», con los proyectos en curso filtrados por cliente, cluster y regional. Al ganar, el proyecto se crea dentro de ese grupo.</div>
+<div class="note">Alcance técnico = la sección «Propuesta técnica» del CO-F58: alcance general, actividades por fase, fuera del alcance y consideraciones técnicas.
+· Las actividades pasan a Servicios para estimar las horas.
+· Documento de diseño IN-D100-F09: no se construye en Kairos. Se adjunta con versión y firmas (elaborado, revisado, autorizado).
+· Si la cotización lo requiere, no se puede enviar a aprobación sin la versión autorizada.</div>
+<div class="note">Servicios con el estándar de grilla de Forecast: actividad × rol, con horas editables, costo, venta y margen por fila.
+· Las tarifas vienen de la lista de precios del cluster.
+· En el PDF salen solo dos líneas: «Servicios profesionales de ingeniería» e «Ingeniero líder».</div>
+<div class="note">Viáticos como la hoja de cálculo de Juan: concepto × costo unitario × unidades por ingeniero (hasta 4).
+· Se marca si aplica o no. Cada concepto se puede apagar.
+· Al cliente le llega una sola línea, «Gastos asociados · GL».
+· PENDIENTE: ¿se trasladan al costo o con un porcentaje de administración? En el boceto van al costo.
+· PENDIENTE: ¿la lista base de conceptos y costos unitarios se configura por cluster en Configuración?</div>
+<div class="note">Suministro también se marca si aplica o no.
+· Ítems con proveedor, costo, margen y precio; el cliente solo ve descripción, cantidad y valores.
+· La entrega más larga pasa a «Tiempo de entrega» en las condiciones comerciales.</div>
+<div class="note">Revisión y envío: checklist, resumen interno por línea (costo, venta, margen), condiciones comerciales editables y aprobación.
+· La bienvenida, las cláusulas y las notas son fijas de la plantilla [ACORDADO 04-nov].
+· La vista previa y el PDF se habilitan solo al aprobar.</div>
+<div class="note">El líder de cluster recibe el aviso en Inicio. Ve el resumen económico frente a los mínimos, lo que va al cliente y el enlace al tablero de rentabilidad.
+· Aprueba, o devuelve con un comentario a un paso concreto.</div>
+<div class="note">Vista previa del documento CO-F58 [PROPUESTA 04-nov], con el estilo del informe de servicio: portada con foto, franja azul y cian, y tablas con encabezado oscuro.
+· Son 7 páginas, con miniaturas a la izquierda.
+· «Descargar PDF» genera el mismo diseño (jsPDF, como el informe de servicio).
+· El paquete lleva la propuesta comercial y el documento de diseño.
+· Las secciones aparecen según el contenido: sin viáticos o sin suministro, esas líneas no salen.
+· PENDIENTE: ¿North America (USD) usa la misma plantilla en inglés?</div>
+<div class="note">Correo simulado: el destinatario viene del contacto de Odoo, con CC, asunto, mensaje y los dos adjuntos.
+· Al enviar, la cotización pasa a «Presentada» y empieza a contar los días sin respuesta (se ve en la lista principal).</div>
+<div class="note">Tablero nuevo en Analítica, «Rentabilidad de cotizaciones» [PROPUESTA 04-nov]: margen por cotización frente al mínimo, por unidad y regional, y cotizado frente a ejecutado.
+· Desde la aprobación se abre filtrado y resaltado, con «Volver a aprobar».
+· Los mínimos (25 % total, 35 % servicios, 15 % suministro) son ilustrativos. PENDIENTE: ¿cuáles son los reales?</div>
+</div></details>
+<h2 id="s-16">omnIA en cada módulo · botones de IA simulados (patrón)</h2>
+<div class="boards">
+<figure class="board wide" id="b-OmniaCotRevisar"><figcaption>52 · Cotizaciones · «Revisar con omnIA» antes de enviar (Solution Design) <small>1440 × 1040</small><a href="render.html?f=OmniaCotRevisar.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=OmniaCotRevisar.dc.html" width="1440" height="1040" loading="lazy" title="52 · Cotizaciones · «Revisar con omnIA» antes de enviar (Solution Design)"></iframe></div></figure>
+<figure class="board wide" id="b-OmniaCotAprobar"><figcaption>53 · Cotizaciones · «Resumen para aprobar» (líder de cluster) <small>1440 × 1004</small><a href="render.html?f=OmniaCotAprobar.dc.html" target="_blank" rel="noopener">Ver a tamaño real ↗</a></figcaption><div class="stage"><iframe src="render.html?f=OmniaCotAprobar.dc.html" width="1440" height="1004" loading="lazy" title="53 · Cotizaciones · «Resumen para aprobar» (líder de cluster)"></iframe></div></figure>
+</div>
+<details class="notes"><summary>Notas del boceto (2)</summary><div class="notes-grid">
+<div class="note">Patrón de IA embebida [PROPUESTA 17-nov]
+· El botón con el orbe vive donde nace la necesidad; no hay que abrir el chat ni escribir.
+· Al pulsarlo se abre el panel de omnIA con el contexto del registro abierto (módulo, cotización y paso).
+· La respuesta llega como tarjeta, y la persona decide: ir al paso, marcar como revisada o descartar.
+· Cada hallazgo dice de dónde sale: «IA · lee el texto» o «Regla · cálculo».
+· Etiqueta «IA · simulada» mientras no esté conectado el modelo, igual que «Odoo · simulado».
+· En el prototipo: los hallazgos de regla se calculan con los datos de la pantalla; los de IA son un ejemplo preparado y coherente con la cotización.
+· omnIA no envía ni corrige nada por su cuenta.</div>
+<div class="note">Resumen para el aprobador [PROPUESTA 17-nov]
+· Cinco puntos fijos: qué es, margen, comparación con cotizaciones parecidas, supuestos con riesgo y pendientes.
+· omnIA no recomienda aprobar ni devolver.
+· «Copiar al comentario» lleva el texto al campo de la decisión para editarlo.
+· En productivo necesita el histórico de cotizaciones normalizado, para elegir las comparables.
+
+Siguientes botones con el mismo patrón, si se aprueba: leer el pliego del cliente, explicar la sugerencia de horas (Cotizaciones), informe desde bitácoras, «¿esto está en lo vendido?» (Proyectos), explicar la variación del mes, preparar la reunión con el líder (Forecast) y preguntar en lenguaje natural (Analítica).</div>
+</div></details>
+</main>
+<footer>© 2026 Omnicon S.A.S. · Omnicon Lab</footer>
+<script src="../_dc/viewer.js"></script>
+</body></html>

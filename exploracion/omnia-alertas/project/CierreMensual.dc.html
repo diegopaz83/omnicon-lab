@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Cierre mensual</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Poppins,system-ui,sans-serif;color:#001c3f}
+.bd{box-sizing:border-box;background:#f2f5f9;color:#001c3f;font-family:Poppins,system-ui,sans-serif;padding:28px 32px;display:flex;flex-direction:column;gap:16px;font-variant-numeric:tabular-nums}
+.bd *{box-sizing:border-box}
+.bd button{font:inherit;color:inherit;border:0;background:none;padding:0}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tabs span{border:1px solid #dbe2ea;background:#fff;border-radius:999px;padding:6px 14px;font-size:13px}
+.tabs .on{background:#002473;color:#fff;border-color:#002473}
+.tabs small{font-size:10px;font-weight:600;background:#e8eefc;color:#002473;border-radius:999px;padding:1px 6px;margin-left:4px}
+.hd{display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
+.hd h1{margin:0;font-size:20px;font-weight:600}
+.hd p{margin:4px 0 0;font-size:13px;color:#556578;max-width:760px}
+.seg{display:inline-flex;border:1px solid #dbe2ea;border-radius:8px;overflow:hidden;background:#fff;flex:none}
+.seg span{padding:7px 14px;font-size:13px;display:inline-flex;gap:6px;align-items:center;border-left:1px solid #dbe2ea}
+.seg span:first-child{border-left:0}
+.seg .on{background:#e8eefc;color:#002473;font-weight:600}
+.seg b{font-weight:600;font-size:11px;background:#fff;border-radius:999px;padding:0 6px;color:#556578}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.kpi{background:#fff;border:1px solid #dbe2ea;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:2px}
+.kpi small{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#556578}
+.kpi b{font-size:22px;font-weight:600}
+.kpi span{font-size:12px;color:#556578}
+.kpi.nv b{color:#8a4b00}
+.card{background:#fff;border:1px solid #dbe2ea;border-radius:12px;overflow:hidden}
+table.t{border-collapse:collapse;width:100%;font-size:13px}
+.t th{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#556578;font-weight:500;text-align:left;padding:12px 14px;border-bottom:1px solid #dbe2ea}
+.t td{padding:12px 14px;border-bottom:1px solid #eef2f6;vertical-align:middle}
+.t tr.calm td{background:#fbfcfd}
+.lw{display:flex;gap:10px;align-items:center}
+.lw b{font-weight:500}
+.av{border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px #fff,0 0 0 3px #dbe2ea;flex:none}
+.av.ini{display:inline-flex;align-items:center;justify-content:center;background:#e8eefc;color:#002473;font-size:11px;font-weight:600}
+.comp{display:flex;gap:12px;align-items:center}
+.cn{display:flex;flex-direction:column;align-items:center;min-width:44px}
+.cn b{font-size:20px;font-weight:600;line-height:1}
+.cn span{font-size:11px;color:#556578}
+.cb{display:flex;flex-direction:column;gap:6px}
+.ct{display:flex;gap:6px;flex-wrap:wrap}
+.cb small{font-size:12px;color:#556578;display:flex;gap:10px;align-items:center}
+.kf{display:inline-flex;color:#002473;margin-right:3px;vertical-align:-1px}
+.kd{display:inline-grid;grid-template-columns:5px 5px;gap:2px;margin-right:4px;vertical-align:-1px}
+.kd i{display:block;width:5px;height:5px;border-radius:2px}
+.tile{display:inline-flex;align-items:center;justify-content:center;border-radius:8px;flex:none;position:relative;border:2px solid transparent}
+.tile.nov{border-color:#c46a00}
+.tile .urg{position:absolute;top:-4px;left:-4px;width:9px;height:9px;border-radius:50%;background:#d23b44;box-shadow:0 0 0 2px #fff}
+.tile .nd{position:absolute;top:-6px;right:-6px;width:14px;height:14px;border-radius:50%;background:#c46a00;box-shadow:0 0 0 2px #fff}
+.tile .nd:after{content:"!";color:#fff;font-size:10px;font-weight:700;font-style:normal;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;line-height:1}
+.tile .id{position:absolute;top:-5px;right:-5px;width:11px;height:11px;border-radius:50%;background:#8593a5;box-shadow:0 0 0 2px #fff}
+.sn{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#8a4b00;background:#fff3e0;border-radius:999px;padding:3px 10px}
+.ok{display:inline-flex;font-size:12px;color:#556578;background:#eef2f6;border-radius:999px;padding:3px 10px}
+.sx,.si{display:flex;align-items:center;gap:4px;font-size:12px;color:#556578;margin-top:5px}
+.nl{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:3px;font-size:12.5px}
+.nl b{font-family:ui-monospace,monospace;font-weight:500;font-size:12px;margin-right:4px}
+.nl.info{color:#556578}
+.mu{color:#8593a5}
+.bm{white-space:nowrap;display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#002473;background:#e8eefc;border-radius:999px;padding:3px 10px;font-weight:500}
+.acts{display:flex;gap:6px;align-items:center;justify-content:flex-end}
+.btn{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px!important;border-radius:8px!important;font-size:12.5px!important;white-space:nowrap}
+.btn.pri{background:#002473!important;color:#fff!important}
+.btn.gh{border:1px solid #dbe2ea!important;background:#fff!important}
+.btn[disabled]{color:#8593a5!important}
+.ib{width:34px;height:34px;border:1px solid #dbe2ea!important;border-radius:8px!important;display:inline-flex;align-items:center;justify-content:center;color:#002473!important;background:#fff!important}
+.tipb{position:absolute;background:#001c3f;color:#fff;font-size:12px;padding:8px 11px;border-radius:8px;box-shadow:0 8px 20px rgba(0,28,63,.25);line-height:1.45;z-index:2;width:260px}
+.tipb b{display:block;font-weight:600}
+.leg{display:flex;gap:18px;align-items:center;font-size:12px;color:#556578;flex-wrap:wrap}
+.leg span{display:inline-flex;gap:8px;align-items:center}
+.duo{display:grid;grid-template-columns:1.05fr 1fr;gap:16px;align-items:start}
+.md{background:#fff;border:1px solid #dbe2ea;border-radius:12px;box-shadow:0 12px 30px rgba(0,28,63,.12)}
+.md h3{margin:0;font-size:15px;font-weight:600;padding:14px 18px;border-bottom:1px solid #dbe2ea}
+.mb{padding:14px 18px;display:flex;flex-direction:column;gap:12px}
+.mf{padding:12px 18px;border-top:1px solid #dbe2ea;display:flex;justify-content:flex-end;gap:8px}
+.box{border:1px solid #eef2f6;background:#f8fafc;border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;font-size:12.5px}
+.box small{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#556578}
+.ta{border:1px solid #0a58eb;border-radius:8px;min-height:96px;padding:10px 12px;font-size:13px;color:#001c3f;line-height:1.5}
+.lab{font-size:13px;font-weight:500}
+.note{font-size:12px;color:#556578;margin:0}
+.pill{font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:#e8eefc;color:#002473}
+.mc{background:#fff;border:1px solid #dbe2ea;border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.mch{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.mc .acts{justify-content:flex-start}
+.mc .btn{height:40px}
+.mc .ib{width:40px;height:40px}
+
+.grp td{background:#f6f8fb;border-top:1px solid #dbe2ea;padding:10px 14px}
+.gh{display:flex;align-items:center;gap:12px}
+.gh b{font-weight:600;font-size:14px}
+.gh .meta{font-size:12.5px;color:#556578;display:flex;gap:10px;align-items:center}
+.gh .meta span{display:inline-flex;gap:4px;align-items:center}
+.gh .nvc{font-size:12px;font-weight:600;color:#8a4b00;background:#fff3e0;border-radius:999px;padding:2px 9px}
+.gh .okc{font-size:12px;color:#556578;background:#eef2f6;border-radius:999px;padding:2px 9px}
+.gh .sp{flex:1}
+.ceco{display:flex;gap:10px;align-items:flex-start}
+.ceco b{display:block;font-family:ui-monospace,monospace;font-weight:500;font-size:12.5px}
+.ceco .nm{display:block;font-size:13px}
+.ceco .cli{display:block;font-size:11.5px;color:#556578}
+.nvx{display:inline-flex;gap:5px;align-items:center;font-size:12px;color:#8a4b00;background:#fff3e0;border-radius:6px;padding:3px 8px;line-height:1.35}
+.nvi{display:inline-flex;gap:5px;align-items:center;font-size:12px;color:#556578;background:#eef2f6;border-radius:6px;padding:3px 8px}
+.lb{font-size:12.5px;line-height:1.4}
+.lb small{display:block;font-size:11.5px;color:#556578}
+.lb .snip{color:#334a63;display:block;max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hcnt{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:#002473;background:#e8eefc;border-radius:999px;padding:2px 8px;margin-top:4px}
+.hcnt.open{background:#002473;color:#fff}
+.obs{display:flex;gap:6px;align-items:center}
+.obs .in{flex:1;height:38px;border:1px solid #dbe2ea;border-radius:8px;background:#fff;padding:0 10px;font-size:13px;color:#8593a5;display:flex;align-items:center;min-width:0}
+.obs .in.typed{border-color:#0a58eb;color:#001c3f;box-shadow:0 0 0 3px #e3ecff}
+.obs .sv{width:38px;height:38px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;background:#eef2f6;color:#8593a5;flex:none}
+.obs .sv.on{background:#002473;color:#fff}
+.okmsg{display:flex;gap:6px;align-items:center;font-size:12px;color:#145a37;margin-top:4px}
+.hist td{background:#fbfcfe;padding:4px 14px 14px 62px}
+.hl{display:flex;flex-direction:column;gap:8px;border-left:2px solid #dbe2ea;padding-left:14px}
+.he{font-size:12.5px;line-height:1.45}
+.he .h1{display:flex;gap:8px;align-items:center;font-size:12px;color:#556578}
+.he .h1 b{color:#001c3f;font-weight:600}
+.lead{display:inline-flex;gap:4px;align-items:center}
+.cntx{font-size:12px;color:#556578}
+.hint{font-size:12px;color:#556578}
+.gwr{background:#fff;border:1px solid #dbe2ea;border-radius:12px;overflow:hidden}
+table.gg{border-collapse:collapse;width:100%;font-size:13px}
+.gg th{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#556578;font-weight:500;text-align:left;padding:10px 12px;border-bottom:1px solid #dbe2ea}
+.gg td{padding:10px 12px;border-bottom:1px solid #eef2f6;vertical-align:middle}
+.gg .r{text-align:right}
+.cell{display:inline-block;min-width:110px;text-align:right;border:1px solid #dbe2ea;border-radius:6px;padding:5px 8px;background:#fff}
+.bth{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:600;color:#002473;background:#e8eefc;border-radius:999px;padding:1px 7px 1px 5px;margin-left:6px;vertical-align:middle}
+.bth.open{background:#002473;color:#fff}
+.inl td{background:#f5f8ff;border-bottom:1px solid #dbe2ea}
+.inlb{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:4px 0 4px 44px}
+.inlb h4{margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:#556578;font-weight:500}
+.chip{font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:999px}
+.chip.ok{background:#e5f7ee;color:#145a37}.chip.mi{background:#fff3e0;color:#8a4b00}
+
+.stp{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.st{background:#fff;border:1px solid #dbe2ea;border-radius:12px;padding:12px 16px;display:flex;gap:12px;align-items:center}
+.st.on{border-color:#002473;box-shadow:inset 0 0 0 1px #002473}
+.st.lk{background:#f6f8fb;color:#556578}
+.st .n{width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;flex:none;background:#e8eefc;color:#002473}
+.st.on .n{background:#002473;color:#fff}
+.st b{display:block;font-size:14px;font-weight:600}
+.st small{display:block;font-size:12px;color:#556578}
+.st .sp{flex:1}
+.pl{font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.pl.w{background:#fff3e0;color:#8a4b00}.pl.g{background:#eef2f6;color:#556578}.pl.ok{background:#e5f7ee;color:#145a37}
+.months{display:flex;gap:8px;align-items:center}
+.mch{border:1px solid #dbe2ea;background:#fff;border-radius:10px;padding:6px 12px;display:flex;flex-direction:column;min-width:120px}
+.mch b{font-size:13px;font-weight:600}
+.mch small{font-size:11.5px;color:#556578;display:flex;gap:4px;align-items:center}
+.mch.cl{background:#f6f8fb}
+.mch.cur{border-color:#002473;border-style:dashed}
+.mlab{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#556578;margin-right:4px}
+.sec{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.sec h2{margin:0;font-size:16px;font-weight:600}
+.sec p{margin:2px 0 0;font-size:12.5px;color:#556578}
+.kpi .bar{height:6px;border-radius:3px;background:#eef2f6;overflow:hidden;margin-top:6px}
+.kpi .bar i{display:block;height:100%;background:#0a58eb}
+.dch{white-space:nowrap;display:inline-flex;gap:5px;align-items:center;font-size:12px;font-weight:600;border-radius:6px;padding:3px 8px}
+.dch.dn{background:#fff3e0;color:#8a4b00}.dch.up{background:#e8eefc;color:#002473}
+.dv{display:block;font-size:14px;font-weight:600;margin-top:4px}
+.cv{font-size:12.5px;line-height:1.5}
+.cv b{font-weight:600}
+.cv small{display:block;color:#556578;font-size:11.5px}
+.cbar{height:6px;border-radius:3px;background:#eef2f6;overflow:hidden;margin:4px 0;width:150px}
+.cbar i{display:block;height:100%;background:#0a58eb}
+.cbar.ov i{background:#002473}
+.rs{display:flex;flex-direction:column;gap:6px}
+.opt{display:inline-flex;border:1px solid #dbe2ea;border-radius:8px;overflow:hidden;background:#fff}
+.opt span{padding:5px 10px;font-size:12px;display:inline-flex;gap:5px;align-items:center;border-left:1px solid #dbe2ea}
+.opt span:first-child{border-left:0}
+.opt .on{background:#fff3e0;color:#8a4b00;font-weight:600}
+.opt .on.g{background:#eef2f6;color:#334a63}
+.opt .on.b{background:#e8eefc;color:#002473}
+.sel{display:inline-flex;align-items:center;gap:6px;border:1px solid #dbe2ea;border-radius:8px;height:30px;padding:0 8px;font-size:12px;background:#fff}
+.rr{display:flex;gap:6px;align-items:center}
+.rr .in{flex:1;height:34px;border:1px solid #dbe2ea;border-radius:8px;padding:0 10px;font-size:12.5px;color:#8593a5;display:flex;align-items:center;background:#fff}
+.rr .in.t{color:#001c3f;border-color:#0a58eb}
+.rr .btn{height:34px}
+.btn.dis{background:#eef2f6!important;color:#8593a5!important}
+.done td{background:#f6fbf8}
+.rok{display:flex;flex-direction:column;gap:2px;font-size:12.5px}
+.rok small{color:#556578;font-size:11.5px}
+.s2{background:#fff;border:1px solid #dbe2ea;border-radius:12px;padding:16px 18px;display:grid;grid-template-columns:repeat(3,1fr) auto;gap:16px;align-items:center}
+.s2 .k small{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#556578}
+.s2 .k b{display:block;font-size:18px;font-weight:600;margin-top:2px}
+.s2 .k span{font-size:12px;color:#556578}
+.lockn{display:flex;gap:8px;align-items:center;font-size:12.5px;color:#8a4b00;background:#fff8ef;border:1px solid #f3dcc0;border-radius:10px;padding:10px 12px}
+.acts2{display:flex;gap:8px;flex-direction:column;align-items:stretch}
+</style>
+</helmet>
+<div class="bd" style="width:1440px;height:1060px"><div class="tabs"><span>Grilla</span><span>Tableros</span><span>Movimientos</span><span class="on">Cierre mensual</span><span>Cumplimiento</span><span>Resumen por líder</span><span>Alertas<small>6</small></span><span>Datos</span></div><div class="months"><span class="mlab">Snapshots LATAM</span><div class="mch cl"><b>jul 26</b><small><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Cerrado · 13 líneas</small></div><div class="mch cl"><b>ago 26</b><small><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Cerrado · 16 líneas</small></div><div class="mch cl"><b>sep 26</b><small><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Cerrado · 16 líneas</small></div><div class="mch cur"><b>oct 26</b><small>Por tomar</small></div></div><div class="stp"><div class="st on"><span class="n">1</span><div><b>Resolver diferencias de sep 26</b><small>Comprometido en el snapshot frente a facturado en Odoo</small></div><span class="sp"></span><span class="pl w">3 por resolver</span></div><div class="st lk"><span class="n">2</span><div><b>Congelar lo comprometido de oct 26</b><small>Se habilita cuando no quedan diferencias</small></div><span class="sp"></span><span class="pl g"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> Bloqueado</span></div></div><div class="kpis"><div class="kpi"><small>Comprometido sep 26</small><b>$ 315,7 M</b><span>Snapshot del 3 sep · 16 líneas</span></div><div class="kpi"><small>Facturado sep 26</small><b>$ 310,3 M · 98 %</b><div class="bar"><i style="width:98%"></i></div></div><div class="kpi nv"><small>Diferencias por resolver</small><b>3 CECO · neto −$ 5.000.000</b><span>2 facturaron de menos · 1 de más</span></div></div><div class="sec"><div><h2>Paso 1 · Diferencias de sep 26</h2><p>Cada diferencia se explica con un movimiento: lo que faltó se aplaza o se elimina; lo que sobró se descuenta de los meses siguientes.</p></div></div><div class="card"><table class="t"><colgroup><col style="width:310px"><col style="width:170px"><col style="width:230px"><col style="width:180px"><col></colgroup><thead><tr><th>CECO</th><th>Líder</th><th>Comprometido → facturado</th><th>Diferencia</th><th>Resolución</th></tr></thead><tbody><tr><td><div class="ceco"><span class="tile nov" title="Servicio · Mantenimiento · 30702001100 — facturó de menos en el cierre" style="width:30px;height:30px;color:#00727f;background:#dff4f6"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.3 5.3L3.5 17.5a1.5 1.5 0 0 0 2.1 2.1l5.9-5.9a4 4 0 0 0 5.3-5.3l-2.6 2.6-2.1-.5-.5-2.1z"/></svg><i class="nd"></i></span><div style="min-width:0"><b>30702001100</b><span class="nm">Soporte DCS planta Barranquilla</span><span class="cli">Team Foods Colombia S.A. · Col_North</span></div></div></td><td><div class="lw"><span class="av ini" style="width:30px;height:30px">IP</span><span>Iván Paternina</span></div></td><td><div class="cv"><b>$ 7.111.111</b> facturado<div class="cbar"><i style="width:70%"></i></div><small>de $ 10.111.111 comprometido · Ingeniería · 70 %</small></div></td><td><span class="dch dn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m6 13 6 6 6-6"/></svg>Facturó de menos</span><span class="dv">−$ 3.000.000</span></td><td><div class="rs"><div class="rr"><span class="opt"><span class="on"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m6 13 6 6 6-6"/></svg>Aplazar a</span><span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6"/><path d="M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Eliminar</span></span><span class="sel">nov 26 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span></div><div class="rr"><span class="in t">Factura retenida: el cliente pidió unirla con la de noviembre.</span><button class="btn pri">Resolver</button></div></div></td></tr><tr><td><div class="ceco"><span class="tile nov" title="Servicio · Mantenimiento · 30401007200 — facturó de menos en el cierre" style="width:30px;height:30px;color:#00727f;background:#dff4f6"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.3 5.3L3.5 17.5a1.5 1.5 0 0 0 2.1 2.1l5.9-5.9a4 4 0 0 0 5.3-5.3l-2.6 2.6-2.1-.5-.5-2.1z"/></svg><i class="nd"></i></span><div style="min-width:0"><b>30401007200</b><span class="nm">Contrato mtto plataforma Rockwell 2026</span><span class="cli">Celsia Colombia S.A. E.S.P. · Col_West</span></div></div></td><td><div class="lw"><img class="av" style="width:30px;height:30px" src="data:image/jpeg;base64,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" alt=""><span>Ernesto Osorio</span></div></td><td><div class="cv"><b>$ 15.050.000</b> facturado<div class="cbar"><i style="width:79%"></i></div><small>de $ 19.050.000 comprometido · Ingeniería · 79 %</small></div></td><td><span class="dch dn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m6 13 6 6 6-6"/></svg>Facturó de menos</span><span class="dv">−$ 4.000.000</span></td><td><div class="rs"><div class="rr"><span class="opt"><span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m6 13 6 6 6-6"/></svg>Aplazar a</span><span class="on g"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6"/><path d="M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Eliminar</span></span></div><div class="rr"><span class="in">Razón (obligatoria)</span><button class="btn pri dis">Resolver</button></div></div></td></tr><tr><td><div class="ceco"><span class="tile nov" title="Servicio · Bolsa de horas · 30301053200 — facturó de más en el cierre" style="width:30px;height:30px;color:#5b33d6;background:#eee8ff"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12M6 21h12"/><path d="M7 3c0 5 10 5 10 9s-10 4-10 9M17 3c0 5-10 5-10 9s10 4 10 9"/></svg><i class="nd"></i></span><div style="min-width:0"><b>30301053200</b><span class="nm">Bolsa de horas de ingeniería 2026 · 40 días</span><span class="cli">Duquesa S.A.S. BIC · Col_West</span></div></div></td><td><div class="lw"><img class="av" style="width:30px;height:30px" src="data:image/jpeg;base64,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" alt=""><span>Miguel Quintero</span></div></td><td><div class="cv"><b>$ 7.875.000</b> facturado<div class="cbar ov"><i style="width:100%"></i></div><small>de $ 5.875.000 comprometido · Ingeniería · 134 %</small></div></td><td><span class="dch up"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m6 11 6-6 6 6"/></svg>Facturó de más</span><span class="dv">+$ 2.000.000</span></td><td><div class="rs"><div class="rr"><span class="opt"><span class="on b"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m6 11 6-6 6 6"/></svg>Pago anticipado</span></span><span class="hint">se descuenta de nov 26 en adelante</span></div><div class="rr"><span class="in">Razón (obligatoria)</span><button class="btn pri dis">Registrar</button></div></div></td></tr></tbody></table></div><p class="hint" style="margin:0">Aplazar crea «Payment - Delayed» hacia el mes elegido; Eliminar crea «Deleted»; Pago anticipado crea «Payment - Anticipated». Quedan en Movimientos con la razón, autor y fecha.</p><div class="sec"><div><h2>Paso 2 · Congelar lo comprometido de oct 26</h2><p>LATAM incluye solo las líneas mayores que cero. Mientras está abierto se puede volver a tomar; no puede haber dos cerrados del mismo mes y cluster.</p></div></div><div class="s2"><div class="k"><small>Se congelan</small><b>18 líneas</b><span>17 CECO activos</span></div><div class="k"><small>Pesos · COP</small><b>$ 422.735.953</b><span>proyectado en oct 26</span></div><div class="k"><small>Dólares · USD</small><b>US$ 31.488,67</b><span>proyectado en oct 26</span></div><div class="acts2"><button class="btn pri dis"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>Tomar snapshot de oct 26</button></div></div><div class="lockn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Resuelve primero las 3 diferencias del paso 1.</div></div></x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1060}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

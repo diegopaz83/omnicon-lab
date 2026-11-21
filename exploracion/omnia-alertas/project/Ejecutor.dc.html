@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Ejecutor · Avisos solo lectura</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Poppins,system-ui,sans-serif;color:#001c3f}
+a{color:#0a58eb}a:hover{color:#002473}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;display:flex;flex-direction:column;background:#fff;font-family:Poppins,system-ui,sans-serif;color:#001c3f;overflow:hidden">
+  <div style="display:flex;justify-content:center;padding-top:8px"><span style="width:40px;height:4px;border-radius:2px;background:#c9d5e6" aria-hidden="true"></span></div>
+  <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid #eef2f6">
+    <span style="width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#00dcfa,#0a58eb 60%,#002473)" aria-hidden="true"></span>
+    <span style="flex:1"><b style="font-weight:600;font-size:15px">omnIA</b><br><small style="font-size:11px;color:#5a6b85">Sin chat para tu perfil</small></span>
+    <button aria-label="Cerrar omnIA" style="width:44px;height:44px;border:0;background:#eef2f6;border-radius:8px;color:#002473;font:600 16px Poppins,sans-serif;cursor:pointer">×</button>
+  </div>
+  <div style="padding:8px 16px;border-bottom:1px solid #eef2f6">
+    <span style="font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid #c9d5e6;color:#002473;display:inline-block">Proyecto · 30202004200</span>
+  </div>
+
+  <div style="flex:1;overflow:hidden;padding:14px 16px;display:flex;flex-direction:column;gap:12px;background:#f8fafc">
+    <h2 style="margin:0;font-size:13px;font-weight:600;color:#33475f;text-transform:uppercase;letter-spacing:.04em">Avisos del proyecto</h2>
+
+    <article style="background:#fff;border:1px solid #f3c7c0;border-top:4px solid #a3200f;border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:#fdecea;color:#a3200f">Crítica</span>
+        <span style="font-size:11px;color:#5a6b85">hoy 07:00</span>
+      </div>
+      <b style="font-size:13.5px;font-weight:600">El proyecto consume más horas de lo que avanza</b>
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;background:#f4f7fb;border-radius:8px;padding:8px 10px;font-size:12px">
+        <span>Horas<br><b style="font-size:15px">75 %</b></span>
+        <span>Avance<br><b style="font-size:15px">41 %</b></span>
+        <span>Diferencia<br><b style="font-size:15px;color:#a3200f">+34</b></span>
+      </div>
+      <div style="font-size:12px;color:#33475f">Explicación del líder (21 oct): materiales tardíos.</div>
+    </article>
+
+    <section style="background:#fff;border:1px solid #dbe2ea;border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px">
+      <b style="font-size:13px;font-weight:600">Sugerencia</b>
+      <span style="font-size:12.5px;color:#33475f">Tu semana 43 tiene 6 h sin fase asignada en este proyecto. Imputarlas a la fase correcta mejora la comparación.</span>
+      <a href="#" style="font-size:12.5px;font-weight:600;padding:10px 0">Ir a Ejecución</a>
+    </section>
+  </div>
+
+  <div style="padding:12px 16px;border-top:1px solid #eef2f6;font-size:12px;color:#5a6b85">Puedes consultar los avisos; no editarlos ni conversar. Si algo no cuadra, avisa a tu líder.</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

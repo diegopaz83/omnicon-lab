@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Analítica · agrupar por cluster y regional</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Poppins,system-ui,sans-serif;color:#001c3f}
+a{color:#0a58eb}a:hover{color:#002473}
+</style>
+</helmet>
+<div style="width:1280px;height:900px;display:flex;background:#f4f7fb;font-family:Poppins,system-ui,sans-serif;color:#001c3f;overflow:hidden">
+
+  <nav aria-label="Menú de Kairos" style="width:220px;flex:none;background:#001c3f;color:#b9c6da;display:flex;flex-direction:column;padding:18px 12px;box-sizing:border-box;gap:4px">
+    <div style="display:flex;align-items:center;gap:10px;padding:4px 8px 18px;color:#fff;font-weight:600;font-size:17px"><span style="width:28px;height:28px;border-radius:8px;background:#0a58eb;display:inline-block" aria-hidden="true"></span>Kairos</div>
+    <a href="#" style="padding:9px 12px;border-radius:8px;color:#b9c6da;font-size:13.5px;font-weight:500;text-decoration:none">Inicio</a>
+    <a href="#" style="padding:9px 12px;border-radius:8px;color:#b9c6da;font-size:13.5px;font-weight:500;text-decoration:none">Proyectos y servicios</a>
+    <a href="#" style="padding:9px 12px;border-radius:8px;background:#002473;color:#fff;font-size:13.5px;font-weight:500;text-decoration:none">Analítica</a>
+    <a href="#" style="padding:9px 12px;border-radius:8px;color:#b9c6da;font-size:13.5px;font-weight:500;text-decoration:none">Configuración</a>
+  </nav>
+
+  <main style="flex:1;min-width:0;padding:26px 28px;box-sizing:border-box;display:flex;flex-direction:column;gap:16px">
+    <div>
+      <h1 style="margin:0;font-size:22px;font-weight:600">Analítica</h1>
+      <p style="margin:4px 0 0;font-size:13px;color:#556578">Proyectos y servicios · LATAM · consolidado en COP con la TRM de Odoo</p>
+    </div>
+
+    <div role="group" aria-label="Segmentación" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:#fff;border:1px solid #dbe2ea;border-radius:12px;padding:10px 12px">
+      <label style="font-size:12.5px;display:flex;gap:6px;align-items:center;border:1px solid #c9d5e6;border-radius:8px;padding:7px 10px">Cluster <b style="font-weight:600">LATAM</b></label>
+      <label style="font-size:12.5px;display:flex;gap:6px;align-items:center;border:1px solid #c9d5e6;border-radius:8px;padding:7px 10px">Regional <b style="font-weight:600">Todas</b></label>
+      <label style="font-size:12.5px;display:flex;gap:6px;align-items:center;border:1px solid #c9d5e6;border-radius:8px;padding:7px 10px">Líder <b style="font-weight:600">Todos</b></label>
+      <label style="font-size:12.5px;display:flex;gap:6px;align-items:center;border:1px solid #c9d5e6;border-radius:8px;padding:7px 10px">Cliente <b style="font-weight:600">Todos</b></label>
+      <span style="flex:1"></span>
+      <span style="font-size:12px;color:#556578">Agrupar por</span>
+      <div role="group" aria-label="Agrupar por" style="display:flex;border:1px solid #c9d5e6;border-radius:8px;overflow:hidden">
+        <button style="border:0;background:#002473;color:#fff;font:600 12.5px Poppins,sans-serif;padding:7px 12px">Regional</button>
+        <button style="border:0;background:#fff;color:#002473;font:500 12.5px Poppins,sans-serif;padding:7px 12px">Líder</button>
+        <button style="border:0;background:#fff;color:#002473;font:500 12.5px Poppins,sans-serif;padding:7px 12px">Cliente</button>
+      </div>
+    </div>
+
+    <div style="background:#fff;border:1px solid #dbe2ea;border-radius:12px;overflow:hidden">
+      <div style="display:grid;grid-template-columns:1.6fr .6fr 1fr 1fr 1.6fr 1fr .9fr .9fr;gap:8px;padding:10px 16px;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:#556578;border-bottom:1px solid #eef2f6">
+        <span>Regional · responsable</span><span style="text-align:right">CECO</span><span style="text-align:right">Vendido</span><span style="text-align:right">Facturado</span><span>Avance de facturación</span><span style="text-align:right">Por facturar</span><span>Alertas</span><span style="text-align:right">Utilidad</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1.6fr .6fr 1fr 1fr 1.6fr 1fr .9fr .9fr;gap:8px;padding:12px 16px;font-size:13px;align-items:center;border-bottom:1px solid #eef2f6">
+        <span><b style="font-weight:600">Col_West</b><br><small style="color:#556578">Brainer Ocampo</small></span><span style="text-align:right">10</span><span style="text-align:right">1.265 M</span><span style="text-align:right">425 M</span>
+        <span style="display:flex;align-items:center;gap:8px"><span style="flex:1;height:6px;border-radius:3px;background:#eef2f6"><span style="display:block;width:34%;height:6px;border-radius:3px;background:#0a58eb"></span></span>34 %</span>
+        <span style="text-align:right">840 M</span><span><span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:#fff1cf;color:#7a4e00">1 imp.</span></span><span style="text-align:right;color:#556578">ejemplo</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1.6fr .6fr 1fr 1fr 1.6fr 1fr .9fr .9fr;gap:8px;padding:12px 16px;font-size:13px;align-items:center;border-bottom:1px solid #eef2f6">
+        <span><b style="font-weight:600">Col_Center</b><br><small style="color:#556578">Luis Lara</small></span><span style="text-align:right">3</span><span style="text-align:right">1.015 M</span><span style="text-align:right">415 M</span>
+        <span style="display:flex;align-items:center;gap:8px"><span style="flex:1;height:6px;border-radius:3px;background:#eef2f6"><span style="display:block;width:41%;height:6px;border-radius:3px;background:#0a58eb"></span></span>41 %</span>
+        <span style="text-align:right">600 M</span><span style="color:#556578">—</span><span style="text-align:right;color:#556578">ejemplo</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1.6fr .6fr 1fr 1fr 1.6fr 1fr .9fr .9fr;gap:8px;padding:12px 16px;font-size:13px;align-items:center;border-bottom:1px solid #eef2f6">
+        <span><b style="font-weight:600">Col_North</b><br><small style="color:#556578">Iván Paternina</small></span><span style="text-align:right">4</span><span style="text-align:right">989 M</span><span style="text-align:right">220 M</span>
+        <span style="display:flex;align-items:center;gap:8px"><span style="flex:1;height:6px;border-radius:3px;background:#eef2f6"><span style="display:block;width:22%;height:6px;border-radius:3px;background:#0a58eb"></span></span>22 %</span>
+        <span style="text-align:right">769 M</span><span style="color:#556578">—</span><span style="text-align:right;color:#556578">ejemplo</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1.6fr .6fr 1fr 1fr 1.6fr 1fr .9fr .9fr;gap:8px;padding:12px 16px;font-size:13px;align-items:center;border-bottom:1px solid #eef2f6;background:#f8fafc">
+        <span><b style="font-weight:600">▾ Col_Andean East</b><br><small style="color:#556578">Ernesto Osorio</small></span><span style="text-align:right">4</span><span style="text-align:right">953 M</span><span style="text-align:right">326 M</span>
+        <span style="display:flex;align-items:center;gap:8px"><span style="flex:1;height:6px;border-radius:3px;background:#eef2f6"><span style="display:block;width:34%;height:6px;border-radius:3px;background:#0a58eb"></span></span>34 %</span>
+        <span style="text-align:right">627 M</span><span><span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:#fff1cf;color:#7a4e00">2 imp.</span></span><span style="text-align:right;color:#556578">ejemplo</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1.6fr .6fr 1fr 1fr 1.6fr 1fr .9fr .9fr;gap:8px;padding:9px 16px 9px 36px;font-size:12.5px;align-items:center;border-bottom:1px solid #eef2f6;background:#f8fafc;color:#33475f">
+        <span>Ernesto Osorio</span><span style="text-align:right">2</span><span style="text-align:right">474 M</span><span style="text-align:right">175 M</span><span>37 %</span><span style="text-align:right">299 M</span><span>1 imp.</span><span></span>
+      </div>
+      <div style="display:grid;grid-template-columns:1.6fr .6fr 1fr 1fr 1.6fr 1fr .9fr .9fr;gap:8px;padding:9px 16px 9px 36px;font-size:12.5px;align-items:center;border-bottom:1px solid #eef2f6;background:#f8fafc;color:#33475f">
+        <span>Jhon Herrera</span><span style="text-align:right">2</span><span style="text-align:right">479 M</span><span style="text-align:right">152 M</span><span>32 %</span><span style="text-align:right">327 M</span><span>1 imp.</span><span></span>
+      </div>
+      <div style="display:grid;grid-template-columns:1.6fr .6fr 1fr 1fr 1.6fr 1fr .9fr .9fr;gap:8px;padding:12px 16px;font-size:13px;align-items:center;border-bottom:1px solid #eef2f6">
+        <span><b style="font-weight:600">Mx_Queretaro</b><br><small style="color:#556578">Natalie Ramírez</small></span><span style="text-align:right">2</span><span style="text-align:right">203 M</span><span style="text-align:right">89 M</span>
+        <span style="display:flex;align-items:center;gap:8px"><span style="flex:1;height:6px;border-radius:3px;background:#eef2f6"><span style="display:block;width:44%;height:6px;border-radius:3px;background:#0a58eb"></span></span>44 %</span>
+        <span style="text-align:right">114 M</span><span style="color:#556578">—</span><span style="text-align:right;color:#556578">ejemplo</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1.6fr .6fr 1fr 1fr 1.6fr 1fr .9fr .9fr;gap:8px;padding:12px 16px;font-size:13px;align-items:center;font-weight:600">
+        <span>Total LATAM</span><span style="text-align:right">23</span><span style="text-align:right">4.425 M</span><span style="text-align:right">1.475 M</span><span>33 %</span><span style="text-align:right">2.950 M</span><span>3 imp.</span><span></span>
+      </div>
+    </div>
+    <p style="margin:0;font-size:12px;color:#556578">Vendido y facturado: Odoo · simulado. Utilidad y productividad siguen como ejemplo hasta conectar costos. Clic en una regional la despliega por líder; clic en un líder abre sus CECO.</p>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

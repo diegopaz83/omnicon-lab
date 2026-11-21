@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex"><title>Boceto</title><style>body{margin:0}</style></head>
+<body><div id="dc"></div>
+<script src="../_dc/dc-runtime.js"></script>
+<script>
+(function(){var f=new URLSearchParams(location.search).get('f')||'Main.dc.html';
+if(!/^[A-Za-z0-9_][A-Za-z0-9_.-]*\.dc\.html$/.test(f)){document.body.textContent='Archivo no válido';return;}
+DCRender.mount(document.getElementById('dc'),'project/'+f).catch(function(e){document.body.textContent='No se pudo cargar el boceto ('+e.message+')';});})();
+</script></body></html>

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>ORA · Procesos con filtros (escritorio)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f2f5f9}
+a{color:#0a58eb}a:hover{color:#002473}
+button:focus-visible{outline:2px solid #0a58eb;outline-offset:2px}
+</style>
+</helmet>
+<div style="width: 1040px; min-height: 760px; box-sizing: border-box; padding: 28px; font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif; color: #001c3f; background: #f2f5f9; font-size: 14px; display: flex; flex-direction: column; gap: 16px">
+  <div>
+    <h1 style="margin: 0; font-size: 20px; font-weight: 600">Procesos críticos</h1>
+    <div style="font-size: 13px; color: #556578">Decide qué procesos se evalúan y responde sus preguntas.</div>
+  </div>
+  <div role="tablist" aria-label="Filtrar procesos" style="display: flex; flex-wrap: wrap; gap: 8px">
+    <sc-for list="{{tabs}}" as="t" hint-placeholder-count="5">
+          <button type="button" role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" style="font: inherit; font-size: 13px; display: inline-flex; align-items: center; gap: 8px; padding: 0 12px; min-height: 44px; border-radius: 22px; border: 1px solid {{t.border}}; background: {{t.bg}}; color: {{t.ink}}; white-space: nowrap; flex: none; cursor: pointer">
+            <sc-if value="{{t.hasDot}}" hint-placeholder-val="{{ true }}"><span style="width: 10px; height: 10px; border-radius: 50%; box-sizing: border-box; border: 2px solid {{t.dotBorder}}; background: {{t.dotBg}}" aria-hidden="true"></span></sc-if>
+            <span style="font-weight: 500">{{t.label}}</span><span style="color: {{t.nInk}}">{{t.n}}</span>
+          </button>
+    </sc-for>
+  </div>
+  <div style="background: #ffffff; border: 1px solid #dbe2ea; border-radius: 12px; overflow: hidden">
+    <div style="padding: 14px 20px 10px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px"><b style="font-weight: 600">{{title}}</b><span style="font-size: 12px; color: #556578">{{hint}}</span></div>
+    <sc-for list="{{list}}" as="p" hint-placeholder-count="4">
+          <button type="button" style="font: inherit; width: 100%; text-align: left; display: flex; align-items: center; gap: 12px; padding: 14px 20px; min-height: 68px; border: 0; border-top: 1px solid #eef2f6; background: #ffffff; color: #001c3f; cursor: pointer">
+            <span style="width: 12px; height: 12px; border-radius: 50%; box-sizing: border-box; border: 2.5px solid {{p.dotBorder}}; background: {{p.dotBg}}; flex: none" aria-hidden="true"></span>
+            <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+              <span style="font-weight: 500; color: {{p.muted}}">{{p.name}}</span>
+              <span style="font-size: 12px; color: #556578">{{p.stLabel}} · {{p.sub}}</span>
+            </span>
+            <sc-if value="{{p.hasPend}}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="{{p.pend}} por responder" style="width: 28px; height: 28px; border-radius: 50%; background: #a65f00; color: #ffffff; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; flex: none">{{p.pend}}</span></sc-if>
+            <sc-if value="{{p.done}}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Completo" style="width: 28px; height: 28px; border-radius: 50%; background: #1d7a4a; display: inline-flex; align-items: center; justify-content: center; flex: none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span></sc-if>
+          </button>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1040,"height":760}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { f: 'incluido' }; }
+  renderVals() {
+    var self = this, f = this.state.f;
+    var ST = {
+      incluido: { label: 'Se evalúan', one: 'Se evalúa', dot: '#0a58eb', ring: false },
+      desconocido: { label: 'Por decidir', one: 'Por decidir', dot: '#c77700', ring: false },
+      na: { label: 'No aplican', one: 'No aplica', dot: '#6b7a8d', ring: true },
+      fuera: { label: 'Fuera del alcance', one: 'Fuera del alcance', dot: '#6b7a8d', ring: true }
+    };
+    var P = [
+      { id: 'OG-PR-01', name: 'Bombeo principal e impulsión', st: 'incluido', pend: 0, sub: 'Alta · tolera 6 h' },
+      { id: 'OG-PR-03', name: 'Medición fiscal y custodia (LACT)', st: 'incluido', pend: 1, sub: 'Alta · falta el tiempo de tolerancia' },
+      { id: 'OG-PR-05', name: 'Parada de emergencia (SIS / ESD / F&G)', st: 'incluido', pend: 1, sub: 'Alta · falta qué pasa si se detiene' },
+      { id: 'OG-PR-06', name: 'Almacenamiento y balance de crudo', st: 'incluido', pend: 1, sub: 'Media · falta el tiempo de tolerancia' },
+      { id: 'OG-PR-02', name: 'Alivio de transitorios (surge relief)', st: 'desconocido', pend: 1, sub: '¿El terminal tiene skid de alivio propio?' },
+      { id: 'OG-PR-04', name: 'Detección de fugas (LDS / RTTM)', st: 'na', pend: 0, sub: 'La detección la hace el transportador' },
+      { id: 'OG-PR-07', name: 'Limpieza e inspección en línea (pigging)', st: 'na', pend: 0, sub: 'No hay trampas de raspadores' },
+      { id: 'OG-PR-08', name: 'Inyección de químicos (DRA)', st: 'fuera', pend: 0, sub: 'Fuera del alcance acordado' }
+    ];
+    var keys = ['incluido', 'desconocido', 'na', 'fuera', 'all'];
+    var tabs = keys.map(function (k) {
+      var n = k === 'all' ? P.length : P.filter(function (p) { return p.st === k; }).length;
+      var pend = (k === 'all' ? P : P.filter(function (p) { return p.st === k; })).reduce(function (s, p) { return s + p.pend; }, 0);
+      var on = f === k, s = ST[k];
+      return { label: k === 'all' ? 'Todos' : s.label, n: n, on: on ? 'true' : 'false', hasDot: k !== 'all',
+        dotBg: k === 'all' ? 'transparent' : (s.ring ? 'transparent' : s.dot), dotBorder: k === 'all' ? 'transparent' : s.dot,
+        bg: on ? '#001c3f' : '#ffffff', ink: on ? '#ffffff' : '#001c3f', border: on ? '#001c3f' : '#dbe2ea', nInk: on ? '#c9d6e6' : '#556578',
+        hasPend: pend > 0, pend: pend, pick: function () { self.setState({ f: k }); } };
+    });
+    var list = P.filter(function (p) { return f === 'all' || p.st === f; }).map(function (p) {
+      var s = ST[p.st];
+      return { id: p.id, name: p.name, sub: p.sub, stLabel: s.one, dotBg: s.ring ? 'transparent' : s.dot, dotBorder: s.dot, hasPend: p.pend > 0, pend: p.pend, done: p.st === 'incluido' && !p.pend, muted: s.ring ? '#556578' : '#001c3f' };
+    });
+    var cur = f === 'all' ? null : ST[f];
+    return { tabs: tabs, list: list, count: list.length, title: f === 'all' ? 'Todos los procesos' : cur.label,
+      hint: { incluido: 'Entran en la evaluación. El círculo naranja dice cuántas preguntas faltan.', desconocido: 'Hay que confirmar en planta si existen o aplican.', na: 'No existen en esta instalación. Cada uno tiene su motivo.', fuera: 'Existen, pero se acordó no evaluarlos.', all: 'Los ocho procesos del catálogo para esta instalación.' }[f] };
+  }
+}
+</script>
+</body>
+</html>

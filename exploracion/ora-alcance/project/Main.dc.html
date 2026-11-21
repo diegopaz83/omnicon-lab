@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>ORA · Alcance propuesto (escritorio)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f2f5f9}
+a{color:#0a58eb}a:hover{color:#002473}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #0a58eb;outline-offset:2px}
+</style>
+</helmet>
+<div style="font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif; color: #001c3f; background: #f2f5f9; display: flex; flex-wrap: wrap; min-height: 100%; font-size: 14px">
+
+  <nav aria-label="Navegación del assessment" style="flex: 1 1 232px; max-width: 100%; background: #001c3f; color: #c9d6e6; padding: 24px 14px; box-sizing: border-box; display: flex; flex-direction: column; gap: 18px">
+    <div style="display: flex; align-items: baseline; gap: 10px; padding: 0 8px">
+      <span style="font-weight: 600; font-size: 20px; color: #ffffff; letter-spacing: -0.3px">omnicon</span>
+      <span style="font-size: 13px; line-height: 1.1; border-left: 1px solid #22385a; padding-left: 10px">risk<br><span style="color: #00dcfa; font-weight: 600">assessment</span></span>
+    </div>
+    <div style="border: 1px solid #22385a; border-radius: 12px; padding: 12px">
+      <div style="color: #ffffff; font-weight: 500">Terminal Marítimo Punta Brava</div>
+      <div style="font-size: 12px; margin-top: 4px">ORA-2026-022, dos semanas</div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <a href="#" style="padding: 10px 12px; border-radius: 8px; color: #c9d6e6; text-decoration: none">Resumen</a>
+      <a href="#" aria-current="page" style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; background: rgba(0,220,250,.12); color: #ffffff; font-weight: 600; text-decoration: none"><span style="width: 22px; height: 22px; border-radius: 50%; background: #00dcfa; color: #001c3f; display: inline-flex; align-items: center; justify-content: center; font-size: 12px">1</span>Alcance</a>
+      <sc-for list="{{otherStages}}" as="s" hint-placeholder-count="5">
+        <a href="#" style="display: flex; align-items: center; gap: 12px; padding: 9px 12px; border-radius: 8px; color: #c9d6e6; text-decoration: none"><span style="width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid #7d93ae; display: inline-flex; align-items: center; justify-content: center; font-size: 12px">{{s.n}}</span>{{s.name}}</a>
+      </sc-for>
+    </div>
+  </nav>
+
+  <main style="flex: 999 1 640px; min-width: 0; display: flex; flex-direction: column">
+    <header style="background: #ffffff; border-bottom: 1px solid #dbe2ea; padding: 14px 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+      <div style="flex: 1 1 260px">
+        <h1 style="margin: 0; font-size: 20px; font-weight: 600">Alcance</h1>
+        <div style="font-size: 13px; color: #556578">Define a quién evaluamos y qué procesos entran en la evaluación.</div>
+      </div>
+      <button type="button" style="font: inherit; font-size: 13px; padding: 9px 14px; border-radius: 8px; border: 1px solid #9fdbe6; background: #e6f8fb; color: #002473; cursor: pointer">Dictar</button>
+      <button type="button" style="font: inherit; font-size: 13px; padding: 9px 14px; border-radius: 8px; border: 1px solid #dbe2ea; background: #ffffff; color: #001c3f; cursor: pointer">Trazabilidad</button>
+    </header>
+
+    <div style="padding: 24px 32px 48px; display: flex; flex-direction: column; gap: 20px; max-width: 1180px; width: 100%; box-sizing: border-box">
+
+      <div role="tablist" aria-label="Partes del alcance" style="display: flex; flex-wrap: wrap; gap: 10px">
+        <button type="button" role="tab" aria-selected="false" style="font: inherit; text-align: left; flex: 1 1 240px; display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; border: 1px solid #dbe2ea; background: #ffffff; color: #001c3f; cursor: pointer">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1d7a4a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M7.5 12.5l3 3 6-6.5"></path></svg>
+          <span style="display: flex; flex-direction: column"><span style="font-weight: 600">Cliente y equipo</span><span style="font-size: 12px; color: #556578">6 de 6 respondidas</span></span>
+        </button>
+        <button type="button" role="tab" aria-selected="true" style="font: inherit; text-align: left; flex: 1 1 240px; display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; border: 1.5px solid #002473; background: #ffffff; color: #001c3f; cursor: pointer">
+          <span style="width: 22px; height: 22px; border-radius: 50%; border: 2px solid #0a58eb; box-sizing: border-box; display: inline-block"></span>
+          <span style="display: flex; flex-direction: column"><span style="font-weight: 600">Procesos críticos</span><span style="font-size: 12px; color: #556578">{{procProgress}}</span></span>
+        </button>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start">
+
+        <section aria-label="Procesos" style="flex: 1 1 280px; max-width: 100%; background: #ffffff; border: 1px solid #dbe2ea; border-radius: 12px; overflow: hidden">
+          <div style="padding: 16px 18px 8px; font-weight: 600">Por decidir</div>
+          <button type="button" style="font: inherit; width: 100%; text-align: left; display: flex; gap: 12px; align-items: flex-start; padding: 10px 18px 14px; border: 0; background: transparent; color: #001c3f; cursor: pointer">
+            <span style="width: 10px; height: 10px; border-radius: 50%; border: 2px solid #c77700; margin-top: 6px; flex: none"></span>
+            <span style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 500">Alivio de transitorios (surge relief)</span><span style="font-size: 12px; color: #556578">¿El terminal tiene skid de alivio propio?</span></span>
+          </button>
+          <div style="padding: 14px 18px 8px; font-weight: 600; border-top: 1px solid #eef2f6">En la evaluación</div>
+          <sc-for list="{{procs}}" as="p" hint-placeholder-count="4">
+            <button type="button" aria-current="{{p.current}}" style="font: inherit; width: 100%; text-align: left; display: flex; flex-direction: column; gap: 6px; padding: 10px 18px; border: 0; background: {{p.bg}}; color: #001c3f; cursor: pointer">
+              <span style="display: flex; justify-content: space-between; gap: 12px"><span style="font-weight: 500">{{p.name}}</span><span style="font-size: 12px; color: {{p.countInk}}; white-space: nowrap">{{p.count}}</span></span>
+              <span style="display: block; height: 4px; border-radius: 2px; background: #e3e9f0; overflow: hidden"><span style="display: block; height: 100%; width: {{p.pct}}; background: {{p.bar}}"></span></span>
+            </button>
+          </sc-for>
+          <div style="padding: 12px 18px; border-top: 1px solid #eef2f6; display: flex; flex-direction: column; gap: 10px">
+            <button type="button" style="font: inherit; text-align: left; padding: 0; border: 0; background: transparent; color: #556578; cursor: pointer">3 descartados: 2 no aplican y 1 queda fuera del alcance</button>
+            <button type="button" style="font: inherit; font-weight: 500; text-align: left; padding: 0; border: 0; background: transparent; color: #0a58eb; cursor: pointer">Agregar un proceso de la instalación</button>
+          </div>
+        </section>
+
+        <section aria-labelledby="det-title" style="flex: 999 1 520px; min-width: 0; background: #ffffff; border: 1px solid #dbe2ea; border-radius: 12px">
+          <div style="padding: 20px 24px 16px; display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; border-bottom: 1px solid #eef2f6">
+            <div style="flex: 1 1 260px">
+              <div style="font-size: 12px; color: #556578">OG-PR-03 del catálogo de Oil &amp; Gas</div>
+              <h2 id="det-title" style="margin: 2px 0 6px; font-size: 20px; font-weight: 600">Medición fiscal y custodia (LACT)</h2>
+              <div style="display: flex; align-items: center; gap: 10px">
+                <span style="width: 140px; height: 6px; border-radius: 3px; background: #e3e9f0; overflow: hidden"><span style="display: block; height: 100%; width: {{reqPct}}; background: {{reqBar}}"></span></span>
+                <span style="font-size: 12px; color: #556578">{{reqLine}}</span>
+              </div>
+            </div>
+            <div style="display: flex; gap: 4px; background: #f2f5f9; padding: 4px; border-radius: 10px" role="radiogroup" aria-label="Decisión sobre el proceso">
+              <button type="button" role="radio" aria-checked="true" style="font: inherit; font-size: 13px; font-weight: 600; padding: 7px 12px; border-radius: 8px; border: 0; background: #ffffff; color: #002473; box-shadow: 0 1px 3px rgba(0,28,63,.12); cursor: pointer">Se evalúa</button>
+              <button type="button" role="radio" aria-checked="false" style="font: inherit; font-size: 13px; padding: 7px 12px; border-radius: 8px; border: 0; background: transparent; color: #556578; cursor: pointer">No aplica</button>
+              <button type="button" role="radio" aria-checked="false" style="font: inherit; font-size: 13px; padding: 7px 12px; border-radius: 8px; border: 0; background: transparent; color: #556578; cursor: pointer">Fuera del alcance</button>
+            </div>
+          </div>
+
+          <div style="padding: 14px 24px 4px; font-size: 13px; font-weight: 600; color: #556578">Obligatorias</div>
+          <sc-for list="{{req}}" as="q" hint-placeholder-count="5">
+            <div style="margin: 0 12px; padding: 12px; border-radius: 10px; border: 1.5px solid {{q.ring}}; background: {{q.bg}}">
+              <div style="display: flex; gap: 12px; align-items: flex-start">
+                <div style="flex: 1; min-width: 0">
+                  <div style="font-size: 13px; color: #556578; display: flex; align-items: center; gap: 8px">{{q.q}}<sc-if value="{{q.missing}}" hint-placeholder-val="{{ false }}"><span style="font-size: 11px; font-weight: 600; padding: 1px 7px; border-radius: 6px; background: #fff4e0; color: #7a4a00">Falta</span></sc-if></div>
+                  <sc-if value="{{q.showValue}}" hint-placeholder-val="{{ true }}"><div style="font-size: 15px; margin-top: 2px; color: {{q.valInk}}">{{q.display}}</div></sc-if>
+                </div>
+                <sc-if value="{{q.showValue}}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{q.open}}" aria-label="{{q.aria}}" style="font: inherit; font-size: 13px; font-weight: 500; padding: 6px 10px; border-radius: 8px; border: 0; background: transparent; color: #0a58eb; cursor: pointer">{{q.cta}}</button></sc-if>
+              </div>
+
+              <sc-if value="{{q.editing}}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 12px">
+                  <sc-if value="{{q.isText}}" hint-placeholder-val="{{ false }}">
+                    <input type="text" aria-label="{{q.q}}" value="{{q.draft}}" onChange="{{q.onDraft}}" style="font: inherit; font-size: 15px; padding: 10px 12px; border-radius: 8px; border: 1px solid #b9c6d6; color: #001c3f; background: #ffffff">
+                  </sc-if>
+                  <sc-if value="{{q.isLong}}" hint-placeholder-val="{{ false }}">
+                    <textarea aria-label="{{q.q}}" rows="3" value="{{q.draft}}" onChange="{{q.onDraft}}" style="font: inherit; font-size: 15px; padding: 10px 12px; border-radius: 8px; border: 1px solid #b9c6d6; color: #001c3f; background: #ffffff; resize: vertical"></textarea>
+                  </sc-if>
+                  <sc-if value="{{q.isChoice}}" hint-placeholder-val="{{ false }}">
+                    <div role="radiogroup" aria-label="{{q.q}}" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+                      <sc-for list="{{q.opts}}" as="o" hint-placeholder-count="3">
+                        <button type="button" role="radio" aria-checked="{{o.checked}}" onClick="{{o.pick}}" style="font: inherit; text-align: left; display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; min-height: 44px; border-radius: 8px; border: 1.5px solid {{o.border}}; background: {{o.bg}}; color: #001c3f; cursor: pointer"><span style="font-weight: 600">{{o.label}}</span><span style="font-size: 12px; color: #556578">{{o.help}}</span></button>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{q.isTime}}" hint-placeholder-val="{{ false }}">
+                    <div style="display: flex; flex-direction: column; gap: 10px">
+                      <div role="radiogroup" aria-label="Tolerancia" style="display: flex; flex-wrap: wrap; gap: 6px">
+                        <sc-for list="{{q.opts}}" as="o" hint-placeholder-count="6">
+                          <button type="button" role="radio" aria-checked="{{o.checked}}" onClick="{{o.pick}}" style="font: inherit; font-size: 13px; font-weight: 500; min-height: 36px; padding: 0 14px; border-radius: 18px; border: 1.5px solid {{o.border}}; background: {{o.bg}}; color: {{o.ink}}; cursor: pointer">{{o.label}}</button>
+                        </sc-for>
+                      </div>
+                      <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end">
+                        <label style="display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #556578">Otro valor
+                          <span style="display: flex; gap: 6px"><input type="number" min="0" placeholder="12" style="font: inherit; width: 80px; padding: 8px 10px; border-radius: 8px; border: 1px solid #b9c6d6; color: #001c3f"><select style="font: inherit; padding: 8px 10px; border-radius: 8px; border: 1px solid #b9c6d6; color: #001c3f; background: #ffffff"><option>horas</option><option>minutos</option><option>días</option></select></span>
+                        </label>
+                        <label style="display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #556578; flex: 1 1 180px">¿De dónde sale el dato?
+                          <select style="font: inherit; padding: 8px 10px; border-radius: 8px; border: 1px solid #b9c6d6; color: #001c3f; background: #ffffff"><option>Entrevista con el cliente</option><option>Documento del cliente</option><option>Estimación del equipo</option></select>
+                        </label>
+                      </div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{q.hasSug}}" hint-placeholder-val="{{ false }}">
+                    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px; color: #0b6f80; background: #e4f5f8; border-radius: 8px; padding: 8px 10px">
+                      <span style="flex: 1 1 220px">{{q.sug}}</span>
+                      <button type="button" onClick="{{q.useSug}}" style="font: inherit; font-size: 13px; font-weight: 600; padding: 4px 10px; border-radius: 6px; border: 1px solid #8fcfdb; background: #ffffff; color: #0b6f80; cursor: pointer">Usar</button>
+                    </div>
+                  </sc-if>
+                  <div style="display: flex; gap: 8px; justify-content: flex-end">
+                    <button type="button" onClick="{{cancel}}" style="font: inherit; font-size: 13px; padding: 8px 14px; border-radius: 8px; border: 0; background: transparent; color: #556578; cursor: pointer">Cancelar</button>
+                    <button type="button" onClick="{{q.save}}" style="font: inherit; font-size: 13px; font-weight: 600; padding: 8px 16px; min-height: 36px; border-radius: 8px; border: 0; background: #002473; color: #ffffff; cursor: pointer">Guardar</button>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+
+          <div style="margin: 14px 24px 0; border-top: 1px solid #eef2f6"></div>
+          <button type="button" onClick="{{toggleOpt}}" aria-expanded="{{optOpen}}" style="font: inherit; width: 100%; text-align: left; display: flex; justify-content: space-between; align-items: center; padding: 14px 24px; border: 0; background: transparent; color: #001c3f; cursor: pointer">
+            <span><span style="font-size: 13px; font-weight: 600; color: #556578">Más contexto, opcional</span><span style="display: block; font-size: 12px; color: #556578">{{optLine}}</span></span>
+            <span style="font-size: 13px; color: #0a58eb">{{optCta}}</span>
+          </button>
+          <sc-if value="{{optOpen}}" hint-placeholder-val="{{ false }}">
+            <sc-for list="{{opt}}" as="q" hint-placeholder-count="4">
+              <div style="margin: 0 12px; padding: 12px; border-radius: 10px; border: 1.5px solid {{q.ring}}; background: {{q.bg}}">
+                <div style="display: flex; gap: 12px; align-items: flex-start">
+                  <div style="flex: 1; min-width: 0">
+                    <div style="font-size: 13px; color: #556578">{{q.q}}</div>
+                    <sc-if value="{{q.showValue}}" hint-placeholder-val="{{ true }}"><div style="font-size: 15px; margin-top: 2px; color: {{q.valInk}}">{{q.display}}</div></sc-if>
+                  </div>
+                  <sc-if value="{{q.showValue}}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{q.open}}" aria-label="{{q.aria}}" style="font: inherit; font-size: 13px; font-weight: 500; padding: 6px 10px; border-radius: 8px; border: 0; background: transparent; color: #0a58eb; cursor: pointer">{{q.cta}}</button></sc-if>
+                </div>
+                <sc-if value="{{q.editing}}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 12px">
+                    <input type="text" aria-label="{{q.q}}" value="{{q.draft}}" onChange="{{q.onDraft}}" placeholder="{{q.ph}}" style="font: inherit; font-size: 15px; padding: 10px 12px; border-radius: 8px; border: 1px solid #b9c6d6; color: #001c3f; background: #ffffff">
+                    <sc-if value="{{q.hasSug}}" hint-placeholder-val="{{ false }}">
+                      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px; color: #0b6f80; background: #e4f5f8; border-radius: 8px; padding: 8px 10px">
+                        <span style="flex: 1 1 220px">{{q.sug}}</span>
+                        <button type="button" onClick="{{q.useSug}}" style="font: inherit; font-size: 13px; font-weight: 600; padding: 4px 10px; border-radius: 6px; border: 1px solid #8fcfdb; background: #ffffff; color: #0b6f80; cursor: pointer">Usar</button>
+                      </div>
+                    </sc-if>
+                    <div style="display: flex; gap: 8px; justify-content: flex-end">
+                      <button type="button" onClick="{{cancel}}" style="font: inherit; font-size: 13px; padding: 8px 14px; border-radius: 8px; border: 0; background: transparent; color: #556578; cursor: pointer">Cancelar</button>
+                      <button type="button" onClick="{{q.save}}" style="font: inherit; font-size: 13px; font-weight: 600; padding: 8px 16px; min-height: 36px; border-radius: 8px; border: 0; background: #002473; color: #ffffff; cursor: pointer">Guardar</button>
+                    </div>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </sc-if>
+
+          <div style="padding: 16px 24px 20px; margin-top: 8px; border-top: 1px solid #eef2f6; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between">
+            <span style="font-size: 12px; color: #556578">Decisión de Cristian Pérez, 2 de nov de 2026</span>
+            <button type="button" style="font: inherit; font-size: 13px; font-weight: 600; padding: 9px 16px; border-radius: 8px; border: 1px solid #002473; background: #ffffff; color: #002473; cursor: pointer">Siguiente proceso: Parada de emergencia</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      editing: 'tol', draft: '', optOpen: false,
+      v: {
+        just: 'Custodia en el cargue de buques.',
+        crit: 'Alta',
+        type: 'Productivo',
+        interruption: 'Conciliación con el buque y reclamaciones.',
+        tol: '',
+        fn: 'Medición fiscal del cargue.',
+        cap: '',
+        cons: '',
+        src: ''
+      }
+    };
+  }
+  renderVals() {
+    var self = this, st = this.state, v = st.v;
+    var defs = {
+      just: { q: '¿Por qué entra en la evaluación?', kind: 'long' },
+      crit: { q: '¿Qué tan crítico es para el negocio?', kind: 'choice', opts: [['Alta', 'Detenerlo para la operación'], ['Media', 'Afecta, pero hay cómo seguir'], ['Baja', 'Impacto menor']] },
+      type: { q: '¿Qué tipo de proceso es?', kind: 'choice', opts: [['Productivo', 'Genera el producto o servicio'], ['Servicio auxiliar', 'Apoya a otros procesos'], ['Salvaguarda', 'Protege personas y planta']] },
+      interruption: { q: '¿Qué pasa si se detiene?', kind: 'long', sug: 'En otros terminales: «demora del buque y reclamación por diferencias de medición».' },
+      tol: { q: '¿Cuánto tiempo puede estar detenido?', kind: 'time', opts: ['30 min', '1 h', '2 h', '4 h', '8 h', '24 h'] },
+      fn: { q: '¿Qué hace este proceso?', kind: 'text', ph: 'Qué hace para el negocio' },
+      cap: { q: '¿Qué parte de la capacidad se pierde si se detiene?', kind: 'text', ph: 'p. ej. 100 % del cargue', sug: 'En otros terminales: «100 % del cargue de buques».', sugVal: '100 % del cargue de buques' },
+      cons: { q: '¿Hay restricciones para detenerlo o intervenirlo?', kind: 'text', ph: 'Ventanas de parada, contratos…' },
+      src: { q: '¿Quién o qué documento sustenta estas respuestas?', kind: 'text', ph: 'Entrevista, procedimiento, contrato…' }
+    };
+    var mk = function (k) {
+      var d = defs[k], val = v[k], editing = st.editing === k, req = ['just', 'crit', 'type', 'interruption', 'tol'].indexOf(k) >= 0;
+      var cur = editing ? st.draft : val;
+      var opts = (d.opts || []).map(function (o) {
+        var lab = Array.isArray(o) ? o[0] : o, on = cur === lab;
+        return { label: lab, help: Array.isArray(o) ? o[1] : '', checked: on ? 'true' : 'false', bg: on ? (d.kind === 'time' ? '#002473' : '#eef3fd') : '#ffffff', ink: on ? '#ffffff' : '#001c3f', border: on ? '#002473' : '#b9c6d6', pick: function () { self.setState({ draft: lab }); } };
+      });
+      return {
+        q: d.q, ph: d.ph || '', aria: (val ? 'Editar: ' : 'Responder: ') + d.q,
+        display: val ? (k === 'tol' ? 'Tolera ' + val : val) : 'Sin responder',
+        valInk: val ? '#001c3f' : '#7a4a00',
+        missing: req && !val, showValue: !editing, editing: editing,
+        cta: val ? 'Editar' : 'Responder',
+        ring: editing ? '#0a58eb' : 'transparent', bg: editing ? '#f7faff' : 'transparent',
+        isText: d.kind === 'text', isLong: d.kind === 'long', isChoice: d.kind === 'choice', isTime: d.kind === 'time',
+        opts: opts, draft: editing ? st.draft : '',
+        hasSug: !!d.sug, sug: d.sug || '',
+        useSug: function () { self.setState({ draft: d.sugVal || d.sug.replace(/^.*«|».*$/g, '') }); },
+        onDraft: function (e) { self.setState({ draft: e.target.value }); },
+        open: function () { self.setState({ editing: k, draft: v[k] }); },
+        save: function () { var nv = Object.assign({}, self.state.v); nv[k] = self.state.draft; self.setState({ v: nv, editing: null, draft: '' }); }
+      };
+    };
+    var reqKeys = ['just', 'crit', 'type', 'interruption', 'tol'], optKeys = ['fn', 'cap', 'cons', 'src'];
+    var done = reqKeys.filter(function (k) { return !!v[k]; }).length;
+    var optDone = optKeys.filter(function (k) { return !!v[k]; }).length;
+    var procs = [
+      { name: 'Bombeo principal e impulsión', n: 5, cur: false },
+      { name: 'Medición fiscal y custodia (LACT)', n: done, cur: true },
+      { name: 'Parada de emergencia (SIS / ESD / F&G)', n: 3, cur: false },
+      { name: 'Almacenamiento y balance de crudo', n: 4, cur: false }
+    ].map(function (p) {
+      var full = p.n === 5;
+      return { name: p.name, count: full ? 'Completo' : p.n + ' de 5', countInk: full ? '#1d7a4a' : '#556578', pct: Math.round(p.n / 5 * 100) + '%', bar: full ? '#1d7a4a' : '#0a58eb', bg: p.cur ? '#eef3fd' : 'transparent', current: p.cur ? 'true' : 'false' };
+    });
+    var complete = procs.filter(function (p) { return p.count === 'Completo'; }).length;
+    return {
+      otherStages: [{ n: 2, name: 'Planta' }, { n: 3, name: 'Cuestionario' }, { n: 4, name: 'Evidencias' }, { n: 5, name: 'Riesgos y oportunidades' }, { n: 6, name: 'Resultados' }],
+      procs: procs,
+      procProgress: complete + ' de 4 procesos completos y 1 por decidir',
+      req: reqKeys.map(mk), opt: optKeys.map(mk),
+      reqPct: Math.round(done / 5 * 100) + '%', reqBar: done === 5 ? '#1d7a4a' : '#0a58eb',
+      reqLine: done === 5 ? 'Las 5 obligatorias están respondidas' : done + ' de 5 obligatorias respondidas',
+      optOpen: st.optOpen || optKeys.indexOf(st.editing) >= 0,
+      optLine: optDone + ' de 4 respondidas. Sirven para el informe, no bloquean el avance.',
+      optCta: st.optOpen ? 'Ocultar' : 'Mostrar',
+      toggleOpt: function () { self.setState({ optOpen: !self.state.optOpen }); },
+      cancel: function () { self.setState({ editing: null, draft: '' }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1236 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Boceto Solicitudes y novedades</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
+<style>
+
+/* Layout: cabecera, pestanas por rol (Resumen, Nueva, Mis solicitudes, Por revisar, Centro de Planeacion, Impacto, Reglas) y vistas en tarjetas y grillas.
+   Tokens del Ecosistema (design/planeacion-v1). */
+:root {
+  color-scheme: light;
+  --font: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+  --navy: #001c3f; --bright: #0a58eb; --cyan: #00dcfa; --cyan-ink: #007f93;
+  --bg: #f2f5f9; --surface: #fff; --surface-2: #f6f8fb; --ink: #001c3f; --muted: #556578; --line: #dbe2ea; --line-2: #eef2f6;
+  --primary: #002473; --primary-ink: #fff; --primary-soft: #e8eefc; --focus: #0a58eb;
+  --ok-bg: #e5f7ee; --ok-ink: #145a37; --warn-bg: #fff4e0; --warn-ink: #7a4a00; --err-bg: #fbeaeb; --err-ink: #b0353c;
+  --approval: #7543ff; --approval-soft: #f1ecff; --off-bg: #e9edf2; --off-ink: #8593a5;
+  --res: #7aa7ff; --res-soft: #e8f0ff;
+  --shadow: 0 12px 32px rgba(0,28,63,.18); --shadow-sm: 0 2px 8px rgba(0,28,63,.08);
+  --r-ctl: 8px; --r-surf: 12px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #07111f; --surface: #0d1b2f; --surface-2: #112339; --ink: #e7eef7; --muted: #9db0c5; --line: #22385a; --line-2: #182b45;
+  --primary: #5d8dff; --primary-ink: #04122a; --primary-soft: #16294a; --focus: #7fb0ff; --bright: #7fb0ff; --cyan-ink: #5fe6fb;
+  --ok-bg: #0e3324; --ok-ink: #8fe3b6; --warn-bg: #3a2a0c; --warn-ink: #ffd28a; --err-bg: #3d1519; --err-ink: #ff7a80;
+  --approval: #a98bff; --approval-soft: #221a45; --off-bg: #132439; --off-ink: #5f738c; --navy: #020c1a;
+  --res: #4f7fd6; --res-soft: #15284a;
+  --shadow: 0 12px 32px rgba(0,0,0,.55); --shadow-sm: 0 2px 8px rgba(0,0,0,.4); color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #07111f; --surface: #0d1b2f; --surface-2: #112339; --ink: #e7eef7; --muted: #9db0c5; --line: #22385a; --line-2: #182b45;
+  --primary: #5d8dff; --primary-ink: #04122a; --primary-soft: #16294a; --focus: #7fb0ff; --bright: #7fb0ff; --cyan-ink: #5fe6fb;
+  --ok-bg: #0e3324; --ok-ink: #8fe3b6; --warn-bg: #3a2a0c; --warn-ink: #ffd28a; --err-bg: #3d1519; --err-ink: #ff7a80;
+  --approval: #a98bff; --approval-soft: #221a45; --off-bg: #132439; --off-ink: #5f738c; --navy: #020c1a;
+  --res: #4f7fd6; --res-soft: #15284a;
+  --shadow: 0 12px 32px rgba(0,0,0,.55); --shadow-sm: 0 2px 8px rgba(0,0,0,.4); color-scheme: dark; }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 14px; line-height: 1.5; font-variant-numeric: tabular-nums; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: 0; padding: 0; }
+button:disabled { cursor: not-allowed; opacity: .5; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+p { margin: 0; }
+.ic { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.wrap { max-width: 1320px; margin: 0 auto; padding-block: 24px 120px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 16px; }
+/* Embebido en Configuracion (Semanas bloqueadas): sin margenes propios */
+html.emb body { background: transparent; }
+html.emb .wrap { max-width: none; padding: 0; }
+.head { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; justify-content: space-between; }
+.head h1 { font-size: 24px; font-weight: 600; letter-spacing: -.01em; }
+.head p { color: var(--muted); font-size: 13px; max-width: 72ch; }
+.scope { font-size: 12.5px; color: var(--muted); display: inline-flex; gap: 6px; align-items: center; }
+
+.tabs { position: relative; display: flex; gap: 4px; border-bottom: 1px solid var(--line); overflow-x: auto; }
+.tabs button { padding: 10px 14px; font-size: 13.5px; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; display: inline-flex; gap: 8px; align-items: center; }
+.tabs button[aria-selected="true"] { color: var(--ink); font-weight: 600; border-color: var(--cyan); }
+.count { font-size: 11px; font-weight: 600; padding: 0 7px; border-radius: 999px; background: var(--warn-bg); color: var(--warn-ink); }
+.count.ap { background: var(--approval-soft); color: var(--approval); }
+
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: var(--r-ctl); font-size: 13px; font-weight: 500; white-space: nowrap; }
+.btn.primary { background: var(--primary); color: var(--primary-ink); }
+.btn.ghost { border: 1px solid var(--line); background: var(--surface); }
+.btn.ghost:hover:not(:disabled) { border-color: var(--bright); }
+.btn.approve { background: var(--approval); color: #fff; }
+.btn.danger { border: 1px solid var(--err-ink); color: var(--err-ink); background: var(--surface); }
+.btn.sm { padding: 5px 10px; font-size: 12px; }
+.link { color: var(--bright); font-weight: 500; font-size: 13px; }
+.link:hover { text-decoration: underline; }
+.icon-btn { width: 32px; height: 32px; border-radius: var(--r-ctl); display: inline-flex; align-items: center; justify-content: center; color: var(--muted); flex: none; }
+.icon-btn:hover:not(:disabled) { background: var(--surface-2); color: var(--ink); }
+
+.pill { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 500; padding: 2px 10px; border-radius: 999px; background: var(--off-bg); color: var(--off-ink); white-space: nowrap; }
+.pill.ok { background: var(--ok-bg); color: var(--ok-ink); }
+.pill.warn { background: var(--warn-bg); color: var(--warn-ink); }
+.pill.err { background: var(--err-bg); color: var(--err-ink); }
+.pill.pri { background: var(--primary-soft); color: var(--primary); }
+.pill.ap { background: var(--approval-soft); color: var(--approval); }
+.pill.prop { background: transparent; border: 1px dashed var(--approval); color: var(--approval); }
+.pill.sim { background: transparent; border: 1px dashed var(--line); color: var(--muted); }
+.pill .ic { width: 12px; height: 12px; }
+.muted { color: var(--muted); }
+.note { font-size: 12.5px; color: var(--muted); }
+
+.banner { display: flex; flex-wrap: wrap; gap: 10px 12px; align-items: center; padding: 12px 16px; border-radius: var(--r-surf); border: 1px solid var(--line); background: var(--surface); }
+.banner .txt { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.banner b { font-weight: 600; font-size: 13.5px; }
+.banner span { font-size: 12.5px; color: var(--muted); }
+.banner.warn { background: var(--warn-bg); border-color: transparent; }
+.banner.warn b, .banner.warn span { color: var(--warn-ink); }
+.banner.ap { background: var(--approval-soft); border-color: transparent; }
+.banner.ap b, .banner.ap span { color: var(--approval); }
+.banner.ok { background: var(--ok-bg); border-color: transparent; }
+.banner.ok b, .banner.ok span { color: var(--ok-ink); }
+.banner.err { background: var(--err-bg); border-color: transparent; }
+.banner.err b, .banner.err span { color: var(--err-ink); }
+.banner .b-ic { width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,.06); flex: none; }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-surf); padding: 18px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.card-h { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: space-between; }
+.card-h h2 { font-size: 15px; font-weight: 600; }
+.card-h p { font-size: 12.5px; color: var(--muted); max-width: 80ch; }
+
+/* ---------- Solicitudes y novedades · boceto iteracion 1 ---------- */
+.av { width: 34px; height: 34px; border-radius: 50%; overflow: hidden; flex: none; background: var(--navy); display: inline-flex; }
+.av img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.av .ini { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 600; font-size: 12px; }
+.av.sm { width: 24px; height: 24px; } .av.sm .ini { font-size: 10px; }
+.av.xs { width: 20px; height: 20px; } .av.xs .ini { font-size: 9px; }
+.av.lg { width: 44px; height: 44px; }
+.boceto { font-size: 11.5px; font-weight: 600; color: var(--approval); border: 1px dashed var(--approval); border-radius: 999px; padding: 2px 10px; white-space: nowrap; }
+.head-r { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.mono { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; }
+.code { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; font-weight: 500; }
+.grid2 { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+.stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.sp { flex: 1; }
+
+/* Resumen: banda con saldos y acciones */
+.hero { background: var(--navy); color: #fff; border-radius: var(--r-surf); padding: 20px 22px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px 24px; align-items: end; }
+.hero h2 { font-size: 20px; font-weight: 600; } .hero p { color: #b8c6dd; font-size: 13px; max-width: 60ch; margin-top: 4px; }
+.bal { display: flex; gap: 10px; flex-wrap: wrap; }
+.bal > div { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); border-radius: 10px; padding: 10px 14px; min-width: 150px; }
+.bal small { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: #b8c6dd; }
+.bal b { display: block; font-size: 22px; font-weight: 600; line-height: 1.2; }
+.bal span { font-size: 11.5px; color: #b8c6dd; }
+.acts { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+.agrp { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.agrp h3 { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); font-weight: 600; }
+.atiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.atile { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-surf); padding: 14px; display: flex; flex-direction: column; gap: 8px; text-align: left; min-height: 112px; transition: border-color .15s, box-shadow .15s; }
+.atile:hover { border-color: var(--bright); box-shadow: var(--shadow-sm); }
+.atile .ti { width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center; background: var(--primary-soft); color: var(--primary); }
+.atile .ti .ic { width: 18px; height: 18px; }
+.atile.nov .ti { background: var(--surface-2); color: var(--ink); }
+.atile b { font-size: 13.5px; font-weight: 600; } .atile small { font-size: 11.5px; color: var(--muted); line-height: 1.35; }
+.atile.ext { border-style: dashed; }
+
+/* Lista estandar (grilla) */
+.tbl { border: 1px solid var(--line); border-radius: var(--r-surf); background: var(--surface); overflow: hidden; }
+.tr { display: grid; gap: 12px; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--line-2); min-width: 0; }
+.tr:last-child { border-bottom: 0; }
+.tr.th { background: var(--surface-2); font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 500; padding-block: 9px; border-bottom: 1px solid var(--line); }
+.tr.click { cursor: pointer; } .tr.click:hover { background: color-mix(in srgb, var(--primary-soft) 50%, var(--surface)); }
+.tr.sel { background: var(--primary-soft); }
+.tr > * { min-width: 0; }
+.tr .r { text-align: right; }
+.cols-mine { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.2fr) minmax(0, 1.5fr) 150px 22px; }
+.cols-pl { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.3fr) 110px 150px; }
+.grid2.plg { grid-template-columns: minmax(0, 1.5fr) minmax(340px, 1fr); }
+.pipe.nar { grid-template-columns: repeat(2, minmax(0, 1fr)); } .pipe.nar > div:nth-child(3) { border-left: 0; } .pipe.nar > div:nth-child(n+3) { border-top: 1px solid var(--line-2); }
+.imp.nar > div { grid-template-columns: minmax(0, 1fr) auto; } .imp.nar > div > :nth-child(3) { grid-column: 1 / -1; }
+.who > div { min-width: 0; }
+.who { display: flex; gap: 10px; align-items: center; min-width: 0; }
+.who b { display: block; font-weight: 600; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.who small { display: block; font-size: 11.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tchip { display: inline-flex; gap: 6px; align-items: center; font-size: 12.5px; font-weight: 500; }
+.tchip .ic { width: 15px; height: 15px; color: var(--muted); }
+.dates b { display: block; font-size: 13px; font-weight: 500; } .dates small { display: block; font-size: 11.5px; color: var(--muted); }
+.ldrs { display: flex; flex-wrap: wrap; gap: 4px 6px; }
+.ld { display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; padding: 1px 8px 1px 2px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); white-space: nowrap; }
+.ld .ic { width: 12px; height: 12px; }
+.ld.ok { border-color: transparent; background: var(--ok-bg); color: var(--ok-ink); }
+.ld.obs { border-color: transparent; background: var(--warn-bg); color: var(--warn-ink); }
+.ld.pend { border-style: dashed; color: var(--muted); }
+.ld.aviso { color: var(--muted); }
+.cf { display: inline-flex; gap: 5px; align-items: center; font-size: 12px; color: var(--err-ink); font-weight: 500; }
+.cf .ic { width: 14px; height: 14px; }
+.chev { transition: transform .15s; color: var(--muted); }
+.open .chev { transform: rotate(180deg); }
+
+/* Pipeline Solicitud -> Aprobacion -> Disponibilidad -> Ejecucion */
+.pipe { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--surface); }
+.pipe > div { padding: 10px 12px; border-left: 1px solid var(--line-2); display: flex; flex-direction: column; gap: 2px; min-width: 0; position: relative; }
+.pipe > div:first-child { border-left: 0; }
+.pipe small { font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; display: flex; gap: 6px; align-items: center; }
+.pipe b { font-size: 12.5px; font-weight: 600; } .pipe span { font-size: 11.5px; color: var(--muted); }
+.pipe .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--line); flex: none; }
+.pipe .done .dot { background: var(--ok-ink); } .pipe .now .dot { background: var(--approval); box-shadow: 0 0 0 3px var(--approval-soft); }
+.pipe .tent .dot { background: transparent; border: 2px dashed var(--approval); }
+.pipe .no .dot { background: var(--err-ink); }
+.pipe .now { background: color-mix(in srgb, var(--approval-soft) 55%, var(--surface)); }
+
+.det { padding: 14px; background: var(--surface-2); border-bottom: 1px solid var(--line-2); display: flex; flex-direction: column; gap: 12px; }
+.det h4 { margin: 0; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; }
+.imp { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+.imp > div { display: grid; grid-template-columns: minmax(0, 1.4fr) 80px minmax(0, 1.4fr); gap: 10px; align-items: center; padding: 8px 12px; border-bottom: 1px solid var(--line-2); }
+.imp > div:last-child { border-bottom: 0; }
+.ceco { display: flex; gap: 8px; align-items: flex-start; min-width: 0; }
+.ceco b { display: block; font-family: ui-monospace, Menlo, monospace; font-weight: 500; font-size: 12px; }
+.ceco small { display: block; font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ceco > span:last-child { min-width: 0; }
+.resp { font-size: 12px; } .resp q { color: var(--ink); font-style: italic; quotes: '«' '»'; }
+.hist { display: flex; flex-direction: column; gap: 6px; font-size: 12px; }
+.hist div { display: flex; gap: 8px; } .hist time { color: var(--muted); min-width: 64px; }
+.lock { display: inline-flex; gap: 5px; align-items: center; font-size: 11.5px; color: var(--muted); }
+.lock .ic { width: 12px; height: 12px; }
+
+/* Nueva solicitud */
+.tpick { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+.tp { border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: 10px 12px; text-align: left; display: flex; gap: 10px; align-items: center; }
+.tp .ic { width: 18px; height: 18px; color: var(--muted); }
+.tp[aria-pressed="true"] { border-color: var(--primary); background: var(--primary-soft); color: var(--primary); font-weight: 600; }
+.tp[aria-pressed="true"] .ic { color: var(--primary); }
+.tp span { font-size: 13px; }
+.form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 14px; }
+.form .full { grid-column: 1 / -1; }
+.fld { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); min-width: 0; }
+.fld .f, .f { border: 1px solid var(--line); border-radius: var(--r-ctl); background: var(--surface); padding: 8px 10px; font-size: 13px; color: var(--ink); min-width: 0; width: 100%; }
+textarea.f { min-height: 64px; resize: vertical; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip { border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; font-size: 12.5px; background: var(--surface); }
+.chip[aria-pressed="true"] { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
+.drop { border: 1px dashed var(--line); border-radius: 10px; padding: 12px; display: flex; gap: 10px; align-items: center; font-size: 12.5px; color: var(--muted); }
+.drop.has { border-style: solid; color: var(--ink); background: var(--ok-bg); border-color: transparent; }
+.calc { display: flex; gap: 18px; flex-wrap: wrap; padding: 10px 12px; border-radius: 10px; background: var(--surface-2); font-size: 12.5px; }
+.calc b { font-size: 15px; display: block; }
+.what { position: sticky; top: 12px; }
+.what .wl { display: flex; flex-direction: column; gap: 12px; }
+.what .wi { display: flex; gap: 10px; align-items: flex-start; }
+.what .wi > .ic { width: 18px; height: 18px; color: var(--primary); margin-top: 2px; }
+.what .wi b { display: block; font-size: 13px; font-weight: 600; } .what .wi span { display: block; font-size: 12.5px; color: var(--muted); }
+.mini { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
+.mini > div { display: flex; gap: 8px; align-items: center; font-size: 12.5px; min-width: 0; }
+.mini > div > span:nth-child(2) { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.warnline { display: flex; gap: 8px; align-items: flex-start; font-size: 12.5px; color: var(--warn-ink); background: var(--warn-bg); padding: 8px 10px; border-radius: 8px; }
+.warnline .ic { width: 15px; height: 15px; margin-top: 2px; }
+
+/* Bandeja del lider */
+.rq { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-surf); overflow: hidden; }
+.rq.urg { border-left: 4px solid var(--approval); }
+.rq-h { display: flex; gap: 12px 16px; align-items: center; padding: 12px 16px; flex-wrap: wrap; }
+.rq-b { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 16px; padding: 0 16px 14px; }
+.rq-f { display: flex; gap: 8px; align-items: center; padding: 10px 16px; border-top: 1px solid var(--line-2); background: var(--surface-2); flex-wrap: wrap; }
+.rq-f input { flex: 1 1 260px; }
+.big { font-size: 22px; font-weight: 600; line-height: 1.1; }
+.mine { background: color-mix(in srgb, var(--primary-soft) 60%, var(--surface)); border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 4px; }
+.mine small { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; }
+
+/* Centro de Planeacion */
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-surf); padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; text-align: left; }
+.kpi small { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.kpi b { font-size: 20px; font-weight: 600; } .kpi span { font-size: 12px; color: var(--muted); }
+.kpi.ap b { color: var(--approval); } .kpi.w b { color: var(--warn-ink); } .kpi.e b { color: var(--err-ink); }
+button.kpi:hover { border-color: var(--bright); }
+button.kpi[aria-pressed="true"] { border-color: var(--primary); box-shadow: inset 0 0 0 1px var(--primary); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: var(--r-ctl); overflow: hidden; background: var(--surface); }
+.seg button { padding: 7px 12px; font-size: 12.5px; border-left: 1px solid var(--line); white-space: nowrap; }
+.seg button:first-child { border-left: 0; }
+.seg button[aria-pressed="true"] { background: var(--primary-soft); color: var(--primary); font-weight: 600; }
+.pnl { display: flex; flex-direction: column; gap: 12px; }
+.dec { display: flex; gap: 8px; flex-wrap: wrap; }
+.dec .btn { flex: 1 1 auto; justify-content: center; }
+
+/* Calendario consolidado */
+.cal-w { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r-surf); background: var(--surface); }
+table.cal { border-collapse: separate; border-spacing: 0; width: 100%; font-size: 12px; min-width: 760px; table-layout: fixed; }
+.cal th { background: var(--surface-2); font-size: 10.5px; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; padding: 7px 4px; border-bottom: 1px solid var(--line); text-align: center; white-space: nowrap; }
+.cal th small { display: block; text-transform: none; letter-spacing: 0; font-size: 10px; }
+.cal th.l, .cal td.l { text-align: left; padding-left: 12px; }
+.cal td { border-bottom: 1px solid var(--line-2); padding: 6px 3px; height: 40px; }
+.cal tr:last-child td { border-bottom: 0; }
+.cal .bar { display: block; height: 18px; border-radius: 5px; font-size: 10.5px; line-height: 18px; color: #fff; padding: 0 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bar.vac { background: #0a58eb; } .bar.inc, .bar.lic { background: #556578; } .bar.per, .bar.comp { background: #00a3b4; }
+.bar.pend { background: repeating-linear-gradient(135deg, var(--approval) 0 6px, color-mix(in srgb, var(--approval) 60%, var(--surface)) 6px 12px); }
+.cal td.now { background: color-mix(in srgb, var(--cyan) 8%, var(--surface)); }
+.legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; color: var(--muted); align-items: center; }
+.legend i { display: inline-block; width: 14px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+.calm { display: none; flex-direction: column; gap: 8px; }
+
+/* Vista de impacto */
+.ig { border: 1px solid var(--line); border-radius: var(--r-surf); background: var(--surface); overflow: hidden; }
+table.it { border-collapse: separate; border-spacing: 0; width: 100%; font-size: 12.5px; table-layout: fixed; }
+.it th { background: var(--surface-2); font-size: 10.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 500; padding: 7px 4px; border-bottom: 1px solid var(--line); text-align: center; }
+.it th small { display: block; text-transform: none; letter-spacing: 0; font-size: 10.5px; color: var(--ink); }
+.it th.l, .it td.l { text-align: left; padding-left: 12px; }
+.it td { border-bottom: 1px solid var(--line-2); padding: 5px 4px; text-align: center; }
+.it tr:last-child td { border-bottom: 0; }
+.it col.c1 { width: 270px; } .it col.c9 { width: 110px; }
+.cell { display: block; height: 32px; border-radius: 6px; line-height: 32px; font-size: 12px; font-weight: 600; }
+.cell.res { background: var(--res-soft); color: var(--primary); }
+.cell.lost { background: repeating-linear-gradient(135deg, var(--err-bg) 0 6px, var(--surface) 6px 12px); color: var(--err-ink); text-decoration: line-through; }
+.cell.abs { background: #0a58eb; color: #fff; }
+.cell.abs.pend { background: repeating-linear-gradient(135deg, var(--approval) 0 6px, color-mix(in srgb, var(--approval) 70%, var(--surface)) 6px 12px); }
+.cell.hito { box-shadow: inset 0 0 0 2px var(--err-ink); }
+.it tr.cap td { background: var(--surface-2); font-weight: 600; }
+.it .lostv { color: var(--err-ink); font-weight: 600; }
+.peek { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.mock { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--surface); }
+.mock .mh { padding: 8px 12px; background: var(--surface-2); font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 600; display: flex; justify-content: space-between; }
+.mock .mb { padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; font-size: 12.5px; }
+.rline { display: grid; grid-template-columns: 120px repeat(5, minmax(0, 1fr)); gap: 3px; align-items: center; }
+.rline span.c { height: 22px; border-radius: 4px; font-size: 10px; line-height: 22px; text-align: center; color: #fff; overflow: hidden; }
+.novl { display: flex; gap: 6px; align-items: center; font-size: 12px; color: var(--approval); }
+.novl .ic { width: 14px; height: 14px; }
+
+/* Matriz de reglas */
+.mx-w { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r-surf); background: var(--surface); }
+table.mx { border-collapse: separate; border-spacing: 0; width: 100%; font-size: 12.5px; min-width: 1100px; }
+.mx th { background: var(--surface-2); font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 600; padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: left; position: sticky; top: 0; }
+.mx td { padding: 10px; border-bottom: 1px solid var(--line-2); vertical-align: top; line-height: 1.4; }
+.mx td:first-child { font-weight: 600; white-space: nowrap; background: var(--surface); position: sticky; left: 0; }
+.mx tr.g td { background: var(--surface-2); font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; padding: 6px 10px; }
+.tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 0 6px; border-radius: 4px; margin-left: 4px; vertical-align: 1px; }
+.tag.p { background: var(--primary-soft); color: var(--primary); } .tag.q { background: var(--warn-bg); color: var(--warn-ink); }
+.dlist { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.dq { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+.dq b { font-size: 13px; } .dq p { font-size: 12.5px; color: var(--muted); }
+.dq ul { margin: 0; padding-left: 18px; font-size: 12.5px; } .dq li.rec { font-weight: 600; }
+
+/* Modal y aviso */
+.ov { position: fixed; inset: 0; background: rgba(0,28,63,.45); display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 50; }
+.dlg { background: var(--surface); border-radius: var(--r-surf); box-shadow: var(--shadow); width: min(480px, 100%); padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+.dlg h2 { font-size: 16px; font-weight: 600; } .dlg p { font-size: 13px; color: var(--muted); }
+.dlg-acts { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+.toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--navy); color: #fff; padding: 10px 16px; border-radius: 10px; font-size: 13px; box-shadow: var(--shadow); z-index: 60; max-width: calc(100% - 32px); }
+.empty { padding: 28px; text-align: center; color: var(--muted); font-size: 13px; border: 1px dashed var(--line); border-radius: var(--r-surf); }
+.upc { display: flex; flex-direction: column; gap: 8px; }
+.upc > div { display: flex; gap: 12px; align-items: center; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+.upc .dbox { width: 46px; text-align: center; border-radius: 8px; background: var(--surface-2); padding: 4px 0; flex: none; }
+.upc .dbox b { display: block; font-size: 16px; line-height: 1.1; } .upc .dbox small { font-size: 10.5px; text-transform: uppercase; color: var(--muted); }
+.upc .tx { flex: 1; min-width: 0; } .upc .tx b { display: block; font-size: 13px; } .upc .tx small { display: block; font-size: 12px; color: var(--muted); }
+
+@media (max-width: 1149px) {
+  .cols-pl { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.3fr) 150px; } .cols-pl .h-mid { display: none; } .grid2.plg { grid-template-columns: minmax(0, 1fr); }
+  .grid2 { grid-template-columns: minmax(0, 1fr); } .what { position: static; }
+  .peek { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 899px) {
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  .acts, .dlist { grid-template-columns: minmax(0, 1fr); } .atiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tr.th { display: none; }
+  .cols-mine, .cols-pl { grid-template-columns: minmax(0, 1fr) auto; gap: 6px 10px; }
+  .cols-mine > :nth-child(2), .cols-pl > :nth-child(2) { grid-column: 1; }
+  .cols-mine > :nth-child(3), .cols-pl > :nth-child(2) { grid-column: 1 / -1; }
+  .cols-mine > :nth-child(4), .cols-pl > :nth-child(4) { grid-column: 2; grid-row: 1; justify-self: end; }
+  .cols-mine > :nth-child(5) { display: none; }
+  .pipe { grid-template-columns: repeat(2, minmax(0, 1fr)); } .pipe > div:nth-child(3) { border-left: 0; } .pipe > div:nth-child(n+3) { border-top: 1px solid var(--line-2); }
+  .imp > div { grid-template-columns: minmax(0, 1fr) auto; } .imp > div > :nth-child(3) { grid-column: 1 / -1; }
+  .form { grid-template-columns: minmax(0, 1fr); }
+  .rq-b { grid-template-columns: minmax(0, 1fr); }
+  .cal-w { display: none; } .calm { display: flex; }
+  .it col.c1 { width: 120px; } .it .ceco small { display: none; } .it .ceco .kt, .it .ceco > span:first-child:not(:last-child) { display: none; }
+  .it th, .it td { padding: 4px 1px; } .cell { font-size: 10.5px; height: 30px; line-height: 30px; } .it col.c9 { width: 54px; }
+  .rline { grid-template-columns: 80px repeat(5, minmax(0, 1fr)); }
+  .btn { min-height: 40px; }
+}
+.what .wi > div { min-width: 0; flex: 1; }
+
+.asw { align-items: stretch; flex-wrap: wrap; }
+.asw .aslab { padding: 7px 10px; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); display: flex; align-items: center; }
+.asw button { display: inline-flex; gap: 6px; align-items: center; }
+.asw button small { font-size: 11px; color: var(--muted); }
+@media (max-width: 899px) { .head-r { width: 100%; } .asw { width: 100%; } .asw .aslab { display: none; } .asw button { flex: 1; justify-content: center; } .asw button small { display: none; } }
+</style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-plane" viewBox="0 0 24 24"><path d="M10.5 13.5 4 12l1.5-1.5 6 .5 4.5-5a2.1 2.1 0 0 1 3 3l-5 4.5.5 6L13 21l-1.5-6.5L8 18H6v-2z"/></symbol><symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h8l5 5v13H6zM14 3v5h5M9 13h7M9 17h5"/></symbol><symbol id="i-swap" viewBox="0 0 24 24"><path d="M7 7h12l-3-3M17 17H5l3 3"/></symbol><symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></symbol><symbol id="i-steth" viewBox="0 0 24 24"><path d="M6 3v6a5 5 0 0 0 10 0V3M6 3H5M16 3h1M11 14v2a4 4 0 0 0 8 0v-1"/><circle cx="19" cy="13" r="2"/></symbol><symbol id="i-plusc" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></symbol><symbol id="i-xtra" viewBox="0 0 24 24"><path d="M20.5 13A8.5 8.5 0 1 1 11 3.5"/><path d="M11 8v5l3 2M18 3v6M15 6h6"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></symbol><symbol id="i-msg" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10 20a2 2 0 0 0 4 0"/></symbol><symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h12l-2 4 2 4H5"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol><symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l10 18H2zM12 10v5M12 18h.01"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/></symbol><symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M7 14h4"/></symbol><symbol id="i-clip" viewBox="0 0 24 24"><path d="M20 11.5 12.5 19a5 5 0 0 1-7-7L13 4.5a3.3 3.3 0 0 1 4.7 4.7L10.2 16.7a1.7 1.7 0 0 1-2.4-2.4L14.5 7.6"/></symbol><symbol id="i-proj" viewBox="0 0 24 24"><path d="M3 7h7l2 2h9v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/></symbol><symbol id="i-exec" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol><symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol><symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol><symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></symbol><symbol id="i-track" viewBox="0 0 24 24"><path d="M4 19h16M6 15l4-5 3 3 5-7"/></symbol></svg>
+<div class="wrap" id="app"></div>
+<div id="ov"></div>
+<div class="toast" id="toast" role="status" hidden></div>
+<script>
+/* Boceto independiente: simula el shell de Kairos (persona elegida en «Ver como») */
+(function () { var who = 'Juan Menco'; try { who = localStorage.getItem('sol-boceto-as') || who; } catch (e) {}
+  var R = { 'Juan Menco': 'ejecutor', 'Natalie Ramírez': 'lider', 'Kevin Peña': 'lider', 'Mireya Uribe': 'planeacion' };
+  if (!R[who]) who = 'Juan Menco';
+  window.KAIROS_SHELL = { role: R[who], user: who, users: [] }; })();
+</script>
+<script>
+/* Kairos · Ejecucion y horas extra — motor de datos compartido por el modulo y el Ecosistema.
+   La reserva (modulo Reservas) es el plan: persona x dia x proyecto. Lo ejecutado cierra el ciclo:
+   persona x proyecto x fase x semana x horas. Datos ficticios; persistencia local del prototipo. */
+(function () {
+  'use strict';
+  var LS = 'kairos-ejecucion-v4-real', LS_RES = 'kairos-reservas-cal-v1-real', LS_PRJ = 'kairos-proyectos-v1-real';
+  var TODAY = '2026-10-23', DAYH = 8.4, BASE = 42, WINDOW = 8;
+
+  /* ---------- Fechas ISO y festivos de Colombia ---------- */
+  function parse(s) { var a = s.split('-').map(Number); return new Date(Date.UTC(a[0], a[1] - 1, a[2])); }
+  function iso(d) { return d.toISOString().slice(0, 10); }
+  function add(s, n) { var d = parse(s); d.setUTCDate(d.getUTCDate() + n); return iso(d); }
+  function dow(s) { return parse(s).getUTCDay(); }
+  function nextMonday(s) { var w = dow(s); return w === 1 ? s : add(s, (8 - w) % 7); }
+  function easter(y) {
+    var a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25),
+      g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4,
+      l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451),
+      mo = Math.floor((h + l - 7 * m + 114) / 31), da = ((h + l - 7 * m + 114) % 31) + 1;
+    return y + '-' + String(mo).padStart(2, '0') + '-' + String(da).padStart(2, '0');
+  }
+  var hcache = {};
+  function holidays(y) {
+    if (hcache[y]) return hcache[y];
+    var p = function (md) { return y + '-' + md; }, E = easter(y), h = {};
+    [['01-01', 'Año Nuevo'], ['05-01', 'Día del Trabajo'], ['07-20', 'Independencia'], ['08-07', 'Batalla de Boyacá'],
+      ['12-08', 'Inmaculada Concepción'], ['12-25', 'Navidad']].forEach(function (x) { h[p(x[0])] = x[1]; });
+    [['01-06', 'Reyes Magos'], ['03-19', 'San José'], ['06-29', 'San Pedro y San Pablo'], ['08-15', 'Asunción de la Virgen'],
+      ['10-12', 'Día de la Raza'], ['11-01', 'Todos los Santos'], ['11-11', 'Independencia de Cartagena']].forEach(function (x) { h[nextMonday(p(x[0]))] = x[1]; });
+    h[add(E, -3)] = 'Jueves Santo'; h[add(E, -2)] = 'Viernes Santo';
+    h[add(E, 43)] = 'Ascensión del Señor'; h[add(E, 64)] = 'Corpus Christi'; h[add(E, 71)] = 'Sagrado Corazón';
+    return (hcache[y] = h);
+  }
+  function holiday(s) { return holidays(Number(s.slice(0, 4)))[s] || null; }
+  function weekStart(y, w) { var j = new Date(Date.UTC(y, 0, 4)), d = j.getUTCDay() || 7; return iso(new Date(Date.UTC(y, 0, 4 - d + 1 + (w - 1) * 7))); }
+  function isoWeek(s) { var d = parse(s), day = d.getUTCDay() || 7; d.setUTCDate(d.getUTCDate() + 4 - day); var y = d.getUTCFullYear(), y0 = new Date(Date.UTC(y, 0, 1)); return { year: y, week: Math.ceil(((d - y0) / 864e5 + 1) / 7) }; }
+  function weekDays(y, w) { var s = weekStart(y, w), o = []; for (var i = 0; i < 7; i++) o.push(add(s, i)); return o; }
+  function workdays(y, w) { return weekDays(y, w).slice(0, 5).filter(function (s) { return !holiday(s); }); }
+  /* Capacidad de la semana segun el Maestro 6.3: 42 h sin festivos, 33 h con uno, 24 h con dos (9 h por festivo) */
+  function capacity(y, w) { return Math.max(0, BASE - 9 * (5 - workdays(y, w).length)); }
+  var CUR = isoWeek(TODAY);
+  function r1(n) { return Math.round(n * 10) / 10; }
+  function num(v) { return v === null || v === undefined || v === '' ? 0 : Number(v); }
+
+  /* ---------- Semilla de Reservas (misma regla que el modulo Reservas) ---------- */
+  var RCLIENTS = { 'cli-00': 'Omnicon', 'cli-01': 'Ecopetrol S.A.', 'cli-02': 'Celsia Colombia S.A. E.S.P.', 'cli-03': 'GeoPark Colombia S.A.S.', 'cli-04': 'Duquesa S.A.S. BIC', 'cli-05': 'Barry Callebaut', 'cli-06': 'Sucroal S.A.', 'cli-07': 'Corteva Agriscience de Colombia', 'cli-08': 'Kenvue Colombia S.A.', 'cli-09': 'Rockwell Automation Colombia' };
+  var RPROJ = [
+    ['prj-01', '30202004200', 'Act. estaciones cliente Florena', 'cli-01', 'Proyecto', 'activo'],
+    ['prj-02', '30401007200', 'Contrato mtto plataforma Rockwell 2026', 'cli-02', 'Servicio', 'activo'],
+    ['prj-03', '30029800000', 'Assessment infraestructura SCADA', 'cli-03', 'Proyecto', 'activo'],
+    ['prj-04', '30301053200', 'Bolsa de horas de ingeniería 2026 · 40 días', 'cli-04', 'Servicio', 'activo'],
+    ['prj-05', '30027700000', 'BC PLC programming for Layer 3 Pasir', 'cli-05', 'Proyecto', 'activo'],
+    ['prj-06', '30014700000', 'Change Request 1: Pasir Gudang', 'cli-05', 'Proyecto', 'cerrado'],
+    ['prj-07', '30311055800', 'Programación planta remoción de sulfatos', 'cli-06', 'Proyecto', 'activo'],
+    ['prj-08', '30311054100', 'Contrato de mtto enero a diciembre 2026', 'cli-07', 'Servicio', 'activo'],
+    ['prj-09', '30032400000', 'Holding continuo TA3', 'cli-08', 'Proyecto', 'activo'],
+    ['prj-10', '30701006500', 'Anexo 194 soporte base Manizales RA 2026', 'cli-09', 'Servicio', 'activo'],
+    ['prj-11', '30009400000', 'Toluca MES project · solid lines scope', 'cli-05', 'Proyecto', 'activo'],
+    ['prj-12', '30301044600', 'BC Smart Factory PM for Itabuna Brazil', 'cli-05', 'Proyecto', 'cerrado'],
+    ['prj-90', 'OMN-VAC', 'Vacaciones', 'cli-00', 'Interno', 'activo', 'abs'],
+    ['prj-91', 'OMN-INC', 'Incapacidad', 'cli-00', 'Interno', 'activo', 'abs'],
+    ['prj-92', 'OMN-ENT', 'Entrenamiento', 'cli-00', 'Interno', 'activo'],
+    ['prj-93', 'OMN-COM', 'Compensatorio', 'cli-00', 'Interno', 'activo', 'abs']
+  ].map(function (r) { return { id: r[0], code: r[1], name: r[2], client: RCLIENTS[r[3]], type: r[4], rstate: r[5], absence: r[6] === 'abs', internal: r[4] === 'Interno' }; });
+  var RPERS = [
+    ['per-01', 'Brainer Ocampo'], ['per-02', 'Federman Tapia'], ['per-03', 'Luis Lara'], ['per-04', 'Natalie Ramírez'],
+    ['per-05', 'Rafael de Vega'], ['per-06', 'Cristian Pérez'], ['per-07', 'Juan Menco'], ['per-08', 'Kenya Sánchez'],
+    ['per-09', 'Kevin Peña'], ['per-10', 'Laura Posso'], ['per-11', 'Simón Giraldo'], ['per-12', 'Víctor Rivera'],
+    ['per-13', 'Nataly Méndez'], ['per-14', 'Carlos Restrepo'], ['per-15', 'Brayan Castro'], ['per-16', 'Willian Villalobos'],
+    ['per-17', 'Camilo Ávila'], ['per-18', 'Juan Quintero'], ['per-19', 'Santiago Tobar'], ['per-20', 'Carlos Morales'],
+    ['per-21', 'Cristian Mejía', false], ['per-22', 'Isabella Orozco', false]
+  ].map(function (p) { return { id: p[0], name: p[1], active: p[2] !== false }; });
+  function seedReservations() {
+    var HOL = { '2026-10-12': 1, '2026-11-02': 1, '2026-11-16': 1 }, days = [];
+    for (var s = '2026-10-01'; s <= '2026-11-30'; s = add(s, 1)) { var w = dow(s); if (w !== 0 && w !== 6 && !HOL[s]) days.push(s); }
+    function between(a, b) { return function (s) { return s >= a && s <= b; }; }
+    var rules = {
+      'per-01': function (s, i) { return i % 2 ? 'prj-07' : 'prj-02'; },
+      'per-02': function (s) { return s < '2026-11-01' ? 'prj-01' : 'prj-09'; },
+      'per-03': function (s) { return s === '2026-10-27' ? 'prj-91' : 'prj-05'; },
+      'per-04': function (s) { return between('2026-11-09', '2026-11-13')(s) ? 'prj-92' : 'prj-11'; },
+      'per-05': function (s) { return s <= '2026-10-23' ? 'prj-05' : null; },
+      'per-06': function (s) { return s <= '2026-10-09' ? 'prj-12' : (s === '2026-10-28' ? 'prj-12' : 'prj-01'); },
+      'per-07': function () { return 'prj-02'; },
+      'per-08': function (s) { return s <= '2026-11-20' ? 'prj-11' : null; },
+      'per-09': function (s) { return between('2026-11-23', '2026-11-27')(s) ? 'prj-90' : 'prj-03'; },
+      'per-10': function () { return 'prj-04'; },
+      'per-11': function (s) { return s <= '2026-10-23' ? 'prj-03' : null; },
+      'per-12': function () { return 'prj-05'; },
+      'per-13': function (s) { return s <= '2026-11-27' || s === '2026-11-30' ? 'prj-05' : null; },
+      'per-14': function (s) { return s < '2026-11-03' ? 'prj-05' : null; },
+      'per-15': function (s) { return s <= '2026-10-16' ? 'prj-02' : 'prj-07'; },
+      'per-16': function () { return 'prj-01'; },
+      'per-17': function (s) { return s === '2026-10-30' ? 'prj-93' : 'prj-01'; },
+      'per-18': function (s) { var w = dow(s); return w === 1 || w === 3 || w === 5 ? 'prj-02' : null; },
+      'per-19': function () { return 'prj-09'; },
+      'per-20': function (s) { return between('2026-11-03', '2026-11-06')(s) ? 'prj-03' : 'prj-09'; },
+      'per-21': function (s) { return s <= '2026-10-15' ? 'prj-01' : null; }
+    };
+    var res = {};
+    Object.keys(rules).forEach(function (pid) { days.forEach(function (s, i) { var prj = rules[pid](s, i); if (prj) res[pid + '|' + s] = { personId: pid, projectId: prj, date: s }; }); });
+    return res;
+  }
+
+  /* ---------- Semilla de Proyectos (lider, categoria, unidad y estado por codigo) ---------- */
+  var PSEED = {
+    '30202004200': ['Ernesto Osorio', 'proyecto', 'AU', 'activo', ['Willian Villalobos', 'Camilo Ávila', 'Cristian Córdoba', 'Cristian Pérez', 'José Oviedo', 'Federman Tapia']],
+    '30401007200': ['Ernesto Osorio', 'servicio', 'AU', 'activo', ['Brayan Castro', 'Juan Quintero', 'Néstor Mazabuel', 'Juan Menco', 'Brainer Ocampo']],
+    '30029800000': ['Jhon Herrera', 'proyecto', 'AU', 'activo', ['Simón Giraldo', 'Iván Velasco', 'Miguel Quintero', 'Kevin Peña']],
+    '30301053200': ['Miguel Quintero', 'servicio', 'AU', 'activo', ['Miguel Quintero', 'Laura Posso']],
+    '30027700000': ['Rafael de Vega', 'proyecto', 'SM', 'activo', ['Nataly Méndez', 'Carlos Restrepo', 'Luis Lara', 'Víctor Rivera']],
+    '30014700000': ['Rafael de Vega', 'proyecto', 'SM', 'cerrado', ['Nataly Méndez']],
+    '30311055800': ['Brainer Ocampo', 'proyecto', 'AU', 'activo', ['Brainer Ocampo', 'Brayan Castro']],
+    '30311054100': ['Kevin Peña', 'servicio', 'AU', 'activo', ['Kevin Peña']],
+    '30032400000': ['Santiago Tobar', 'proyecto', 'AU', 'activo', ['Santiago Tobar', 'Carlos Morales', 'Juan Gutiérrez', 'Federman Tapia']],
+    '30701006500': ['Juan Dueñas', 'servicio', 'AU', 'activo', ['Juan Dueñas', 'Diego López', 'George Moreno', 'César Bolívar', 'Carlos Rodríguez']],
+    '30009400000': ['Natalie Ramírez', 'proyecto', 'SM', 'auditoria', ['Natalie Ramírez', 'Luis Orozco', 'Kenya Sánchez']],
+    '30301044600': ['Rafael de Vega', 'proyecto', 'SM', 'cerrado', ['Luis Angulo', 'Daniela Perea', 'Víctor Rivera', 'Cristian Pérez']],
+    'ANT-0003': ['Laura Posso', 'proyecto', 'CO', 'pendiente', ['Laura Posso'], 'Hoja de ruta de transformación digital', 'Alternegy S.A.']
+  };
+  /* Fechas de los proyectos (las de Proyectos) para elegir la fase activa en la semilla */
+  var DATES = { '30202004200': ['2026-07-06', '2026-12-18'], '30401007200': ['2026-03-02', '2027-02-26'], '30029800000': ['2026-08-03', '2026-12-11'], '30301053200': ['2026-01-12', '2026-12-18'],
+    '30027700000': ['2026-06-01', '2027-01-29'], '30014700000': ['2025-11-03', '2026-05-29'], '30311055800': ['2026-09-07', '2027-01-22'], '30311054100': ['2026-04-06', '2027-03-31'],
+    '30032400000': ['2026-11-03', '2027-03-12'], '30701006500': ['2026-10-05', '2026-12-04'], '30009400000': ['2026-04-13', '2026-10-16'], '30301044600': ['2025-09-01', '2026-02-27'] };
+  /* Ventanas de fase iguales a Avance: fase i activa entre i/n*0,8 y +0,34 del plazo; Gestion todo el plazo */
+  function activePhases(p, y, w) {
+    var d = DATES[p.code], tpl = PH_TPL[p.un] || PH_TPL.AU;
+    if (!d || p.cat === 'servicio' || p.internal) return p.phases.filter(function (x) { return x !== NF; });
+    var a = parse(d[0]), b = parse(d[1]), t = (parse(weekStart(y, w)) - a) / (b - a);
+    var out = tpl.filter(function (n, i) { var s = i / tpl.length * 0.8; return t >= s && t < Math.min(1, s + 0.34); });
+    if (p.cat === 'proyecto') { if (t >= 0.35 && t < 0.7) out.push('Ingeniería del alcance ampliado'); if (t >= 0.65) out.push('Puesta en marcha del alcance ampliado'); }
+    out.push('Gestión del proyecto');
+    return out;
+  }
+  var SUBSEED = { '30401007200': 'mantenimiento', '30301053200': 'bolsa', '30311054100': 'mantenimiento', '30701006500': 'puntual' };
+  /* Fases: las mismas de Avance en Proyectos (plantilla por unidad de negocio) */
+  var PH_TPL = { AU: ['Preparación', 'Configuración de PLC', 'Configuración de HMI', 'Protocolos y pruebas FAT', 'Comisionamiento y SAT'],
+    SM: ['Levantamiento de información', 'Diseño de arquitectura', 'Desarrollo de reportes', 'Pruebas FAT/UAT', 'Despliegue y soporte de arranque'],
+    CO: ['Preparación', 'Estado actual (MOM Mapping)', 'Diseño del estado futuro', 'Desarrollo de documento'] };
+  /* Servicios: las fases de su cotizacion. Historico: una sola fase «Soporte al cliente».
+     Contrato de mantenimiento: sus lineas cotizadas; la Disponibilidad es linea comercial y no se registra. */
+  var PH_SERV = ['Soporte al cliente'];
+  var PH_CONTRATO = ['Preventivo y correctivo', 'Urgencias', 'Gestión del contrato'];
+  function phasesFor(cat, un, sub) {
+    if (cat === 'servicio') return (sub === 'mantenimiento' ? PH_CONTRATO : PH_SERV).slice();
+    var l = (PH_TPL[un] || PH_TPL.AU).concat(['Gestión del proyecto']);
+    if (cat === 'proyecto') l = l.concat(['Ingeniería del alcance ampliado', 'Puesta en marcha del alcance ampliado']);
+    return l;
+  }
+
+  var NF = 'No facturable', NF_MOTIVOS = ['Reproceso', 'Garantía', 'Traslado', 'Otro'];
+  function readLS(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } }
+
+  /* Contexto: personas planeables, proyectos y reservas, leyendo lo que hayan guardado Reservas y Proyectos */
+  function context() {
+    var rs = readLS(LS_RES), pj = readLS(LS_PRJ);
+    var res = rs && rs.res ? rs.res : seedReservations();
+    var byPrj = {}, projects = [], byCode = {};
+    var plist = pj && pj.v === 1 && pj.projects ? pj.projects : null;
+    RPROJ.forEach(function (r) {
+      var p = { code: r.code, name: r.name, client: r.client, type: r.type, internal: r.internal, absence: r.absence, state: r.rstate, leader: null, team: [], cat: r.internal ? 'interno' : r.type === 'Servicio' ? 'servicio' : 'proyecto', un: 'AU' };
+      var s = PSEED[r.code]; if (s) { p.leader = s[0]; p.cat = s[1]; p.un = s[2]; p.state = s[3]; p.team = s[4].slice(); p.sub = SUBSEED[r.code] || null; }
+      byPrj[r.id] = p; byCode[p.code] = p; projects.push(p);
+    });
+    Object.keys(PSEED).forEach(function (c) {
+      if (byCode[c]) return; var s = PSEED[c];
+      var p = { code: c, name: s[5], client: s[6], type: 'Proyecto', internal: false, absence: false, leader: s[0], cat: s[1], un: s[2], state: s[3], team: s[4].slice() };
+      byCode[c] = p; projects.push(p);
+    });
+    if (plist) plist.forEach(function (q) {
+      var p = byCode[q.code];
+      if (!p) { p = { code: q.code, name: q.name, client: q.clientName || '', type: q.cat === 'servicio' ? 'Servicio' : 'Proyecto', internal: false, absence: false }; byCode[q.code] = p; projects.push(p); }
+      p.leader = q.leader || p.leader; p.cat = q.cat || p.cat; p.un = q.un || p.un; p.state = q.state || p.state; p.team = (q.team || p.team || []).slice(); p.name = q.name || p.name; p.sub = q.sub || p.sub;
+      /* fases definidas en Proyectos (incluye fases partidas por el lider) */
+      if (q.av && q.av.phases && q.av.phases.length) {
+        p.ownPhases = q.av.phases.map(function (x) { return x.name; }); p.split = q.av.phases.filter(function (x) { return x.parent; }).map(function (x) { return x.name; });
+        /* fase Aprobada (100 %) en Avance: cerrada desde la semana siguiente al reporte */
+        p.closed = {};
+        (q.av.reports || []).forEach(function (r) { q.av.phases.forEach(function (x) { if ((r.ph || {})[x.id] === 100 && !(x.name in p.closed)) { var wk = isoWeek(r.wk); p.closed[x.name] = { year: wk.year, week: wk.week }; } }); });
+      }
+    });
+    projects.forEach(function (p) {
+      p.phases = p.absence ? ['Ausencia'] : p.internal ? ['General'] : p.ownPhases && p.cat !== 'servicio' ? p.ownPhases.slice() : phasesFor(p.cat, p.un, p.sub);
+      /* [PROPUESTA 24-oct] cada proyecto o servicio tiene la fase fija «No facturable», con motivo obligatorio; no pesa en Avance y nunca se cierra */
+      if (!p.internal) p.phases.push(NF);
+      p.closed = p.closed || {};
+      p.open = p.state === 'activo' || p.state === 'auditoria' || p.state === 'pendiente';
+    });
+    var persons = RPERS.map(function (x) { return { id: x.id, name: x.name, active: x.active }; });
+    var pById = {}; persons.forEach(function (x) { pById[x.id] = x; });
+    /* reserva por persona y semana: { code: horas } */
+    var rmap = {};
+    Object.keys(res).forEach(function (k) {
+      var r = res[k], per = pById[r.personId], prj = byPrj[r.projectId]; if (!per || !prj) return;
+      var wk = isoWeek(r.date), key = per.name + '|' + wk.year + '|' + wk.week;
+      var m = rmap[key] || (rmap[key] = { total: 0, by: {}, days: {} });
+      /* hora-dia de la reserva = capacidad de la semana / dias habiles (8,4 h; 8,25 h con un festivo) */
+      var dh = capacity(wk.year, wk.week) / Math.max(1, workdays(wk.year, wk.week).length);
+      m.by[prj.code] = Math.round(((m.by[prj.code] || 0) + dh) * 100) / 100; m.total = Math.round((m.total + dh) * 100) / 100;
+      (m.days[prj.code] || (m.days[prj.code] = [])).push(r.date);
+    });
+    function reserved(name, y, w) { return rmap[name + '|' + y + '|' + w] || { total: 0, by: {}, days: {} }; }
+    return { persons: persons, projects: projects, byCode: byCode, reserved: reserved, fromReservas: !!(rs && rs.res), fromProyectos: !!plist };
+  }
+
+  /* ---------- Semilla de ejecucion ---------- */
+  function seed(ctx) {
+    var recs = [], seq = 0;
+    function put(person, w, code, phase, hours) {
+      var r = recs.filter(function (x) { return x.person === person && x.week === w && x.code === code && x.phase === phase; })[0];
+      if (r) { r.hours = r1(r.hours + hours); return; }
+      recs.push({ id: 'e' + (++seq), year: 2026, week: w, person: person, code: code, phase: phase, hours: r1(hours), by: person, at: weekStart(2026, w), history: [] });
+    }
+    function accept(person, w) {
+      var rv = ctx.reserved(person, 2026, w);
+      Object.keys(rv.by).forEach(function (code, j) {
+        var p = ctx.byCode[code], ph = activePhases(p, 2026, w), hrs = rv.by[code];
+        if (ph.length > 1 && hrs > 16) { var a = r1(Math.round(hrs * 0.6 * 2) / 2); put(person, w, code, ph[(w + j) % ph.length], a); put(person, w, code, ph[(w + j + 1) % ph.length], r1(hrs - a)); }
+        else put(person, w, code, ph[(w + j) % ph.length], hrs);
+      });
+    }
+    var exec43 = ['Brainer Ocampo', 'Federman Tapia', 'Natalie Ramírez', 'Kenya Sánchez', 'Juan Menco', 'Víctor Rivera', 'Nataly Méndez', 'Laura Posso', 'Brayan Castro', 'Santiago Tobar'];
+    ctx.persons.forEach(function (p) {
+      if (!p.active && p.name !== 'Cristian Mejía') return;
+      accept(p.name, 41); accept(p.name, 42);
+      if (exec43.indexOf(p.name) >= 0) accept(p.name, 43);
+    });
+    function first(person, w, code) { return recs.filter(function (x) { return x.person === person && x.week === w && x.code === code; })[0]; }
+    function bump(person, w, code, h) { var r = first(person, w, code); if (r) r.hours = r1(r.hours + h); else put(person, w, code, activePhases(ctx.byCode[code], 2026, w)[0], h); }
+    bump('Víctor Rivera', 42, '30027700000', 4);
+    bump('Kenya Sánchez', 42, '30029800000', 3);
+    bump('Brainer Ocampo', 42, '30027700000', 2);
+    bump('Federman Tapia', 41, '30202004200', 5);
+    bump('Laura Posso', 42, '30301053200', 3);
+    bump('Natalie Ramírez', 43, '30009400000', 2.5);
+    var sg = first('Simón Giraldo', 42, '30301053200'); if (sg) sg.hours = r1(sg.hours - DAYH);
+    var extras = [
+      { id: 'x1', year: 2026, week: 42, person: 'Víctor Rivera', status: 'sent', excessAtSend: 4, sentAt: '2026-10-19T07:40:00', rows: [
+        { code: '30027700000', day: 3, type: 'HED', hours: 2.5, status: 'pending', approver: 'Brainer Ocampo' },
+        { code: '30027700000', day: 5, type: 'HED', hours: 1.5, status: 'pending', approver: 'Brainer Ocampo' }] },
+      { id: 'x2', year: 2026, week: 42, person: 'Kenya Sánchez', status: 'sent', excessAtSend: 3, sentAt: '2026-10-19T08:15:00', rows: [
+        { code: '30029800000', day: 2, type: 'HEN', hours: 3, status: 'pending', approver: 'Jhon Herrera' }] },
+      { id: 'x3', year: 2026, week: 42, person: 'Brainer Ocampo', status: 'sent', excessAtSend: 2, sentAt: '2026-10-20T17:05:00', rows: [
+        { code: '30027700000', day: 6, type: 'HEDDF', hours: 2, status: 'pending', approver: 'Planeación' }] },
+      { id: 'x4', year: 2026, week: 41, person: 'Federman Tapia', status: 'sent', excessAtSend: 5, sentAt: '2026-10-12T09:00:00', rows: [
+        { code: '30202004200', day: 4, type: 'HED', hours: 3, status: 'approved', approver: 'Ernesto Osorio', reviewedBy: 'Ernesto Osorio', reviewedAt: '2026-10-13' },
+        { code: '30202004200', day: 5, type: 'HED', hours: 2, status: 'approved', approver: 'Ernesto Osorio', reviewedBy: 'Ernesto Osorio', reviewedAt: '2026-10-13' }] }
+    ];
+    var locks = [{ id: 'l1', year: 2026, start: 1, end: 41, active: true, reason: 'Cierre de nómina', by: 'Mireya Uribe', at: '2026-10-13' }];
+    return { v: 1, records: recs, extras: extras, locks: locks, drafts: {}, seq: 100, log: [] };
+  }
+  function load(ctx) { var s = readLS(LS); if (s && s.v === 1 && s.records) { s.drafts = s.drafts || {}; s.log = s.log || []; return s; } return seed(ctx || context()); }
+  function save(db) { try { localStorage.setItem(LS, JSON.stringify(db)); return true; } catch (e) { return false; } }
+
+  /* ---------- Derivados ---------- */
+  function total(db, person, y, w) { return r1(db.records.filter(function (r) { return r.person === person && r.year === y && r.week === w; }).reduce(function (s, r) { return s + num(r.hours); }, 0)); }
+  function excess(db, person, y, w) { return Math.max(0, r1(total(db, person, y, w) - capacity(y, w))); }
+  function xEntry(db, person, y, w) { return db.extras.filter(function (x) { return x.person === person && x.year === y && x.week === w; })[0]; }
+  function xSum(e) { return r1(e.rows.reduce(function (s, r) { return s + num(r.hours); }, 0)); }
+  function weeksLeft(y, w) { return y === CUR.year ? w + WINDOW - CUR.week : -1; }
+  function xState(db, person, y, w) {
+    var ex = excess(db, person, y, w); if (ex <= 0) return null;
+    var e = xEntry(db, person, y, w), st;
+    if (!e || e.status !== 'sent') st = 'todo';
+    else if (Math.abs((e.excessAtSend || xSum(e)) - ex) > 0.001 || xSum(e) > ex + 0.001) st = 'stale';
+    else if (e.rows.some(function (r) { return r.status === 'returned'; })) st = 'returned';
+    else return e.rows.every(function (r) { return r.status === 'approved'; }) ? 'approved' : 'pending';
+    return weeksLeft(y, w) < 0 ? 'expired' : st;
+  }
+  /* Avisos para el Ecosistema: por aprobar (con aprobador) y por distribuir (por persona) */
+  function avisos(db) {
+    var pend = [], todo = [];
+    db.extras.forEach(function (e) {
+      if (e.status !== 'sent') return;
+      var st = xState(db, e.person, e.year, e.week); if (st !== 'pending') return;
+      e.rows.forEach(function (r, i) { if (r.status === 'pending') pend.push({ id: e.id, i: i, person: e.person, year: e.year, week: e.week, code: r.code, hours: r.hours, approver: r.approver }); });
+    });
+    var seen = {};
+    db.records.forEach(function (r) {
+      var k = r.person + '|' + r.year + '|' + r.week; if (seen[k]) return; seen[k] = 1;
+      var st = xState(db, r.person, r.year, r.week);
+      if (st === 'todo' || st === 'stale' || st === 'returned') todo.push({ person: r.person, year: r.year, week: r.week, excess: excess(db, r.person, r.year, r.week), state: st });
+    });
+    return { pend: pend, todo: todo };
+  }
+
+  /* Color por cliente [ACORDADO 30-oct]: un color por cliente; Omnicon (internos y ausencias) siempre azul oscuro */
+  var CPAL = ['#BFD3FF', '#A8EEF7', '#D7C9FF', '#BFEBD2', '#FFD6B0', '#E3D9CC', '#F8C6DE', '#C9F0E9', '#F1E3A6', '#C7CCFF', '#D6EDB6', '#E9D4F5', '#FFE08A', '#B9E3FF', '#F5CFC2', '#D3E4C5'];
+  function clientColor(c) {
+    var id = RCLIENTS[c] ? c : Object.keys(RCLIENTS).filter(function (k) { return RCLIENTS[k] === c; })[0];
+    if (!id || id === 'cli-00') return { bg: '#002473', ink: '#ffffff' };
+    var ids = Object.keys(RCLIENTS).filter(function (k) { return k !== 'cli-00'; }).sort();
+    return { bg: CPAL[ids.indexOf(id) % CPAL.length], ink: '' };
+  }
+  window.KX = {
+    LS: LS, TODAY: TODAY, NF: NF, NF_MOTIVOS: NF_MOTIVOS, CUR: CUR, DAYH: DAYH, BASE: BASE, WINDOW: WINDOW,
+    parse: parse, iso: iso, add: add, dow: dow, holiday: holiday, weekStart: weekStart, weekDays: weekDays, workdays: workdays, isoWeek: isoWeek, capacity: capacity, r1: r1, num: num,
+    context: context, seed: seed, load: load, save: save,
+    clientColor: clientColor,
+    total: total, excess: excess, xEntry: xEntry, xSum: xSum, xState: xState, weeksLeft: weeksLeft, avisos: avisos
+  };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  /* Solicitudes y novedades · BOCETO iteracion 1 [PROPUESTA 03-nov]
+     Datos de ejemplo propios del boceto; personas, proyectos, lideres, festivos y capacidad salen de KX (Ejecucion).
+     Nada de esto esta acordado: las reglas se marcan [PROPUESTA] o [PENDIENTE]. */
+  var SH = window.KAIROS_SHELL || null, HOST = window.KAIROS_HOST || null, X = window.KX;
+  var KT = null; try { KT = window.parent !== window ? window.parent.KairosTipos : window.KairosTipos; } catch (e) {}
+  var $ = function (id) { return document.getElementById(id); };
+  var app = $('app');
+  if (!X) { app.innerHTML = '<div class="empty">Abre este boceto dentro de Kairos.</div>'; return; }
+  var ME = SH ? (typeof SH.user === 'string' ? SH.user : (SH.user && (SH.user.name || SH.user.nombre))) : 'Mireya Uribe';
+  var ROLE = SH ? SH.role : 'planeacion';
+  var ctx = X.context(), HOY = X.TODAY;
+  var LS = 'kairos-solicitudes-boceto-v2';
+
+  /* ---------- utilidades ---------- */
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function ic(id, cls) { return '<svg class="ic' + (cls ? ' ' + cls : '') + '"><use href="#' + id + '"></use></svg>'; }
+  var MON = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'], DW = ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'];
+  function dm(s) { return +s.slice(8) + ' ' + MON[+s.slice(5, 7) - 1]; }
+  function dd(s) { return DW[X.dow(s)] + ' ' + dm(s); }
+  function rng(a, b) { if (!b || a === b) return dd(a); return a.slice(5, 7) === b.slice(5, 7) && a.slice(0, 4) === b.slice(0, 4) ? +a.slice(8) + '–' + dm(b) : dm(a) + ' – ' + dm(b) + (a.slice(0, 4) !== b.slice(0, 4) ? ' ' + b.slice(0, 4) : ''); }
+  function h(n) { return String(Math.round(n * 10) / 10).replace('.', ',') + ' h'; }
+  function days(a, b) { var o = [], s = a; while (s <= b) { o.push(s); s = X.add(s, 1); } return o; }
+  function isWork(s) { var w = X.dow(s); return w >= 1 && w <= 5 && !X.holiday(s); }
+  function work(a, b) { return days(a, b || a).filter(isWork); }
+  function dayH(s) { var k = X.isoWeek(s), n = X.workdays(k.year, k.week).length; return n ? X.capacity(k.year, k.week) / n : 8.4; }
+  function prj(c) { return ctx.byCode[c] || { code: c, name: c, leader: null }; }
+  function user(n) { return SH && SH.users ? SH.users.filter(function (u) { return u.name === n; })[0] : null; }
+  function av(n, cls) { var u = user(n), ini = n === 'Planeación' ? 'PL' : n.split(' ').slice(0, 2).map(function (w) { return w.charAt(0); }).join(''); return '<span class="av' + (cls ? ' ' + cls : '') + '" title="' + esc(n) + '">' + (u && SH.photo ? SH.photo(u.face) : '<span class="ini">' + esc(ini) + '</span>') + '</span>'; }
+  function tile(c) { var p = prj(c); return KT && KT.tileCode ? KT.tileCode(c, 'sm', p.cat === 'servicio' ? 'servicio' : 'proyecto') || '' : ''; }
+  function short(c) { var n = prj(c).name, cl = prj(c).client || ''; return (cl.split(' ')[0] || n.split(' ')[0]).slice(0, 9); }
+  function ceco(c, sub) { var p = prj(c); return '<div class="ceco">' + tile(c) + '<span><b>' + esc(c) + '</b><small>' + esc(sub || p.name) + '</small></span></div>'; }
+  var tt; function toast(t) { var el = $('toast'); el.textContent = t; el.hidden = false; clearTimeout(tt); tt = setTimeout(function () { el.hidden = true; }, 4200); }
+
+  /* ---------- catalogo de tipos [PROPUESTA] ---------- */
+  var T = {
+    vac: { n: 'Vacaciones', ic: 'i-plane', kind: 'sol', intc: 'OMN-VAC', d: 'Planea tu descanso. Tus líderes opinan y Planeación decide.' },
+    per: { n: 'Permiso', ic: 'i-doc', kind: 'sol', intc: 'por definir', d: 'Diligencia personal, cita médica, académico, votación o exámenes periódicos.' },
+    comp: { n: 'Compensatorio', ic: 'i-swap', kind: 'sol', intc: 'OMN-COM', d: 'Usa el saldo que ganaste repartiendo el excedente en Horas extra.' },
+    lic: { n: 'Licencia', ic: 'i-heart', kind: 'nov', intc: 'por definir', d: 'Paternidad, maternidad o luto. Se registra con soporte.' },
+    inc: { n: 'Incapacidad', ic: 'i-steth', kind: 'nov', intc: 'OMN-INC', d: 'Se registra con el certificado. No se aprueba: se valida.' },
+    rcomp: { n: 'Tiempo compensatorio', ic: 'i-plusc', kind: 'rep', intc: '—', d: 'Reporta un domingo o festivo trabajado para ganar tiempo a favor.' }
+  };
+  var PER_SUB = ['Diligencia personal', 'Cita médica', 'Permiso académico', 'Permiso por votación', 'Exámenes periódicos'];
+  var LIC_SUB = ['Paternidad', 'Maternidad', 'Luto'];
+  var AVISO_SUB = ['Cita médica', 'Exámenes periódicos'];
+  function typeName(r) { return r.sub ? r.sub : T[r.type].n; }
+  /* confidencialidad [PROPUESTA]: el motivo de salud solo lo ven la persona y Planeacion; el soporte, solo Gestion Humana */
+  function salud(r) { return r.type === 'inc' || (r.type === 'per' && r.sub === 'Cita médica'); }
+  function seeType(r) { return r.person === ME || ROLE === 'planeacion'; }
+  function typeLabel(r) { return salud(r) && !seeType(r) ? 'Ausencia' : typeName(r); }
+  function typeChip(r) { var hide = salud(r) && !seeType(r); return '<span class="tchip">' + ic(hide ? 'i-lock' : T[r.type].ic) + esc(typeLabel(r)) + '</span>' + (hide ? '<span class="lock" title="El motivo es reservado">' + 'motivo reservado</span>' : ''); }
+
+  var ST = {
+    consulta: ['En consulta', 'ap'], decidir: ['Por decidir', 'warn'], ajuste: ['Ajuste propuesto', 'warn'], aprobada: ['Aprobada', 'ok'], rechazada: ['Rechazada', 'err'], cancelada: ['Cancelada', ''],
+    registrada: ['Registrada', 'pri'], validacion: ['Soporte en validación', 'pri'], validada: ['Validada', 'ok']
+  };
+  function stPill(r) { var s = ST[r.state] || [r.state, '']; return '<span class="pill ' + s[1] + '">' + s[0] + '</span>'; }
+  var VB = { ok: ['Visto bueno', 'ok', 'i-check'], obs: ['Observación', 'obs', 'i-msg'], pend: ['Pendiente', 'pend', 'i-clock'], aviso: ['Avisado', 'aviso', 'i-bell'], self: ['Lidera el proyecto', 'aviso', 'i-flag'], silent: ['Sin respuesta en plazo', 'pend', 'i-clock'] };
+  function ldChip(im) { var v = VB[im.vb] || VB.pend; return '<span class="ld ' + v[1] + '" title="' + esc(im.leader + ' · ' + v[0]) + '">' + av(im.leader, 'xs') + esc(im.leader.split(' ')[0]) + ' ' + ic(v[2]) + '</span>'; }
+
+  /* ---------- asignaciones de ejemplo (dia de la semana -> CECO) ---------- */
+  var PATTERN = { 'Juan Menco': ['30401007200', '30401007200', '30009400000', '30009400000', '30027700000'] };
+  var HITOS = { '30009400000': [{ d: '2026-11-25', t: 'FAT con el cliente' }], '30032400000': [{ d: '2026-12-10', t: 'Arranque de línea TA3' }] };
+  function pattern(person) {
+    if (PATTERN[person]) return PATTERN[person];
+    var ps = ctx.projects.filter(function (p) { return p.open && !p.internal && (p.leader === person || (p.team || []).indexOf(person) >= 0); }).slice(0, 3).map(function (p) { return p.code; });
+    if (!ps.length) return [];
+    return [0, 1, 2, 3, 4].map(function (i) { return ps[Math.floor(i * ps.length / 5)]; });
+  }
+  function impactsFor(person, from, to, hrs) {
+    var pat = pattern(person), by = {}, wd = work(from, to);
+    wd.forEach(function (s) { var c = pat[X.dow(s) - 1]; if (!c) return; var x = by[c] || (by[c] = { code: c, leader: prj(c).leader || 'Planeación', days: [], h: 0 }); x.days.push(s); x.h += hrs != null && wd.length === 1 ? hrs : dayH(s); });
+    return Object.keys(by).map(function (c) { var x = by[c]; x.h = Math.round(x.h * 10) / 10; x.vb = x.leader === person ? 'self' : 'pend'; x.hito = (HITOS[c] || []).filter(function (t) { return x.days.indexOf(t.d) >= 0; })[0] || null; return x; });
+  }
+  var SALDO = { 'Juan Menco': { vac: 12, comp: 0 }, 'Natalie Ramírez': { vac: 9, comp: 16 }, 'Kevin Peña': { vac: 15, comp: 0 }, 'Brainer Ocampo': { vac: 6, comp: 4 }, 'Kenya Sánchez': { vac: 11, comp: 0 } };
+  function saldo(n) { return SALDO[n] || { vac: 10, comp: 0 }; }
+
+  /* ---------- semilla ---------- */
+  function mk(o) {
+    var r = { id: o.id, type: o.type, sub: o.sub || '', person: o.person, from: o.from, to: o.to || o.from, hFrom: o.hFrom || '', hTo: o.hTo || '', hours: o.hours, note: o.note || '', created: o.created, by: o.by || o.person, state: o.state, support: o.support || 'na', impacts: o.impacts || impactsFor(o.person, o.from, o.to || o.from, o.hours), conflicts: o.conflicts || [], proposal: o.proposal || null, hist: o.hist || [] };
+    (o.vb || []).forEach(function (v, i) { if (r.impacts[i]) { r.impacts[i].vb = v[0]; r.impacts[i].note = v[1] || ''; r.impacts[i].at = v[2] || ''; } });
+    if (r.hours == null) r.hours = Math.round(r.impacts.reduce(function (s, x) { return s + x.h; }, 0) * 10) / 10;
+    r.wd = work(r.from, r.to).length;
+    return r;
+  }
+  function seed() {
+    var L = [
+      mk({ id: 'S-1042', type: 'vac', person: 'Juan Menco', from: '2026-11-23', to: '2026-11-27', created: '2026-10-20', state: 'consulta', note: 'Viaje familiar, ya con tiquetes.',
+        vb: [['ok', 'Sin problema; Brayan cubre el mantenimiento de Celsia.', '21 oct'], ['obs', 'El 25 nov es la FAT con el cliente y Juan configura las pruebas. ¿Puede moverlas a la semana del 30 nov?', '22 oct'], ['pend']],
+        conflicts: [{ k: 'hito', t: 'Coincide con la FAT de Toluca MES (mié 25 nov).' }],
+        hist: [['20 oct', 'Juan Menco', 'Envió la solicitud. Kairos avisó a 3 líderes y a Planeación.'], ['21 oct', 'Ernesto Osorio', 'Dio visto bueno.'], ['22 oct', 'Natalie Ramírez', 'Dejó una observación.']] }),
+      mk({ id: 'S-1045', type: 'per', sub: 'Cita médica', person: 'Kenya Sánchez', from: '2026-10-28', hFrom: '14:00', hTo: '17:00', hours: 3, created: '2026-10-22', state: 'registrada', support: 'pend',
+        vb: [['aviso']], hist: [['22 oct', 'Kenya Sánchez', 'Registró la ausencia. Kairos avisó a su líder sin mostrar el motivo.']] }),
+      mk({ id: 'S-1039', type: 'inc', person: 'Víctor Rivera', from: '2026-10-20', to: '2026-10-22', created: '2026-10-20', by: 'Rafael de Vega', state: 'validacion', support: 'ok',
+        vb: [['aviso']], conflicts: [{ k: 'ejec', t: 'Víctor ya tenía 8,4 h en BC PLC el 20 oct: al validar, pasan a OMN-INC.' }],
+        hist: [['20 oct', 'Rafael de Vega', 'Registró la incapacidad a nombre de Víctor y adjuntó el certificado.'], ['20 oct', 'Kairos', 'Bloqueó la disponibilidad del 20 al 22 oct.']] }),
+      mk({ id: 'S-1048', type: 'per', sub: 'Permiso académico', person: 'Kenya Sánchez', from: '2026-11-12', to: '2026-11-13', created: '2026-10-22', state: 'consulta', support: 'ok', note: 'Sustentación de la especialización en la Universidad del Valle.',
+        hist: [['22 oct', 'Kenya Sánchez', 'Envió la solicitud con el soporte. Kairos avisó a su líder y a Planeación.']] }),
+      mk({ id: 'S-1046', type: 'per', sub: 'Diligencia personal', person: 'Laura Posso', from: '2026-10-30', hFrom: '08:00', hTo: '12:00', hours: 4, created: '2026-10-21', state: 'aprobada',
+        vb: [['aviso']], hist: [['21 oct', 'Laura Posso', 'Envió la solicitud.'], ['21 oct', 'Kairos', 'Medio día o menos: aprobada al registrar; su líder quedó avisado.']] }),
+      mk({ id: 'S-1047', type: 'comp', person: 'Natalie Ramírez', from: '2026-11-06', created: '2026-10-22', state: 'decidir', note: 'Compenso el festivo del 12 oct.',
+        hist: [['22 oct', 'Natalie Ramírez', 'Envió la solicitud. Ella lidera el proyecto: pasa directo a Planeación.']] }),
+      mk({ id: 'S-1033', type: 'lic', sub: 'Paternidad', person: 'Federman Tapia', from: '2026-12-01', to: '2026-12-14', created: '2026-10-15', state: 'validada', support: 'ok',
+        vb: [['aviso']], conflicts: [{ k: 'replan', t: 'Holding continuo TA3 queda sin ingeniero de PLC en diciembre. El arranque de línea es el 10 dic.' }],
+        hist: [['15 oct', 'Federman Tapia', 'Registró la licencia con el soporte.'], ['16 oct', 'Gestión Humana', 'Validó el soporte.']] }),
+      mk({ id: 'S-1021', type: 'vac', person: 'Brainer Ocampo', from: '2026-12-21', to: '2027-01-08', created: '2026-10-02', state: 'aprobada',
+        vb: [['self'], ['ok', '', '3 oct']], hist: [['2 oct', 'Brainer Ocampo', 'Envió la solicitud.'], ['3 oct', 'Ernesto Osorio', 'Dio visto bueno.'], ['5 oct', 'Mireya Uribe', 'Aprobó.']] }),
+      mk({ id: 'S-1044', type: 'vac', person: 'Kevin Peña', from: '2026-11-09', to: '2026-11-13', created: '2026-10-19', state: 'ajuste',
+        proposal: { from: '2026-11-17', to: '2026-11-20', by: 'Mireya Uribe', t: 'Del 9 al 13 nov arranca el mantenimiento anual de Corteva. Propongo del 17 al 20 nov (el 16 es festivo).' },
+        vb: [['self'], ['ok', '', '20 oct']], hist: [['19 oct', 'Kevin Peña', 'Envió la solicitud.'], ['20 oct', 'Jhon Herrera', 'Dio visto bueno.'], ['21 oct', 'Mireya Uribe', 'Propuso otras fechas.']] }),
+    ];
+    return { v: 1, seq: 1050, list: L };
+  }
+  var db; try { db = JSON.parse(localStorage.getItem(LS) || 'null'); } catch (e) { db = null; }
+  if (!db || db.v !== 1) db = seed();
+  function save() { try { localStorage.setItem(LS, JSON.stringify(db)); } catch (e) {} }
+  function byId(id) { return db.list.filter(function (r) { return r.id === id; })[0]; }
+  function hist(r, who, t) { var d = new Date(); r.hist.push([dm(HOY), who, t]); }
+
+  /* ---------- estado de vista ---------- */
+  var isPlan = ROLE === 'planeacion', isDir = ROLE === 'direccion';
+  var leads = ctx.projects.filter(function (p) { return p.leader === ME; }).map(function (p) { return p.code; });
+  var isLead = ROLE === 'lider' || leads.length > 0;
+  /* Boceto fuera de Kairos: «Ver como» cambia de persona sin recargar */
+  var AS = [['Juan Menco', 'ejecutor', 'Ingeniero'], ['Natalie Ramírez', 'lider', 'Ingeniera líder'], ['Kevin Peña', 'lider', 'Líder'], ['Mireya Uribe', 'planeacion', 'Planeación']];
+  function setAs(n) { var a = AS.filter(function (x) { return x[0] === n; })[0]; ME = a[0]; ROLE = a[1]; isPlan = ROLE === 'planeacion'; isDir = ROLE === 'direccion'; leads = ctx.projects.filter(function (p) { return p.leader === ME; }).map(function (p) { return p.code; }); isLead = ROLE === 'lider' || leads.length > 0; ui.nw = null; ui.sel = null; ui.open = {}; ui.obs = {}; try { localStorage.setItem('sol-boceto-as', ME); } catch (e) {} setTab('inicio'); }
+  function asSwitch() { return '<div class="seg asw" role="group" aria-label="Ver como"><span class="aslab">Ver como</span>' + AS.map(function (a) { return '<button data-a="as" data-v="' + a[0] + '" aria-pressed="' + (ME === a[0]) + '" title="' + a[0] + ' · ' + a[2] + '">' + av(a[0], 'xs') + '<span>' + a[0].split(' ')[0] + '</span><small>' + a[2] + '</small></button>'; }).join('') + '</div>'; }
+  var ui = { tab: 'inicio', nw: null, open: {}, sel: null, plf: 'gestion', imp: 'S-1042', after: true, dlg: null, obs: {} };
+  var hash = (location.hash || '').slice(1); if (hash) ui.tab = hash;
+
+  function tabs() {
+    var t = [['inicio', 'Resumen'], ['nueva', 'Nueva solicitud'], ['mias', 'Mis solicitudes', mine().filter(function (r) { return /consulta|decidir|ajuste|registrada|validacion/.test(r.state); }).length]];
+    if (isLead) t.push(['lider', 'Por revisar', toReview().length]);
+    if (isPlan || isDir) t.push(['plan', 'Centro de Planeación', planQueue().length]);
+    if (isPlan || isDir || isLead) t.push(['impacto', 'Impacto en la planeación']);
+    t.push(['reglas', 'Reglas · borrador']);
+    return t;
+  }
+  function mine() { return db.list.filter(function (r) { return r.person === ME; }).sort(function (a, b) { return a.from < b.from ? 1 : -1; }); }
+  function toReview() { return db.list.filter(function (r) { return r.person !== ME && r.impacts.some(function (im) { return im.leader === ME && im.vb === 'pend'; }) && r.state === 'consulta'; }); }
+  function informed() { return db.list.filter(function (r) { return r.person !== ME && r.impacts.some(function (im) { return im.leader === ME; }) && !r.impacts.some(function (im) { return im.leader === ME && im.vb === 'pend'; }) && r.state !== 'cancelada'; }); }
+  function planQueue() { return db.list.filter(function (r) { return /consulta|decidir|ajuste|validacion/.test(r.state) || (r.state === 'registrada' && r.support === 'pend') || (r.conflicts.length && /aprobada|validada/.test(r.state) && r.to >= HOY); }); }
+
+  /* ---------- pipeline ---------- */
+  function pipe(r, nar) {
+    var k = T[r.type].kind, s = r.state, n = r.impacts.filter(function (x) { return x.vb !== 'self' && x.vb !== 'aviso'; }), resp = n.filter(function (x) { return x.vb === 'ok' || x.vb === 'obs'; }).length;
+    var tot = r.impacts.reduce(function (a, x) { return a + x.h; }, 0), intc = T[r.type].intc;
+    var aviso = r.type === 'per' && AVISO_SUB.indexOf(r.sub) >= 0;
+    var st = [['done', k === 'sol' ? 'Solicitud' : 'Registro', (k === 'sol' ? 'Enviada ' : 'Registrada ') + dm(r.created) + (r.by !== r.person ? ' por ' + r.by.split(' ')[0] : '')]];
+    if (k === 'rep') st.push([s === 'aprobada' ? 'done' : 'now', 'Validación', s === 'aprobada' ? h(r.hours) + ' a favor' : 'Planeación valida']);
+    else if (k === 'nov' || aviso) st.push(s === 'validada' ? ['done', 'Validación', 'Soporte validado'] : r.support === 'pend' ? ['now', aviso ? 'Aviso y soporte' : 'Validación', 'Falta adjuntar el soporte'] : ['now', 'Validación', 'Gestión Humana valida el soporte']);
+    else if (s === 'consulta') st.push(['now', 'Aprobación', 'Consulta a líderes · ' + resp + ' de ' + n.length]);
+    else if (s === 'decidir') st.push(['now', 'Aprobación', 'Planeación decide']);
+    else if (s === 'ajuste') st.push(['now', 'Aprobación', 'Planeación propone otras fechas']);
+    else if (s === 'aprobada') st.push(['done', 'Aprobación', r.wd <= 0 || (r.type === 'per' && r.hours <= 4) ? 'Aprobada al registrar' : 'Aprobada']);
+    else if (s === 'rechazada') st.push(['no', 'Aprobación', 'Rechazada']);
+    else st.push(['', 'Aprobación', 'Cancelada']);
+    if (k === 'rep') st.push(['done', 'Disponibilidad', 'No cambia']);
+    else if (k === 'nov' || aviso) st.push(['done', 'Disponibilidad', 'Bloqueada desde el registro']);
+    else if (s === 'aprobada') st.push(['done', 'Disponibilidad', 'Reserva liberada · ' + h(tot)]);
+    else if (/rechazada|cancelada/.test(s)) st.push(['', 'Disponibilidad', 'Sin cambio']);
+    else st.push(['tent', 'Disponibilidad', 'Planeación la ve como posible ausencia']);
+    var ok = /aprobada|validada|validacion|registrada/.test(s) && k !== 'rep';
+    if (k === 'rep') st.push(['done', 'Ejecución', 'Las horas ya están en el proyecto']);
+    else if (!ok) st.push(['', 'Ejecución', /rechazada|cancelada/.test(s) ? 'Nada que registrar' : 'Solo si se aprueba']);
+    else if (r.conflicts.some(function (c) { return c.k === 'ejec'; })) st.push(['now', 'Ejecución', 'Corregir horas ya registradas']);
+    else if (r.to < HOY) st.push(['done', 'Ejecución', intc + ' precargado · ' + h(tot)]);
+    else if (r.from <= HOY) st.push(['now', 'Ejecución', 'En curso']);
+    else st.push(['', 'Ejecución', 'Se precarga ' + intc + ' el ' + dm(r.from)]);
+    return '<div class="pipe' + (nar ? ' nar' : '') + '">' + st.map(function (x) { return '<div class="' + x[0] + '"><small><i class="dot"></i>' + x[1] + '</small><span>' + esc(x[2]) + '</span></div>'; }).join('') + '</div>';
+  }
+  function when(r) {
+    var d = r.hFrom ? dd(r.from) + ' · ' + r.hFrom + '–' + r.hTo : rng(r.from, r.to);
+    var q = T[r.type].kind === 'rep' ? h(r.hours) + ' trabajadas' : r.hFrom ? h(r.hours) : r.wd + (r.wd === 1 ? ' día hábil' : ' días hábiles');
+    return '<div class="dates"><b>' + esc(d) + '</b><small>' + esc(q) + '</small></div>';
+  }
+  function impList(r, me, narrow) {
+    if (!r.impacts.length) return '<p class="note">No afecta asignaciones.</p>';
+    return '<div class="imp' + (narrow ? ' nar' : '') + '">' + r.impacts.map(function (im) {
+      var v = VB[im.vb] || VB.pend;
+      return '<div' + (me && im.leader === ME ? ' style="background:color-mix(in srgb,var(--primary-soft) 55%,var(--surface))"' : '') + '>' + ceco(im.code) + '<b class="r" style="text-align:right">' + h(im.h) + '</b><div class="resp">' + '<span class="ld ' + v[1] + '">' + av(im.leader, 'xs') + esc(im.leader) + ' · ' + v[0] + '</span>' +
+        (im.note ? '<div style="margin-top:4px"><q>' + esc(im.note) + '</q></div>' : '') + (im.hito ? '<div class="cf" style="margin-top:4px">' + ic('i-alert') + esc(dd(im.hito.d) + ': ' + im.hito.t) + '</div>' : '') + '</div></div>';
+    }).join('') + '</div>';
+  }
+
+  /* ---------- Resumen ---------- */
+  function vInicio() {
+    var sl = saldo(ME), M = mine(), up = db.list.filter(function (r) { return r.person === ME && r.to >= HOY && T[r.type].kind !== 'rep' && !/rechazada|cancelada/.test(r.state); }).sort(function (a, b) { return a.from < b.from ? -1 : 1; });
+    var pend = M.filter(function (r) { return /consulta|decidir|ajuste/.test(r.state); });
+    var h1 = '<section class="hero"><div><h2>Hola, ' + esc(ME.split(' ')[0]) + '</h2><p>Pide una ausencia o registra una novedad. Kairos ubica los proyectos afectados, avisa a sus líderes y deja todo listo para Planeación.</p></div>' +
+      '<div class="bal"><div><small>Vacaciones</small><b>' + sl.vac + ' días</b><span>disponibles · Nómina · simulado</span></div><div><small>Compensatorio</small><b>' + h(sl.comp) + '</b><span>' + (sl.comp ? 'a favor' : 'sin saldo') + '</span></div><div><small>En trámite</small><b>' + pend.length + '</b><span>' + (pend.length === 1 ? 'solicitud' : 'solicitudes') + '</span></div></div></section>';
+    var tileH = function (k, ext) { var t = T[k]; return '<button class="atile' + (t.kind !== 'sol' ? ' nov' : '') + '" data-a="new" data-v="' + k + '"><span class="ti">' + ic(t.ic) + '</span><b>' + (k === 'comp' ? 'Usar compensatorio' : t.n) + '</b><small>' + esc(t.d) + '</small></button>'; };
+    var acts = '<div class="acts"><div class="agrp"><h3>Solicitar · se decide</h3><div class="atiles">' + ['vac', 'per', 'comp'].map(function (k) { return tileH(k); }).join('') + '</div></div>' +
+      '<div class="agrp"><h3>Reportar · se registra</h3><div class="atiles">' + ['inc', 'lic'].map(function (k) { return tileH(k); }).join('') +
+      '<button class="atile nov ext" data-a="go" data-v="horasextra"><span class="ti">' + ic('i-xtra') + '</span><b>Horas extra y compensatorio</b><small>El excedente de la semana se reparte en hora extra o en compensatorio, en Horas extra.</small></button></div></div></div>';
+    var side = '<section class="card"><div class="card-h"><h2>Tus próximas ausencias</h2></div>' + (up.length ? '<div class="upc">' + up.map(function (r) {
+      return '<div><span class="dbox"><b>' + +r.from.slice(8) + '</b><small>' + MON[+r.from.slice(5, 7) - 1] + '</small></span><span class="tx"><b>' + esc(typeName(r)) + '</b><small>' + esc(r.hFrom ? dd(r.from) + ' · ' + r.hFrom + '–' + r.hTo : rng(r.from, r.to)) + '</small></span>' + stPill(r) + '</div>';
+    }).join('') + '</div>' : '<p class="note">No tienes ausencias programadas.</p>') + '</section>';
+    var todo = [];
+    if (isLead && toReview().length) todo.push('<div class="banner ap"><span class="b-ic">' + ic('i-users') + '</span><div class="txt"><b>' + toReview().length + (toReview().length === 1 ? ' solicitud de tu equipo espera' : ' solicitudes de tu equipo esperan') + ' tu opinión</b><span>Afectan proyectos que lideras. Si no respondes en 2 días hábiles, cuenta como sin objeción [PROPUESTA].</span></div><button class="btn primary sm" data-a="tab" data-v="lider">Revisar</button></div>');
+    if (isPlan) { var q = planQueue(); todo.push('<div class="banner warn"><span class="b-ic">' + ic('i-cal') + '</span><div class="txt"><b>' + q.length + ' por gestionar en el Centro de Planeación</b><span>' + q.filter(function (r) { return r.conflicts.length; }).length + ' con conflicto en proyectos.</span></div><button class="btn primary sm" data-a="tab" data-v="plan">Abrir</button></div>'); }
+    M.filter(function (r) { return r.state === 'ajuste'; }).forEach(function (r) { todo.push('<div class="banner warn"><span class="b-ic">' + ic('i-swap') + '</span><div class="txt"><b>Planeación propone otras fechas para tus vacaciones</b><span>' + esc(rng(r.proposal.from, r.proposal.to)) + ' en vez de ' + esc(rng(r.from, r.to)) + '.</span></div><button class="btn primary sm" data-a="openmine" data-id="' + r.id + '">Responder</button></div>'); });
+    M.filter(function (r) { return r.support === 'pend'; }).forEach(function (r) { todo.push('<div class="banner"><span class="b-ic">' + ic('i-clip') + '</span><div class="txt"><b>Falta el soporte de tu ' + esc(typeName(r).toLowerCase()) + '</b><span>' + esc(rng(r.from, r.to)) + '. Adjúntalo para cerrar el registro.</span></div><button class="btn ghost sm" data-a="openmine" data-id="' + r.id + '">Adjuntar</button></div>'); });
+    return h1 + (todo.length ? '<div class="stack" style="gap:10px">' + todo.join('') + '</div>' : '') + '<div class="grid2"><div class="stack">' + acts + '</div>' + side + '</div>';
+  }
+
+  /* ---------- Nueva solicitud ---------- */
+  function nwDefault(t) { return { type: t, sub: t === 'per' ? 'Diligencia personal' : t === 'lic' ? 'Paternidad' : '', from: t === 'vac' ? '2026-11-23' : t === 'inc' ? HOY : t === 'rcomp' ? '2026-10-18' : '2026-10-29', to: t === 'vac' ? '2026-11-27' : t === 'inc' ? '2026-10-24' : '', part: t === 'per' ? 'horas' : 'dia', hFrom: '08:00', hTo: '12:00', note: '', file: '', for: ME, hrs: '8', code: '' }; }
+  function nwCalc(n) {
+    var to = n.part === 'horas' || n.type === 'rcomp' ? n.from : (n.to && n.to >= n.from ? n.to : n.from);
+    var hrs = null;
+    if (n.part === 'horas' && n.type !== 'rcomp') { var a = n.hFrom.split(':'), b = n.hTo.split(':'); hrs = Math.max(0, (+b[0] + b[1] / 60) - (+a[0] + a[1] / 60)); }
+    var wd = work(n.from, to).length, ims = n.type === 'rcomp' ? [] : impactsFor(n.for, n.from, to, hrs);
+    var tot = hrs != null ? hrs : ims.reduce(function (s, x) { return s + x.h; }, 0);
+    return { to: to, hrs: hrs, wd: wd, ims: ims, tot: tot };
+  }
+  function nwRule(n, c) {
+    /* reglas del boceto [PROPUESTA] */
+    if (n.type === 'vac') return { st: 'consulta', who: 'Planeación decide después de escuchar a los líderes', notify: true };
+    if (n.type === 'per' && AVISO_SUB.indexOf(n.sub) >= 0) return { st: 'registrada', who: 'No requiere aprobación: es aviso y soporte', notify: true };
+    if ((n.type === 'per' || n.type === 'comp') && c.hrs != null && c.hrs <= 4) return { st: 'aprobada', who: 'Medio día o menos: queda aprobado al registrar', notify: true };
+    if (n.type === 'per' || n.type === 'comp') return { st: 'consulta', who: 'Planeación decide después de escuchar a los líderes', notify: true };
+    if (n.type === 'inc' || n.type === 'lic') return { st: n.file ? 'validacion' : 'registrada', who: 'No se aprueba: Gestión Humana valida el soporte', notify: true };
+    return { st: 'decidir', who: 'Planeación valida el tiempo trabajado', notify: false };
+  }
+  function vNueva() {
+    var n = ui.nw || (ui.nw = nwDefault('vac')), t = T[n.type], c = nwCalc(n), rule = nwRule(n, c), sl = saldo(n.for);
+    var pick = '<div class="tpick">' + ['vac', 'per', 'comp', 'inc', 'lic'].map(function (k) { return '<button class="tp" data-a="nwtype" data-v="' + k + '" aria-pressed="' + (n.type === k) + '">' + ic(T[k].ic) + '<span>' + (k === 'comp' ? 'Usar compensatorio' : T[k].n) + '</span></button>'; }).join('') + '</div>';
+    var f = '<div class="form">';
+    if (n.type === 'inc' && (isPlan || isLead)) f += '<label class="fld full">Persona<select class="f" data-nw="for" id="nwFor">' + ctx.persons.filter(function (p) { return p.active; }).map(function (p) { return '<option' + (p.name === n.for ? ' selected' : '') + '>' + esc(p.name) + '</option>'; }).join('') + '</select><span class="note">Planeación o un líder pueden registrarla a nombre de la persona.</span></label>';
+    if (n.type === 'per') f += '<div class="fld full">Motivo<div class="chips">' + PER_SUB.map(function (s) { return '<button class="chip" data-a="nwsub" data-v="' + s + '" aria-pressed="' + (n.sub === s) + '">' + s + '</button>'; }).join('') + '</div></div>';
+    if (n.type === 'lic') f += '<div class="fld full">Tipo de licencia<div class="chips">' + LIC_SUB.map(function (s) { return '<button class="chip" data-a="nwsub" data-v="' + s + '" aria-pressed="' + (n.sub === s) + '">' + s + '</button>'; }).join('') + '</div><span class="note">La duración la valida Gestión Humana según la ley vigente; Kairos no la fija [PENDIENTE].</span></div>';
+    if (n.type === 'per' || n.type === 'comp') f += '<div class="fld full">Duración<div class="chips">' + [['horas', 'Unas horas'], ['dia', 'Uno o varios días']].map(function (o) { return '<button class="chip" data-a="nwpart" data-v="' + o[0] + '" aria-pressed="' + (n.part === o[0]) + '">' + o[1] + '</button>'; }).join('') + '</div></div>';
+    if (n.type === 'rcomp') {
+      f += '<label class="fld">Día trabajado (domingo o festivo)<input class="f" type="date" id="nwFrom" data-nw="from" value="' + n.from + '"></label><label class="fld">Horas trabajadas<input class="f" id="nwHrs" data-nw="hrs" inputmode="decimal" value="' + esc(n.hrs) + '"></label>';
+      var my = ctx.projects.filter(function (p) { return p.open && !p.internal && (p.leader === n.for || (p.team || []).indexOf(n.for) >= 0); });
+      f += '<label class="fld full">Proyecto<select class="f" id="nwCode" data-nw="code">' + my.map(function (p) { return '<option value="' + p.code + '"' + (p.code === n.code ? ' selected' : '') + '>' + esc(p.code + ' · ' + p.name) + '</option>'; }).join('') + '</select></label>';
+      var dw = X.dow(n.from); if (!(dw === 0 || X.holiday(n.from))) f += '<div class="warnline full">' + ic('i-alert') + '<span>El ' + esc(dd(n.from)) + ' no es domingo ni festivo. Si fue tiempo adicional en día hábil, va por Horas extra.</span></div>';
+    } else if (n.part === 'horas') {
+      f += '<label class="fld">Fecha<input class="f" type="date" id="nwFrom" data-nw="from" value="' + n.from + '"></label><div class="fld">Horario<div class="row"><input class="f" type="time" id="nwHf" data-nw="hFrom" value="' + n.hFrom + '" style="flex:1"><span class="muted">a</span><input class="f" type="time" id="nwHt" data-nw="hTo" value="' + n.hTo + '" style="flex:1"></div></div>';
+    } else {
+      f += '<label class="fld">Desde<input class="f" type="date" id="nwFrom" data-nw="from" value="' + n.from + '"></label><label class="fld">Hasta<input class="f" type="date" id="nwTo" data-nw="to" value="' + (n.to || n.from) + '"></label>';
+    }
+    if (n.type !== 'rcomp') f += '<div class="calc full"><span><small class="muted">Tiempo</small><b>' + (c.hrs != null ? h(c.hrs) : c.wd + (c.wd === 1 ? ' día hábil' : ' días hábiles')) + '</b></span>' +
+      (c.hrs == null ? '<span><small class="muted">Equivale a</small><b>' + h(c.tot) + '</b></span>' : '') +
+      (n.type === 'vac' ? '<span><small class="muted">Te quedarían</small><b>' + (sl.vac - c.wd) + ' días</b></span>' : n.type === 'comp' ? '<span><small class="muted">Saldo después</small><b>' + h(sl.comp - c.tot) + '</b></span>' : '') +
+      '<span class="note" style="align-self:center">Kairos descuenta fines de semana y festivos de Colombia.</span></div>';
+    if (n.type === 'vac' && sl.vac - c.wd < 0) f += '<div class="warnline full">' + ic('i-alert') + '<span>Pides ' + c.wd + ' días y tienes ' + sl.vac + '. Planeación y Gestión Humana deciden si se adelantan [PENDIENTE].</span></div>';
+    if (n.type === 'comp' && sl.comp - c.tot < 0) f += '<div class="warnline full">' + ic('i-alert') + '<span>Tu saldo es ' + h(sl.comp) + ': no alcanza para ' + h(c.tot) + '.</span></div>';
+    if (n.type === 'vac' && (X.parse(n.from) - X.parse(HOY)) / 864e5 < 15) f += '<div class="warnline full">' + ic('i-alert') + '<span>Faltan menos de 15 días. ¿Exigimos una anticipación mínima? [PENDIENTE: definir días]</span></div>';
+    var needFile = n.type === 'inc' || n.type === 'lic' || (n.type === 'per' && ['Cita médica', 'Exámenes periódicos', 'Permiso por votación', 'Permiso académico'].indexOf(n.sub) >= 0);
+    if (needFile) f += '<div class="fld full">Soporte' + (n.type === 'inc' || n.type === 'lic' ? ' (obligatorio)' : '') + '<div class="drop' + (n.file ? ' has' : '') + '">' + ic('i-clip') + '<span style="flex:1">' + (n.file ? esc(n.file) + ' · listo' : n.type === 'inc' ? 'Certificado de incapacidad. Puedes adjuntarlo después.' : n.sub === 'Permiso por votación' ? 'Certificado electoral.' : 'Constancia de la cita o del trámite. Puedes adjuntarla después.') + '</span><button class="btn ghost sm" data-a="nwfile">' + (n.file ? 'Cambiar' : 'Adjuntar') + '</button></div>' +
+      (salud({ type: n.type, sub: n.sub }) ? '<span class="lock">' + ic('i-lock') + 'No escribas el diagnóstico. El soporte solo lo ve Gestión Humana; tus líderes ven «Ausencia».</span>' : '') + '</div>';
+    f += '<label class="fld full">Comentario (opcional)<textarea class="f" id="nwNote" data-nw="note" placeholder="' + (n.type === 'vac' ? 'Algo que tus líderes deban saber, como quién te cubre.' : 'Algo que Planeación deba saber.') + '">' + esc(n.note) + '</textarea></label></div>';
+    var btn = t.kind === 'sol' ? (rule.st === 'aprobada' ? 'Registrar' : 'Enviar solicitud') : t.kind === 'rep' ? 'Reportar' : 'Registrar novedad';
+    var left = '<section class="card"><div class="card-h"><h2>¿Qué necesitas?</h2></div>' + pick + '<p class="note">' + esc(t.d) + '</p>' + f + '<div class="row"><span class="sp"></span><button class="btn ghost" data-a="tab" data-v="inicio">Cancelar</button><button class="btn primary" data-a="nwsend">' + ic('i-send') + btn + '</button></div></section>';
+    /* panel derecho: lo que va a pasar */
+    var leaders = c.ims.filter(function (x) { return x.leader !== n.for; });
+    var who = '<div class="wl">' +
+      '<div class="wi">' + ic('i-proj') + '<div><b>' + (c.ims.length ? c.ims.length + (c.ims.length === 1 ? ' proyecto afectado' : ' proyectos afectados') : n.type === 'rcomp' ? 'Suma a tu saldo' : 'No afecta proyectos') + '</b>' +
+      (c.ims.length ? '<div class="mini">' + c.ims.map(function (x) { return '<div>' + tile(x.code) + '<span><span class="code">' + x.code + '</span> ' + esc(prj(x.code).name) + '</span><b>' + h(x.h) + '</b></div>' + (x.hito ? '<div class="cf">' + ic('i-alert') + esc(dd(x.hito.d) + ': ' + x.hito.t) + '</div>' : ''); }).join('') + '</div>' : '<span>' + (n.type === 'rcomp' ? 'Las horas ya están registradas en el proyecto.' : 'No tienes asignaciones esos días.') + '</span>') + '</div></div>' +
+      '<div class="wi">' + ic('i-bell') + '<div><b>Se enteran</b><span>' + (leaders.length ? leaders.map(function (x) { return esc(x.leader); }).join(', ') + ' y Planeación' : 'Planeación') + (salud({ type: n.type, sub: n.sub }) ? '. Ven «Ausencia», sin el motivo.' : '') + '</span></div></div>' +
+      '<div class="wi">' + ic('i-check') + '<div><b>Quién decide</b><span>' + esc(rule.who) + '</span></div></div>' +
+      '<div class="wi">' + ic('i-cal') + '<div><b>Tu disponibilidad</b><span>' + (t.kind === 'nov' || rule.st === 'registrada' || rule.st === 'aprobada' ? 'Se bloquea desde que registras.' : t.kind === 'rep' ? 'No cambia.' : 'Mientras se decide, Planeación la ve como posible ausencia. Se bloquea al aprobar.') + '</span></div></div>' +
+      '<div class="wi">' + ic('i-exec') + '<div><b>En Ejecución</b><span>' + (t.kind === 'rep' ? 'Nada: las horas ya las registraste en el proyecto.' : 'Kairos precarga ' + h(c.tot) + ' en ' + T[n.type].intc + '; no las digitas tú.') + '</span></div></div></div>';
+    var right = '<aside class="card what"><div class="card-h"><h2>Lo que va a pasar</h2><span class="boceto">Boceto</span></div>' + who + '</aside>';
+    return '<div class="grid2">' + left + right + '</div>';
+  }
+  function nwSend() {
+    var n = ui.nw, c = nwCalc(n), rule = nwRule(n, c);
+    if (n.type === 'comp' && saldo(n.for).comp < c.tot) return toast('Tu saldo de compensatorio no alcanza.');
+    if (n.type !== 'rcomp' && (n.part !== 'horas' && c.wd === 0)) return toast('Esas fechas no tienen días hábiles.');
+    var id = 'S-' + (++db.seq);
+    var r = { id: id, type: n.type, sub: n.sub, person: n.for, from: n.from, to: c.to, hFrom: n.part === 'horas' && n.type !== 'rcomp' ? n.hFrom : '', hTo: n.part === 'horas' && n.type !== 'rcomp' ? n.hTo : '', hours: n.type === 'rcomp' ? Number(String(n.hrs).replace(',', '.')) || 0 : Math.round(c.tot * 10) / 10, note: n.note, created: HOY, by: ME, state: rule.st, support: n.file ? 'ok' : (n.type === 'inc' || n.type === 'lic' || (n.type === 'per' && AVISO_SUB.indexOf(n.sub) >= 0) ? 'pend' : 'na'), impacts: c.ims, conflicts: [], proposal: null, hist: [], wd: c.wd };
+    r.impacts.forEach(function (im) { if (rule.st !== 'consulta' && im.vb !== 'self') im.vb = 'aviso'; if (im.hito) r.conflicts.push({ k: 'hito', t: 'Coincide con ' + im.hito.t + ' de ' + prj(im.code).name + ' (' + dd(im.hito.d) + ').' }); });
+    if (r.state === 'consulta' && !r.impacts.some(function (im) { return im.vb === 'pend'; })) r.state = 'decidir';
+    hist(r, ME, (T[n.type].kind === 'sol' ? 'Envió la solicitud.' : 'Registró la novedad.') + (r.impacts.length ? ' Kairos avisó a ' + r.impacts.filter(function (x) { return x.vb !== 'self'; }).length + ' líder(es) y a Planeación.' : ''));
+    db.list.unshift(r); save();
+    ui.nw = null; ui.open = {}; ui.open[id] = true;
+    setTab(r.person === ME ? 'mias' : 'plan');
+    toast((ST[r.state] || [''])[0] + ': ' + typeName(r) + ' · ' + (r.hFrom ? dd(r.from) : rng(r.from, r.to)) + '.');
+  }
+
+  /* ---------- Mis solicitudes ---------- */
+  function vMias() {
+    var L = mine();
+    if (!L.length) return '<div class="empty">Aún no tienes solicitudes ni novedades. <button class="link" data-a="tab" data-v="nueva">Crear la primera</button></div>';
+    var h0 = '<div class="tbl"><div class="tr th cols-mine"><span>Tipo</span><span>Fechas</span><span>Proyectos y líderes</span><span>Estado</span><span></span></div>';
+    return h0 + L.map(function (r) {
+      var o = !!ui.open[r.id];
+      var row = '<div class="tr click cols-mine' + (o ? ' open sel' : '') + '" data-a="openmine" data-id="' + r.id + '"><span>' + typeChip(r) + '<small class="note" style="display:block">' + r.id + '</small></span>' + when(r) + '<span class="ldrs">' + (r.impacts.length ? r.impacts.map(ldChip).join('') : '<span class="note">—</span>') + '</span><span>' + stPill(r) + '</span>' + ic('i-down', 'chev') + '</div>';
+      if (!o) return row;
+      var acts = [];
+      if (r.state === 'ajuste') acts.push('<div class="banner warn"><div class="txt"><b>' + esc(r.proposal.by) + ' propone ' + esc(rng(r.proposal.from, r.proposal.to)) + '</b><span>' + esc(r.proposal.t) + '</span></div><button class="btn primary sm" data-a="accept" data-id="' + r.id + '">Aceptar fechas</button><button class="btn ghost sm" data-a="cancel" data-id="' + r.id + '">Cancelar solicitud</button></div>');
+      if (r.support === 'pend') acts.push('<div class="drop">' + ic('i-clip') + '<span style="flex:1">Falta el soporte.</span><button class="btn ghost sm" data-a="attach" data-id="' + r.id + '">Adjuntar soporte</button></div>');
+      if (/consulta|decidir/.test(r.state)) acts.push('<div class="row"><span class="sp"></span><button class="btn danger sm" data-a="cancel" data-id="' + r.id + '">Cancelar solicitud</button></div>');
+      return row + '<div class="det">' + pipe(r) + acts.join('') +
+        (r.impacts.length ? '<h4>Proyectos afectados y opinión de los líderes</h4>' + impList(r) : '') +
+        (r.note ? '<p class="note">Tu comentario: «' + esc(r.note) + '»</p>' : '') +
+        '<h4>Historial</h4><div class="hist">' + r.hist.map(function (x) { return '<div><time>' + esc(x[0]) + '</time><span><b>' + esc(x[1]) + '</b> · ' + esc(x[2]) + '</span></div>'; }).join('') + '</div></div>';
+    }).join('') + '</div>';
+  }
+
+  /* ---------- Bandeja del lider ---------- */
+  function vLider() {
+    var P = toReview(), I = informed();
+    var h0 = '<div class="banner"><span class="b-ic">' + ic('i-info') + '</span><div class="txt"><b>Tu opinión ayuda a Planeación a decidir</b><span>No apruebas ni rechazas: das visto bueno o dejas una observación. Si no respondes en 2 días hábiles, Kairos lo toma como sin objeción [PROPUESTA].</span></div></div>';
+    var cards = P.length ? P.map(function (r) {
+      var mineI = r.impacts.filter(function (im) { return im.leader === ME; }), others = r.impacts.filter(function (im) { return im.leader !== ME; }), myH = mineI.reduce(function (s, x) { return s + x.h; }, 0);
+      var hito = mineI.filter(function (x) { return x.hito; })[0];
+      return '<article class="rq urg"><div class="rq-h"><div class="who">' + av(r.person, 'lg') + '<div><b>' + esc(r.person) + '</b><small>' + r.id + ' · enviada ' + dm(r.created) + '</small></div></div>' + typeChip(r) + '<div class="dates"><b>' + esc(rng(r.from, r.to)) + '</b><small>' + r.wd + ' días hábiles</small></div><span class="sp"></span><span class="pill ap">Responde antes del 27 oct</span></div>' +
+        '<div class="rq-b"><div class="mine"><small>En tus proyectos</small>' + mineI.map(function (x) { return '<div class="row" style="justify-content:space-between">' + ceco(x.code) + '<span class="big">' + h(x.h) + '</span></div><span class="note">Reservado: ' + x.days.map(dd).join(', ') + '</span>'; }).join('') + (hito ? '<div class="cf">' + ic('i-alert') + esc(dd(hito.hito.d) + ': ' + hito.hito.t) + '</div>' : '') + '</div>' +
+        '<div class="stack" style="gap:8px"><span class="note">' + (others.length ? 'También afecta' : 'Solo afecta tus proyectos') + '</span>' + (others.length ? '<div class="ldrs">' + others.map(function (x) { return '<span class="ld">' + tile(x.code) + esc(prj(x.code).name.split(' · ')[0]) + ' · ' + h(x.h) + '</span>'; }).join('') + '</div><div class="ldrs">' + others.map(ldChip).join('') + '</div>' : '') +
+        (r.note ? '<p class="note">«' + esc(r.note) + '»</p>' : '') + '<button class="link" data-a="impgo" data-id="' + r.id + '" style="align-self:flex-start">Ver impacto en la planeación</button></div></div>' +
+        '<div class="rq-f"><input class="f" id="obs-' + r.id + '" data-obs="' + r.id + '" placeholder="Observación para Planeación (opcional en visto bueno)" value="' + esc(ui.obs[r.id] || '') + '"><button class="btn ghost" data-a="vbobs" data-id="' + r.id + '">' + ic('i-msg') + 'Dejar observación</button><button class="btn approve" data-a="vbok" data-id="' + r.id + '">' + ic('i-check') + 'Visto bueno</button></div></article>';
+    }).join('') : '<div class="empty">Nada por revisar. Cuando alguien de tu equipo pida una ausencia que toque tus proyectos, aparece aquí.</div>';
+    /* ausencias del equipo */
+    var team = db.list.filter(function (r) { return r.person !== ME && r.to >= HOY && T[r.type].kind !== 'rep' && !/rechazada|cancelada/.test(r.state) && r.impacts.some(function (im) { return im.leader === ME; }); }).sort(function (a, b) { return a.from < b.from ? -1 : 1; });
+    var tm = '<section class="card"><div class="card-h"><h2>Ausencias de tu equipo</h2><span class="note">En tus proyectos · desde hoy</span></div>' + (team.length ? '<div class="upc">' + team.map(function (r) {
+      var mh = r.impacts.filter(function (im) { return im.leader === ME; }).reduce(function (s, x) { return s + x.h; }, 0);
+      return '<div><span class="dbox"><b>' + +r.from.slice(8) + '</b><small>' + MON[+r.from.slice(5, 7) - 1] + '</small></span>' + av(r.person, 'sm') + '<span class="tx"><b>' + esc(r.person) + ' · ' + esc(typeLabel(r)) + '</b><small>' + esc(r.hFrom ? dd(r.from) + ' · ' + r.hFrom + '–' + r.hTo : rng(r.from, r.to)) + ' · ' + h(mh) + ' en tus proyectos</small></span>' + stPill(r) + '</div>';
+    }).join('') + '</div>' : '<p class="note">Nadie de tu equipo tiene ausencias próximas.</p>') + '</section>';
+    return h0 + '<div class="grid2"><div class="stack">' + cards + '</div>' + tm + '</div>';
+  }
+  function vb(id, kind) {
+    var r = byId(id), t = (ui.obs[id] || '').trim();
+    if (kind === 'obs' && t.length < 5) { toast('Escribe la observación para Planeación.'); var el = $('obs-' + id); if (el) el.focus(); return; }
+    r.impacts.forEach(function (im) { if (im.leader === ME && im.vb === 'pend') { im.vb = kind; im.note = t; im.at = dm(HOY); } });
+    hist(r, ME, kind === 'ok' ? 'Dio visto bueno.' : 'Dejó una observación.');
+    if (!r.impacts.some(function (im) { return im.vb === 'pend'; })) { r.state = 'decidir'; hist(r, 'Kairos', 'Respondieron todos los líderes: pasa a Planeación.'); }
+    delete ui.obs[id]; save(); render();
+    toast(kind === 'ok' ? 'Visto bueno enviado a Planeación.' : 'Observación enviada a Planeación.');
+  }
+
+  /* ---------- Centro de Planeacion ---------- */
+  function vPlan() {
+    var all = db.list.filter(function (r) { return T[r.type].kind !== 'rep' || r.state !== 'aprobada'; });
+    var Q = planQueue(), C = all.filter(function (r) { return r.conflicts.length && !/rechazada|cancelada/.test(r.state) && r.to >= HOY; });
+    var dec = Q.filter(function (r) { return r.state === 'decidir'; }), con = Q.filter(function (r) { return r.state === 'consulta'; });
+    var wk = X.isoWeek(HOY), away = all.filter(function (r) { return /aprobada|validada|validacion|registrada/.test(r.state) && T[r.type].kind !== 'rep' && r.from <= X.add(X.weekStart(wk.year, wk.week), 6) && r.to >= X.weekStart(wk.year, wk.week); });
+    var kp = '<div class="kpis"><button class="kpi w" data-a="plf" data-v="gestion" aria-pressed="' + (ui.plf === 'gestion') + '"><small>Por gestionar</small><b>' + Q.length + '</b><span>' + dec.length + ' por decidir · ' + con.length + ' en consulta</span></button>' +
+      '<button class="kpi e" data-a="plf" data-v="conf" aria-pressed="' + (ui.plf === 'conf') + '"><small>Con conflicto</small><b>' + C.length + '</b><span>Hitos, ejecución o reemplazos</span></button>' +
+      '<button class="kpi ap" data-a="plf" data-v="nov" aria-pressed="' + (ui.plf === 'nov') + '"><small>Novedades</small><b>' + all.filter(function (r) { return T[r.type].kind === 'nov' || (r.type === 'per' && AVISO_SUB.indexOf(r.sub) >= 0); }).length + '</b><span>Incapacidades, licencias y avisos</span></button>' +
+      '<button class="kpi" data-a="plf" data-v="todas" aria-pressed="' + (ui.plf === 'todas') + '"><small>Ausentes esta semana</small><b>' + away.length + '</b><span>W' + wk.week + ' · ver todas</span></button></div>';
+    var L = ui.plf === 'gestion' ? Q : ui.plf === 'conf' ? C : ui.plf === 'nov' ? all.filter(function (r) { return T[r.type].kind === 'nov' || (r.type === 'per' && AVISO_SUB.indexOf(r.sub) >= 0); }) : all;
+    L = L.slice().sort(function (a, b) { var o = { decidir: 0, consulta: 1, validacion: 2, registrada: 3, ajuste: 4 }; return (o[a.state] == null ? 9 : o[a.state]) - (o[b.state] == null ? 9 : o[b.state]) || (a.from < b.from ? -1 : 1); });
+    if (!ui.sel || !L.some(function (r) { return r.id === ui.sel; })) ui.sel = L[0] ? L[0].id : null;
+    var tb = '<div class="tbl"><div class="tr th cols-pl"><span>Persona y fechas</span><span>Proyectos y líderes</span><span class="h-mid">Conflicto</span><span>Estado</span></div>' + (L.length ? L.map(function (r) {
+      return '<div class="tr click cols-pl' + (ui.sel === r.id ? ' sel' : '') + '" data-a="sel" data-id="' + r.id + '"><div class="who">' + av(r.person, 'sm') + '<div style="min-width:0"><b>' + esc(r.person) + '</b><small>' + esc(typeName(r)) + ' · ' + esc(r.hFrom ? dd(r.from) + ' · ' + r.hFrom + '–' + r.hTo : rng(r.from, r.to)) + '</small><small>' + (r.hFrom ? h(r.hours) : r.wd + (r.wd === 1 ? ' día hábil' : ' días hábiles')) + ' · ' + r.id + '</small></div></div><span class="ldrs">' + (r.impacts.length ? r.impacts.map(ldChip).join('') : '<span class="note">—</span>') + '</span><span class="h-mid">' + (r.conflicts.length ? '<span class="cf">' + ic('i-alert') + r.conflicts.length + (r.conflicts.length === 1 ? ' conflicto' : ' conflictos') + '</span>' : '<span class="note">—</span>') + '</span><span>' + stPill(r) + '</span></div>';
+    }).join('') : '<div class="empty" style="border:0">Nada en este filtro.</div>') + '</div>';
+    var r = ui.sel ? byId(ui.sel) : null;
+    var pnl = r ? '<aside class="card pnl"><div class="who">' + av(r.person, 'lg') + '<div><b style="font-size:15px">' + esc(r.person) + '</b><small>' + esc(typeName(r)) + ' · ' + esc(r.hFrom ? dd(r.from) + ' · ' + r.hFrom + '–' + r.hTo : rng(r.from, r.to)) + ' · ' + (r.hFrom ? h(r.hours) : r.wd + ' días hábiles') + '</small></div><span class="sp"></span>' + stPill(r) + '</div>' + pipe(r, 1) +
+      (r.conflicts.length ? r.conflicts.map(function (c) { return '<div class="banner err"><span class="b-ic">' + ic('i-alert') + '</span><div class="txt"><b>' + esc({ hito: 'Hito del proyecto', ejec: 'Horas ya registradas', replan: 'Sin reemplazo' }[c.k] || 'Conflicto') + '</b><span>' + esc(c.t) + '</span></div></div>'; }).join('') : '') +
+      (r.impacts.length ? '<h3 style="font-size:13px">Proyectos afectados</h3>' + impList(r, 0, 1) : '') +
+      (r.note ? '<p class="note">«' + esc(r.note) + '» · ' + esc(r.person.split(' ')[0]) + '</p>' : '') +
+      (r.support !== 'na' ? '<p class="lock">' + ic('i-lock') + (r.support === 'ok' ? 'Soporte adjunto · lo abre Gestión Humana' : 'Falta el soporte') + '</p>' : '') + decide(r) +
+      (r.impacts.length ? '<button class="link" data-a="impgo" data-id="' + r.id + '" style="align-self:flex-start">Ver impacto en la planeación →</button>' : '') + '</aside>' : '';
+    return kp + '<div class="grid2 plg"><div class="stack">' + tb + '</div>' + pnl + '</div>' + calendar();
+  }
+  function decide(r) {
+    if (!isPlan) return '<p class="note">Solo consulta. Decide Planeación.</p>';
+    var pend = r.impacts.filter(function (im) { return im.vb === 'pend'; });
+    if (r.state === 'consulta' || r.state === 'decidir') return (pend.length ? '<p class="note">' + pend.map(function (x) { return esc(x.leader); }).join(', ') + ' aún no responde' + (pend.length > 1 ? 'n' : '') + '. Puedes decidir igual: contará como sin objeción.</p>' : '') +
+      '<div class="dec"><button class="btn approve" data-a="approve" data-id="' + r.id + '">' + ic('i-check') + 'Aprobar</button><button class="btn ghost" data-a="adjust" data-id="' + r.id + '">' + ic('i-swap') + 'Proponer otras fechas</button><button class="btn danger" data-a="reject" data-id="' + r.id + '">Rechazar</button></div>';
+    if (r.state === 'validacion' || (r.state === 'registrada' && r.support !== 'pend')) return '<div class="dec"><button class="btn primary" data-a="validate" data-id="' + r.id + '">' + ic('i-check') + 'Marcar soporte validado</button></div><p class="note">En el boceto lo hace Planeación; ¿lo hace Gestión Humana? [PENDIENTE]</p>';
+    if (r.state === 'registrada') return '<div class="dec"><button class="btn ghost" data-a="remind" data-id="' + r.id + '">' + ic('i-bell') + 'Recordar el soporte</button></div>';
+    if (r.state === 'ajuste') return '<p class="note">Esperando que ' + esc(r.person.split(' ')[0]) + ' acepte ' + esc(rng(r.proposal.from, r.proposal.to)) + '.</p>';
+    if (r.conflicts.some(function (c) { return c.k === 'replan'; })) return '<div class="dec"><button class="btn primary" data-a="go" data-v="reservas">' + ic('i-cal') + 'Reasignar en Reservas</button></div>';
+    if (r.conflicts.some(function (c) { return c.k === 'ejec'; })) return '<div class="dec"><button class="btn primary" data-a="go" data-v="ejecucion">' + ic('i-exec') + 'Revisar en Ejecución</button></div>';
+    return '';
+  }
+  function calendar() {
+    var y = 2026, ws = []; for (var w = 43; w <= 53; w++) ws.push([y, w]); ws.push([2027, 1]);
+    var L = db.list.filter(function (r) { return T[r.type].kind !== 'rep' && !/rechazada|cancelada/.test(r.state) && r.to >= X.weekStart(2026, 43); });
+    var people = []; L.forEach(function (r) { if (people.indexOf(r.person) < 0) people.push(r.person); }); people.sort();
+    var cls = function (r) { return (r.type === 'vac' ? 'vac' : r.type === 'inc' || r.type === 'lic' ? 'inc' : 'per') + (/consulta|decidir|ajuste/.test(r.state) ? ' pend' : ''); };
+    var cur = X.isoWeek(HOY).week;
+    var tb = '<div class="cal-w"><table class="cal"><thead><tr><th class="l" style="width:170px">Persona</th>' + ws.map(function (x) { var s = X.weekStart(x[0], x[1]); return '<th>W' + x[1] + '<small>' + dm(s) + '</small></th>'; }).join('') + '</tr></thead><tbody>' +
+      people.map(function (p) {
+        return '<tr><td class="l"><span class="who">' + av(p, 'xs') + '<span style="font-size:12.5px">' + esc(p) + '</span></span></td>' + ws.map(function (x) {
+          var s = X.weekStart(x[0], x[1]), e = X.add(s, 6), hit = L.filter(function (r) { return r.person === p && r.from <= e && r.to >= s; })[0];
+          return '<td' + (x[0] === 2026 && x[1] === cur ? ' class="now"' : '') + '>' + (hit ? '<span class="bar ' + cls(hit) + '" title="' + esc(typeLabel(hit) + ' · ' + rng(hit.from, hit.to) + ' · ' + ST[hit.state][0]) + '">' + esc(typeLabel(hit)) + '</span>' : '') + '</td>';
+        }).join('') + '</tr>';
+      }).join('') + '</tbody></table></div>';
+    var mob = '<div class="calm">' + L.slice().sort(function (a, b) { return a.from < b.from ? -1 : 1; }).map(function (r) { return '<div class="row" style="justify-content:space-between;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 12px"><span class="who">' + av(r.person, 'xs') + '<span style="font-size:12.5px">' + esc(r.person) + '</span></span><span class="bar ' + cls(r) + '" style="display:inline-block;height:18px;border-radius:5px;font-size:10.5px;line-height:18px;color:#fff;padding:0 8px">' + esc(typeLabel(r)) + ' · ' + esc(rng(r.from, r.to)) + '</span></div>'; }).join('') + '</div>';
+    return '<section class="stack" style="gap:10px"><div class="card-h"><h2 style="font-size:15px">Calendario consolidado de ausencias</h2><div class="legend"><span><i style="background:#0a58eb"></i>Vacaciones</span><span><i style="background:#00a3b4"></i>Permiso o compensatorio</span><span><i style="background:#556578"></i>Incapacidad o licencia</span><span><i style="background:repeating-linear-gradient(135deg,var(--approval) 0 4px,var(--approval-soft) 4px 8px)"></i>Sin decidir</span></div></div>' + tb + mob + '</section>';
+  }
+
+  /* ---------- Impacto ---------- */
+  function vImpacto() {
+    var opts = db.list.filter(function (r) { return r.impacts.length && !/rechazada|cancelada/.test(r.state) && (isPlan || isDir || r.impacts.some(function (im) { return im.leader === ME; }) || r.person === ME); });
+    if (!opts.length) return '<div class="empty">No hay ausencias que afecten tus proyectos.</div>';
+    var r = byId(ui.imp); if (!r || opts.indexOf(r) < 0) { r = opts[0]; ui.imp = r.id; }
+    var pend = /consulta|decidir|ajuste/.test(r.state), wd = work(r.from, r.to), long = wd.length > 10;
+    var head = '<section class="card"><div class="card-h"><div class="row"><label class="sr" for="impSel">Solicitud</label><select class="f" id="impSel" data-imp="1" style="max-width:420px">' + opts.map(function (o) { return '<option value="' + o.id + '"' + (o.id === r.id ? ' selected' : '') + '>' + esc(o.person + ' · ' + typeLabel(o) + ' · ' + (o.hFrom ? dd(o.from) : rng(o.from, o.to))) + '</option>'; }).join('') + '</select>' + stPill(r) + '</div>' +
+      '<div class="seg" role="group" aria-label="Momento"><button data-a="after" data-v="0" aria-pressed="' + !ui.after + '">Planeación actual</button><button data-a="after" data-v="1" aria-pressed="' + ui.after + '">' + (pend ? 'Si se aprueba' : 'Con la ausencia') + '</button></div></div>';
+    /* columnas: dias habiles (o semanas si es larga) */
+    var cols = long ? (function () { var o = [], seen = {}; wd.forEach(function (s) { var k = X.isoWeek(s); var key = k.year + '-' + k.week; if (!seen[key]) { seen[key] = { lab: 'W' + k.week, sub: dm(X.weekStart(k.year, k.week)), d: [] }; o.push(seen[key]); } seen[key].d.push(s); }); return o; })() : wd.map(function (s) { return { lab: DW[X.dow(s)], sub: dm(s), d: [s] }; });
+    var tot = 0, rows = r.impacts.map(function (im) {
+      var cells = cols.map(function (c) {
+        var ds = c.d.filter(function (s) { return im.days.indexOf(s) >= 0; }); if (!ds.length) return '<td></td>';
+        var v = r.hFrom ? r.hours : ds.reduce(function (s, d) { return s + dayH(d); }, 0); tot += ui.after ? v : 0;
+        var hito = im.hito && ds.indexOf(im.hito.d) >= 0;
+        return '<td><span class="cell ' + (ui.after ? 'lost' : 'res') + (hito ? ' hito' : '') + '"' + (hito ? ' title="' + esc(im.hito.t) + '"' : '') + '>' + h(v).replace(' h', '') + '</span></td>';
+      }).join('');
+      return '<tr><td class="l">' + ceco(im.code) + '</td>' + cells + '<td>' + (ui.after ? '<span class="lostv">−' + h(im.h) + '</span>' : h(im.h)) + '</td></tr>';
+    }).join('');
+    var absRow = '<tr><td class="l"><div class="ceco"><span><b>' + esc(T[r.type].intc === 'por definir' ? 'Interno' : T[r.type].intc) + '</b><small>' + esc(typeLabel(r)) + ' · proyecto interno</small></span></div></td>' + cols.map(function (c) {
+      var v = r.hFrom ? r.hours : c.d.reduce(function (s, d) { return s + dayH(d); }, 0);
+      return '<td>' + (ui.after ? '<span class="cell abs' + (pend ? ' pend' : '') + '">' + h(v).replace(' h', '') + '</span>' : '') + '</td>';
+    }).join('') + '<td>' + (ui.after ? h(r.hours) : '') + '</td></tr>';
+    var capRow = '<tr class="cap"><td class="l">Disponible para proyectos</td>' + cols.map(function (c) { var cap = c.d.reduce(function (s, d) { return s + dayH(d); }, 0); return '<td>' + (ui.after ? (r.hFrom ? h(Math.max(0, cap - r.hours)) : '0 h') : h(cap)) + '</td>'; }).join('') + '<td></td></tr>';
+    var grid = '<div class="ig"><table class="it"><colgroup><col class="c1">' + cols.map(function () { return '<col>'; }).join('') + '<col class="c9"></colgroup><thead><tr><th class="l">' + esc(r.person) + '</th>' + cols.map(function (c) { return '<th>' + c.lab + '<small>' + c.sub + '</small></th>'; }).join('') + '<th>Total</th></tr></thead><tbody>' + rows + absRow + capRow + '</tbody></table></div>';
+    var legend = '<div class="legend"><span><i style="background:var(--res-soft);border:1px solid var(--line)"></i>Reservado en el proyecto</span><span><i style="background:repeating-linear-gradient(135deg,var(--err-bg) 0 4px,var(--surface) 4px 8px)"></i>Se libera</span><span><i style="background:#0a58eb"></i>Ausencia aprobada</span><span><i style="background:repeating-linear-gradient(135deg,var(--approval) 0 4px,var(--approval-soft) 4px 8px)"></i>Ausencia sin decidir</span><span><i style="box-shadow:inset 0 0 0 2px var(--err-ink)"></i>Hito del proyecto</span></div>';
+    head += grid + legend + '</section>';
+    /* por proyecto: efecto y Forecast */
+    var cards = '<section class="card"><div class="card-h"><h2>Efecto por proyecto</h2><span class="pill sim">Odoo · simulado</span></div><div class="tbl">' + r.impacts.map(function (im) {
+      var p = prj(im.code), mon = MON[+im.days[0].slice(5, 7) - 1];
+      return '<div class="tr" style="grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1.6fr)">' + ceco(im.code) + '<div><span class="ld">' + av(im.leader, 'xs') + esc(im.leader) + '</span><small class="note" style="display:block;margin-top:4px">' + (VB[im.vb] || VB.pend)[0] + '</small></div>' +
+        '<div class="note"><b style="color:var(--ink)">' + h(im.h) + ' de ingeniería sin cubrir</b> en ' + mon + '. ' + (im.hito ? '<span class="cf">' + ic('i-alert') + esc(im.hito.t + ' el ' + dd(im.hito.d)) + '</span> ' : '') + 'En Forecast no cambia nada solo: si la ausencia mueve una entrega facturable, el líder registra el movimiento (Aplazado) [PROPUESTA].</div></div>';
+    }).join('') + '</div><div class="row"><button class="btn ghost sm" data-a="go" data-v="reservas">' + ic('i-cal') + 'Abrir Reservas</button><button class="btn ghost sm" data-a="go" data-v="forecast">' + ic('i-track') + 'Abrir Forecast</button></div></section>';
+    /* como se veria en otras pantallas */
+    var pal = ['#0a58eb', '#00a3b4', '#7543ff', '#c46a00', '#145a37'];
+    var cc = {}; r.impacts.forEach(function (im, i) { cc[im.code] = pal[i % pal.length]; });
+    var five = (wd.length ? wd : [r.from]).slice(0, 5);
+    var line = function (aft) { return '<div class="rline"><span style="font-size:12px">' + esc(r.person.split(' ')[0]) + (aft ? ' · después' : ' · hoy') + '</span>' + five.map(function (s) { var im = r.impacts.filter(function (x) { return x.days.indexOf(s) >= 0; })[0]; return aft ? '<span class="c" style="background:' + (pend ? 'var(--approval)' : '#001c3f') + '">' + esc(T[r.type].intc === 'por definir' ? 'Ausencia' : T[r.type].intc) + '</span>' : '<span class="c" style="background:' + (im ? cc[im.code] : 'var(--line)') + '" title="' + (im ? esc(im.code + ' · ' + prj(im.code).name) : '') + '">' + (im ? esc(short(im.code)) : '') + '</span>'; }).join('') + '</div>'; };
+    var peek = '<section class="stack" style="gap:10px"><h2 style="font-size:15px">Cómo se vería en las otras pantallas</h2><div class="peek">' +
+      '<div class="mock"><div class="mh"><span>Reservas · ' + esc(rng(five[0], five[five.length - 1])) + '</span><span>Planeación</span></div><div class="mb">' + line(false) + line(true) +
+      '<span class="novl">' + ic(pend ? 'i-clock' : 'i-check') + (pend ? 'La celda se marca «posible ausencia» mientras se decide; no se libera la reserva.' : 'Al aprobar, Kairos cambia la reserva por ' + esc(T[r.type].intc) + ' y deja libres las horas para reasignar.') + '</span></div></div>' +
+      '<div class="mock"><div class="mh"><span>Forecast y Backlog · Grilla</span><span>Líder</span></div><div class="mb">' + r.impacts.map(function (im) { return '<div class="row" style="justify-content:space-between">' + ceco(im.code) + '<span class="novl">' + ic('i-users') + esc(r.person.split(' ')[0]) + ' · ' + esc(typeLabel(r).toLowerCase()) + ' ' + (pend ? 'por decidir' : 'aprobada') + ' · ' + h(im.h) + '</span></div>'; }).join('') +
+      '<span class="note">Una línea más en «Novedades» del CECO, como las de facturación. No cambia los montos [PROPUESTA].</span></div></div></div></section>';
+    return head + cards + peek;
+  }
+
+  /* ---------- Reglas (matriz borrador) ---------- */
+  function vReglas() {
+    var P = '<span class="tag p">PROPUESTA</span>', Q = '<span class="tag q">PENDIENTE</span>';
+    var rows = [
+      ['g', 'Solicitudes · se deciden'],
+      ['Vacaciones', 'La persona', 'Líderes de los proyectos afectados y Planeación', 'Líderes afectados, en paralelo, con plazo de 2 días hábiles; el silencio cuenta como sin objeción ' + P, 'Planeación ' + P + '. ¿Gestión Humana registra en nómina? ' + Q, 'Fechas, comentario. Kairos calcula días hábiles y saldo', 'Pendiente: «posible ausencia». Aprobada: la reserva pasa a OMN-VAC y se liberan horas', 'Se precargan las horas en OMN-VAC; la persona no las digita ' + P, 'Planeación aprueba, propone otras fechas o rechaza con motivo. Un hito del proyecto se marca como conflicto'],
+      ['Permiso personal<br><small class="muted">diligencia, académico, votación</small>', 'La persona', 'Líderes afectados y Planeación', 'Hasta medio día: no ' + P + '. Más de medio día: igual que vacaciones', 'Hasta medio día: aprobado al registrar. Más: Planeación ' + P, 'Motivo, fecha y horario. Soporte en académico y votación', 'Se bloquea al aprobar', 'Proyecto interno por definir ' + Q, 'Igual que vacaciones'],
+      ['Compensatorio (usar)', 'La persona', 'Líderes afectados y Planeación', 'Igual que permiso personal', 'Planeación ' + P, 'Fecha y horas. Kairos muestra el saldo y de qué semanas salió', 'Se bloquea al aprobar; descuenta saldo', 'OMN-COM', 'Sin saldo no se puede enviar'],
+      ['g', 'Avisos · se registran'],
+      ['Cita médica', 'La persona', 'Su líder ve «Ausencia», sin el motivo', 'No', 'Nadie la aprueba ' + P + '. ¿Desde cuántas horas pasaría a solicitud? ' + Q, 'Fecha, horario y soporte (puede ir después)', 'Se bloquea al registrar', 'Proyecto interno por definir ' + Q, 'Si choca con un hito, Planeación lo ve; no la bloquea'],
+      ['Exámenes periódicos', 'La persona o Gestión Humana', 'Líder', 'No', 'Nadie: es de la empresa', 'Fecha y horario', 'Se bloquea al registrar', 'Proyecto interno por definir ' + Q, '—'],
+      ['g', 'Novedades · se validan'],
+      ['Incapacidad', 'La persona, su líder o Planeación a su nombre', 'Líderes afectados ven «Ausencia»', 'No', 'Gestión Humana valida el certificado ' + Q, 'Fechas y certificado. Nunca el diagnóstico', 'Se bloquea desde el registro, aunque sea retroactiva', 'OMN-INC. Si ya había horas registradas esos días, Planeación las corrige', 'Kairos marca las horas ya registradas y las reservas que hay que reasignar'],
+      ['Licencia<br><small class="muted">paternidad, maternidad, luto</small>', 'La persona o Planeación', 'Líderes afectados y Planeación', 'No', 'Gestión Humana valida el soporte y la duración legal ' + Q, 'Tipo, fechas y soporte', 'Se bloquea desde el registro', 'Proyecto interno por definir ' + Q, 'Planeación reasigna; Kairos señala proyectos sin reemplazo'],
+      ['g', 'Reportes de tiempo'],
+      ['Compensatorio (ganar)', 'La persona, en Horas extra', 'Líder del proyecto (aviso)', 'No: solo se avisa; el líder puede dejar observación ' + P, 'Nadie: sale del excedente ejecutado', 'Horas a compensar por CECO y semana', 'No cambia', 'Las horas ya están ejecutadas; suman al saldo, no van a nómina', 'Domingos y festivos trabajados: la compensación la define la ley; Gestión Humana dice cómo se reconoce ' + Q],
+      ['Horas extra', 'La persona (ya existe)', 'Líder del proyecto', '—', 'Líder del proyecto; si es el líder, Planeación', 'Ya definido en el módulo Horas extra', 'No cambia', 'Se incorpora al aprobar', 'Ya definido']
+    ];
+    var mx = '<div class="mx-w"><table class="mx"><thead><tr><th>Tipo</th><th>Registra</th><th>Se notifica</th><th>Visto bueno</th><th>Aprueba o valida</th><th>Información</th><th>Disponibilidad</th><th>Ejecución</th><th>Si hay conflicto</th></tr></thead><tbody>' +
+      rows.map(function (r) { return r[0] === 'g' ? '<tr class="g"><td colspan="9">' + r[1] + '</td></tr>' : '<tr>' + r.map(function (c) { return '<td>' + c + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table></div>';
+    var D = [
+      ['¿Quién da la aprobación administrativa de las vacaciones?', 'Hoy no está definido.', ['Planeación decide y Gestión Humana solo registra (recomendado)', 'Planeación y Gestión Humana, en ese orden', 'El jefe directo de la persona']],
+      ['¿Qué pasa si un líder no responde?', 'Evita que la solicitud se quede quieta.', ['Plazo de 2 días hábiles; el silencio cuenta como sin objeción (recomendado)', 'Planeación puede decidir sin esperar', 'Se espera siempre']],
+      ['¿Desde cuánto tiempo un permiso requiere decisión?', 'Para no aprobar lo trivial.', ['Más de medio día (recomendado en el boceto)', 'Más de un día', 'Siempre']],
+      ['¿Anticipación mínima para vacaciones?', 'Kairos solo avisa; no bloquea.', ['15 días calendario', 'Un mes', 'Sin mínimo']],
+      ['¿Existe el rol Gestión Humana en Kairos?', 'Hoy no existe. Validaría soportes de incapacidades y licencias y vería saldos.', ['Crear el rol con acceso solo a este módulo (recomendado)', 'Lo hace Planeación']],
+      ['¿Las ausencias aprobadas se precargan en Ejecución?', 'Evita doble digitación y errores.', ['Sí, en el proyecto interno, bloqueadas (recomendado)', 'La persona las registra']],
+      ['¿Qué ve un líder de una cita médica o incapacidad?', 'Confidencialidad.', ['Solo «Ausencia» y las horas (recomendado)', 'El tipo, sin soporte']],
+      ['¿Qué proyectos internos faltan?', 'Hoy existen OMN-VAC, OMN-INC y OMN-COM.', ['Uno para permisos y uno para licencias', 'Uno por tipo']]
+    ];
+    var dl = '<div class="dlist">' + D.map(function (d, i) { return '<div class="dq"><b>D' + (i + 1) + ' · ' + esc(d[0]) + '</b><p>' + esc(d[1]) + '</p><ul>' + d[2].map(function (o) { return '<li' + (/recomendado/.test(o) ? ' class="rec"' : '') + '>' + esc(o) + '</li>'; }).join('') + '</ul></div>'; }).join('') + '</div>';
+    return '<div class="banner ap"><span class="b-ic">' + ic('i-info') + '</span><div class="txt"><b>Borrador para discutir</b><span>Nada de esta matriz está acordado. PROPUESTA es lo que usa el boceto; PENDIENTE es una decisión de negocio que falta.</span></div></div>' + mx + '<h2 style="font-size:15px">Decisiones que necesitamos</h2>' + dl;
+  }
+
+  /* ---------- dialogo ---------- */
+  function ask(o) { ui.dlg = o; renderDlg(); }
+  function renderDlg() {
+    var d = ui.dlg, ov = $('ov'); if (!d) { ov.innerHTML = ''; return; }
+    ov.innerHTML = '<div class="ov" role="dialog" aria-modal="true" aria-labelledby="dlgT"><div class="dlg"><h2 id="dlgT">' + esc(d.title) + '</h2><p>' + esc(d.text) + '</p>' +
+      (d.dates ? '<div class="form"><label class="fld">Desde<input class="f" type="date" id="dFrom" value="' + d.dates[0] + '"></label><label class="fld">Hasta<input class="f" type="date" id="dTo" value="' + d.dates[1] + '"></label></div>' : '') +
+      (d.input ? '<label class="fld">' + esc(d.input) + '<textarea class="f" id="dTxt"></textarea></label><span class="note" id="dErr" hidden>Escribe el motivo.</span>' : '') +
+      '<div class="dlg-acts"><button class="btn ghost" data-a="dno">Cancelar</button><button class="btn ' + (d.danger ? 'danger' : 'primary') + '" data-a="dok">' + esc(d.ok) + '</button></div></div></div>';
+    var f = ov.querySelector('textarea, input'); if (f) f.focus();
+  }
+
+  /* ---------- render ---------- */
+  function render() {
+    var T0 = tabs(); if (!T0.some(function (t) { return t[0] === ui.tab; })) ui.tab = 'inicio';
+    var sy = window.scrollY;
+    var head = '<div class="head"><div><h1>Solicitudes y novedades</h1><p>Boceto para discutir, fuera del prototipo. Vacaciones, permisos, compensatorios, incapacidades y licencias, conectados con Reservas, Ejecución y Forecast.</p></div><div class="head-r"><span class="boceto">Boceto · iteración 1</span>' + asSwitch() + '<button class="btn ghost sm" data-a="reset" title="Vuelve a los datos de ejemplo">' + ic('i-undo') + 'Restablecer ejemplo</button></div></div>';
+    var tb = '<nav class="tabs" role="tablist">' + T0.map(function (t) { return '<button role="tab" aria-selected="' + (ui.tab === t[0]) + '" data-a="tab" data-v="' + t[0] + '">' + t[1] + (t[2] ? '<span class="count' + (t[0] === 'lider' ? ' ap' : '') + '">' + t[2] + '</span>' : '') + '</button>'; }).join('') + '</nav>';
+    var v = { inicio: vInicio, nueva: vNueva, mias: vMias, lider: vLider, plan: vPlan, impacto: vImpacto, reglas: vReglas }[ui.tab];
+    var body; try { body = v(); } catch (e) { body = '<div class="empty">Algo falló en esta vista: ' + esc(e.message) + '</div>'; }
+    var fk = document.activeElement && document.activeElement.id;
+    app.innerHTML = head + tb + body;
+    if (fk && $(fk)) { var el = $(fk); el.focus(); try { if (el.setSelectionRange && el.type === 'text') el.setSelectionRange(el.value.length, el.value.length); } catch (e) {} }
+    window.scrollTo(0, sy);
+  }
+  function setTab(t) { ui.tab = t; try { history.replaceState(null, '', '#' + t); } catch (e) {} render(); window.scrollTo(0, 0); }
+
+  /* ---------- eventos ---------- */
+  app.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-a]'); if (!b || b.disabled) return;
+    var a = b.dataset.a, v = b.dataset.v, id = b.dataset.id, r = id ? byId(id) : null;
+    switch (a) {
+      case 'tab': setTab(v); break;
+      case 'as': setAs(v); break;
+      case 'go': toast('En Kairos, este botón abriría ' + ({ reservas: 'Reservas', ejecucion: 'Ejecución', forecast: 'Forecast y Backlog', horasextra: 'Horas extra' }[v] || v) + '.'); break;
+      case 'new': ui.nw = nwDefault(v); setTab('nueva'); break;
+      case 'nwtype': var keep = ui.nw ? ui.nw.for : ME; ui.nw = nwDefault(v); ui.nw.for = keep; render(); break;
+      case 'nwsub': ui.nw.sub = v; render(); break;
+      case 'nwpart': ui.nw.part = v; render(); break;
+      case 'nwfile': ui.nw.file = ui.nw.file ? '' : (ui.nw.type === 'inc' ? 'certificado-incapacidad.pdf' : 'soporte.pdf'); render(); break;
+      case 'nwsend': nwSend(); break;
+      case 'openmine': if (ui.tab !== 'mias') { ui.open = {}; ui.open[id] = true; setTab('mias'); } else { ui.open[id] = !ui.open[id]; render(); } break;
+      case 'attach': r.support = 'ok'; if (T[r.type].kind === 'nov') r.state = 'validacion'; else if (r.state === 'registrada') r.state = 'validacion'; hist(r, ME, 'Adjuntó el soporte.'); save(); render(); toast('Soporte adjunto. Gestión Humana lo valida.'); break;
+      case 'accept': r.from = r.proposal.from; r.to = r.proposal.to; r.wd = work(r.from, r.to).length; r.impacts = impactsFor(r.person, r.from, r.to).map(function (im) { im.vb = im.leader === r.person ? 'self' : 'ok'; return im; }); r.state = 'aprobada'; hist(r, ME, 'Aceptó las fechas propuestas: ' + rng(r.from, r.to) + '.'); r.proposal = null; save(); render(); toast('Vacaciones aprobadas del ' + rng(r.from, r.to) + '.'); break;
+      case 'cancel': ask({ title: 'Cancelar la solicitud', text: typeName(r) + ' · ' + rng(r.from, r.to) + '. Kairos avisa a los líderes y a Planeación.', ok: 'Cancelar solicitud', danger: true, fn: function () { r.state = 'cancelada'; hist(r, ME, 'Canceló la solicitud.'); save(); render(); toast('Solicitud cancelada.'); } }); break;
+      case 'vbok': vb(id, 'ok'); break;
+      case 'vbobs': vb(id, 'obs'); break;
+      case 'impgo': ui.imp = id; ui.after = true; setTab('impacto'); break;
+      case 'sel': ui.sel = id; render(); if (window.innerWidth < 1150) { var p = document.querySelector('.pnl'); if (p) p.scrollIntoView({ block: 'start' }); } break;
+      case 'plf': ui.plf = v; ui.sel = null; render(); break;
+      case 'approve':
+        var pend = r.impacts.filter(function (im) { return im.vb === 'pend'; });
+        pend.forEach(function (im) { im.vb = 'silent'; });
+        r.state = 'aprobada'; hist(r, ME, 'Aprobó.' + (pend.length ? ' ' + pend.map(function (x) { return x.leader; }).join(', ') + ' no respondió: sin objeción.' : ''));
+        save(); render(); toast('Aprobada. Se liberan ' + h(r.impacts.reduce(function (s, x) { return s + x.h; }, 0)) + ' de reserva y se precarga ' + T[r.type].intc + ' en Ejecución.'); break;
+      case 'adjust': ask({ title: 'Proponer otras fechas', text: r.person + ' recibe la propuesta y decide si la acepta.', dates: [X.add(r.from, 7), X.add(r.to, 7)], input: 'Motivo para ' + r.person.split(' ')[0], ok: 'Enviar propuesta', fn: function (o) { r.proposal = { from: o.from, to: o.to, by: ME, t: o.txt }; r.state = 'ajuste'; hist(r, ME, 'Propuso otras fechas: ' + rng(o.from, o.to) + '.'); save(); render(); toast('Propuesta enviada a ' + r.person + '.'); } }); break;
+      case 'reject': ask({ title: 'Rechazar la solicitud', text: 'El motivo le llega a ' + r.person + ' y a los líderes.', input: 'Motivo (obligatorio)', ok: 'Rechazar', danger: true, fn: function (o) { r.state = 'rechazada'; hist(r, ME, 'Rechazó: ' + o.txt); save(); render(); toast('Solicitud rechazada.'); } }); break;
+      case 'validate': r.state = 'validada'; r.support = 'ok'; hist(r, ME, 'Validó el soporte.'); save(); render(); toast('Soporte validado.'); break;
+      case 'remind': hist(r, ME, 'Recordó adjuntar el soporte.'); save(); render(); toast('Recordatorio enviado a ' + r.person + '.'); break;
+      case 'after': ui.after = v === '1'; render(); break;
+      case 'reset': ask({ title: 'Restablecer el ejemplo', text: 'Vuelven las solicitudes de ejemplo del boceto y se pierde lo que simulaste.', ok: 'Restablecer', danger: true, fn: function () { db = seed(); save(); ui.sel = null; ui.open = {}; render(); toast('Datos de ejemplo restablecidos.'); } }); break;
+    }
+  });
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('#ov [data-a]'); if (!b) return;
+    var d = ui.dlg; if (!d) return;
+    if (b.dataset.a === 'dno') { ui.dlg = null; renderDlg(); return; }
+    var o = { txt: $('dTxt') ? $('dTxt').value.trim() : '', from: $('dFrom') ? $('dFrom').value : '', to: $('dTo') ? $('dTo').value : '' };
+    if (d.input && /obligatorio|Motivo/.test(d.input) && o.txt.length < 5) { $('dErr').hidden = false; return; }
+    ui.dlg = null; renderDlg(); d.fn(o);
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && ui.dlg) { ui.dlg = null; renderDlg(); } });
+  app.addEventListener('input', function (e) {
+    var t = e.target;
+    if (t.dataset.obs) { ui.obs[t.dataset.obs] = t.value; return; }
+    if (t.dataset.nw && ui.nw && t.tagName === 'TEXTAREA') { ui.nw[t.dataset.nw] = t.value; return; }
+    if (t.dataset.nw === 'hrs') { ui.nw.hrs = t.value; return; }
+  });
+  app.addEventListener('change', function (e) {
+    var t = e.target;
+    if (t.dataset.imp) { ui.imp = t.value; render(); return; }
+    if (t.dataset.nw && ui.nw && t.tagName !== 'TEXTAREA') { ui.nw[t.dataset.nw] = t.value; if (t.dataset.nw === 'from' && ui.nw.to && ui.nw.to < t.value) ui.nw.to = t.value; render(); }
+  });
+  window.addEventListener('hashchange', function () { var h0 = (location.hash || '').slice(1); if (h0 && h0 !== ui.tab) { ui.tab = h0; render(); } });
+
+  render();
+})();
+</script>
+
+</body></html>
