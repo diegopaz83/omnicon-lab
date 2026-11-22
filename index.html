@@ -239,6 +239,30 @@ footer p{margin:0;font-size:13px;line-height:1.7}
   .hero-bg{transform:none}
 }
 </style>
+<style>
+.hub-feature{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);background:var(--bg);border:1px solid var(--line);border-radius:16px;overflow:hidden;text-decoration:none;color:inherit;margin:0 0 24px;transition:border-color .25s,transform .6s cubic-bezier(.2,.7,.2,1),box-shadow .25s}
+.hub-feature:hover{border-color:var(--bright);transform:translateY(-4px);box-shadow:0 24px 50px rgba(0,28,63,.14)}
+.hf-tx{padding:36px 36px 32px;display:flex;flex-direction:column;gap:12px;justify-content:center}
+.hf-tx .n{display:inline-flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+.hf-tx .new{font-size:12px;font-weight:600;background:var(--cyan);color:var(--navy,#001c3f);border-radius:999px;padding:3px 10px}
+.hf-tx h3{margin:0;font-size:26px;font-weight:600;line-height:1.2;color:var(--ink)}
+.hf-tx p{margin:0;color:var(--muted);font-size:15px;line-height:1.6}
+.hf-tx .flow{margin:4px 0 0}
+.hf-tx .go{font-size:14px;font-weight:600;color:var(--bright);display:inline-flex;align-items:center;gap:6px;margin-top:4px}
+.hf-tx .go svg{width:16px;height:16px}
+.hf-img{position:relative;background:#fff;border-left:1px solid var(--line);min-height:300px}
+.hf-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.hub-feature:hover .hf-img img{transform:scale(1.03)}
+.hf-tag{position:absolute;display:flex;align-items:center;gap:7px;transform:translate(-8px,-8px);pointer-events:none}
+.hf-tag i{width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid #001c3f;box-shadow:0 0 0 3px rgba(255,255,255,.85)}
+.hf-tag.live i{background:#00dcfa}
+.hf-tag span{background:#001c3f;color:#f2f7fc;font-size:12px;font-weight:500;line-height:1.2;padding:5px 9px;border-radius:8px;white-space:nowrap;display:flex;flex-direction:column}
+.hf-tag span small{font-size:10.5px;font-weight:400;color:#7f93ae}
+.hf-tag.live span small{color:#00dcfa}
+.hf-tag span b{font-weight:500}
+@media (max-width:600px){.hf-tag span{display:none}}
+@media (max-width:900px){.hub-feature{grid-template-columns:minmax(0,1fr)}.hf-img{order:-1;border-left:0;border-bottom:1px solid var(--line);min-height:0;aspect-ratio:1376/768}.hf-tx{padding:22px 20px 20px}.hf-tx h3{font-size:21px}.hf-tag span{font-size:11px}}
+</style>
 </head>
 <body>
 
@@ -352,12 +376,27 @@ footer p{margin:0;font-size:13px;line-height:1.7}
         </div>
         <p data-i18n="pfIntro">La metodología con la que creo y presento los productos que Omnicon vende a sus clientes: lo que funciona en un proyecto real se convierte en producto, con su vitrina pública y su seguimiento de entrega.</p>
       </div>
-      <ol class="steps">
+      <a class="hub-feature" href="https://diegopaz83.github.io/omnicon-industrial-hub/" target="_blank" rel="noopener">
+  <div class="hf-tx">
+    <span class="n"><span class="new" data-i18n="hubNew">Nuevo</span><span data-i18n="hubK">Recorrido · Industrial Hub</span></span>
+    <h3 data-i18n="hubT">Entra a la planta y encuentra el producto</h3>
+    <p data-i18n="hubP">Un parque industrial con cuatro industrias. En cada planta, las zonas muestran un problema real de operación y el producto de Omnicon que lo resuelve. La línea de envasado lleva directo al demo de OPMM.</p>
+    <ul class="flow"><li data-i18n="hubF1">Elegir industria</li><li data-i18n="hubF2">Recorrer la planta</li><li data-i18n="hubF3">Llegar al producto</li></ul>
+    <span class="go"><span data-i18n="hubG">Recorrer el parque</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+  </div>
+  <div class="hf-img"><img src="img/hub-park.jpg" alt="Parque industrial de Omnicon con cuatro plantas" loading="lazy">
+    <span class="hf-tag live" style="left:25%;top:30%"><i></i><span><b data-i18n="hubI1">Alimentos y bebidas</b><small data-i18n="hubAv">Disponible</small></span></span>
+    <span class="hf-tag" style="left:62%;top:22%"><i></i><span><b data-i18n="hubI2">Cemento</b><small data-i18n="hubDev">En desarrollo</small></span></span>
+    <span class="hf-tag" style="left:28%;top:60%"><i></i><span><b data-i18n="hubI3">Minería</b><small data-i18n="hubDev">En desarrollo</small></span></span>
+    <span class="hf-tag" style="left:61%;top:58%"><i></i><span><b data-i18n="hubI4">Petróleo y gas</b><small data-i18n="hubDev">En desarrollo</small></span></span>
+  </div>
+</a>
+<ol class="steps">
         <li><a class="step rv" href="https://diegopaz83.github.io/omnicon-showcase-product/" target="_blank" rel="noopener">
           <div class="shot"><img src="img/sc-hub.jpg" alt="Vitrina de productos Omnicon" loading="lazy"></div>
           <div class="tx"><span class="n"><i>1</i><span data-i18n="pfS1k">Vitrina</span></span>
             <h3 data-i18n="pfS1t">Todos los productos en un lugar</h3>
-            <p data-i18n="pfS1p">Cada producto con su estado: OPMM disponible, Energía en desarrollo, y Mantenimiento predictivo y Calidad planeados.</p>
+            <p data-i18n="pfS1p">Cada producto con su estado: OPMM disponible, Energía y Calidad en desarrollo, y Mantenimiento predictivo planeado.</p>
             <span class="go"><span data-i18n="pfS1g">Ver la vitrina</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div></a></li>
         <li><a class="step rv" href="https://diegopaz83.github.io/omnicon-showcase-product/products/mes/index.html" target="_blank" rel="noopener">
           <div class="shot"><img src="img/sc-opmm.jpg" alt="Página de producto de OPMM" loading="lazy"></div>
@@ -461,9 +500,10 @@ var EN={
  navPortfolio:'Portfolio',pfKicker:'Product portfolio · <b>core business</b>',
  pfTitleA:'From the plant-floor project',pfTitleB:'to the Omnicon product.',
  pfIntro:'The method I use to create and present the products Omnicon sells to its clients: what works in a real project becomes a product, with its public showcase and its delivery tracking.',
- pfS1k:'Showcase',pfS1t:'Every product in one place',pfS1p:'Each product with its status: OPMM available, Energy in development, and Predictive maintenance and Quality planned.',pfS1g:'See the showcase',
+ pfS1k:'Showcase',pfS1t:'Every product in one place',pfS1p:'Each product with its status: OPMM available, Energy and Quality in development, and Predictive maintenance planned.',pfS1g:'See the showcase',
  pfS2k:'Product',pfS2t:'OPMM, from machine signal to decision',pfS2p:'Live status for every machine, every stop with its reason and OEE by machine, line and plant. Built on ISA-95, with Logix and FactoryTalk Optix.',pfS2g:'Explore OPMM',
  pfS3k:'Project',pfS3t:'Delivery, visible by stage',pfS3p:'Internal view of the pilot: five delivery stages, the architecture from PLC to operator screen, and the project questions and decisions.',pfS3g:'See the project',
+ hubNew:'New',hubK:'Walkthrough · Industrial Hub',hubT:'Step into the plant and find the product',hubP:'An industrial park with four industries. In each plant, the areas show a real operating problem and the Omnicon product that solves it. The bottling line goes straight to the OPMM demo.',hubF1:'Pick an industry',hubF2:'Walk the plant',hubF3:'Reach the product',hubG:'Walk the park',hubI1:'Food and beverage',hubI2:'Cement',hubI3:'Mining',hubI4:'Oil and gas',hubAv:'Available',hubDev:'In development',
  pfCta:'Open Omnicon Products',
  exTitleA:'In exploration',exIntro:'Videos, sketches and working documents. Some are ideas that have not reached a product yet.',
  exVideos:'Videos',exSketches:'Sketches and design documents',tVid1:'Video · 1:45',tVid2:'Video · 1:47',
