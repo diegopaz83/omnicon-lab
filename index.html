@@ -202,7 +202,7 @@ h2 strong{font-weight:700}
 .omnia h2{color:#fff}
 .omnia h2 em{font-style:normal;font-weight:700}
 .omnia h2 em b{color:var(--cyan);font-weight:700}
-.uses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:rgba(255,255,255,.12);border-radius:14px;overflow:hidden;margin-top:36px}
+.uses{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:rgba(255,255,255,.12);border-radius:14px;overflow:hidden;margin-top:36px}
 .uses div{background:rgba(0,28,63,.75);padding:22px}
 .uses h3{margin:0 0 8px;font-size:15px;font-weight:600;color:#fff}
 .uses p{margin:0;font-size:14px;line-height:1.6;color:#9db0c5}
@@ -296,7 +296,7 @@ footer p{margin:0;font-size:13px;line-height:1.7}
       <div>
         <p class="kicker stage s1">omnicon <b>lab</b> <span data-i18n="kicker">· espacio de pruebas</span></p>
         <h1 class="stage s2"><span data-i18n="h1a">Lo que estamos</span><strong data-i18n="h1b">construyendo.</strong></h1>
-        <p class="lead stage s3" data-i18n="lead">Prototipos funcionales de Omnicon para la industria: proyectos que fluyen de la cotización a la entrega, informes de servicio emitidos en campo y riesgo operacional respaldado por evidencia.</p>
+        <p class="lead stage s3" data-i18n="lead">Prototipos funcionales de Omnicon para la industria: proyectos que fluyen de la cotización a la entrega, informes de servicio emitidos en campo, riesgo operacional respaldado por evidencia y consultoría del piso de planta al roadmap.</p>
         <div class="ctas stage s4">
           <a class="btn btn-cyan" href="#productos"><span data-i18n="ctaProducts">Ver los productos</span></a>
           <a class="btn btn-ghost" href="#omnia"><span data-i18n="ctaOmnia">Conocer omnIA</span></a>
@@ -309,10 +309,11 @@ footer p{margin:0;font-size:13px;line-height:1.7}
           <circle class="r1" cx="200" cy="200" r="118"/>
         </svg>
         <div class="orb-core"><canvas id="orbSmall" data-size="160"></canvas></div>
-        <div class="orb-label" data-i18n-html="orbLabel"><b>omnIA</b> conecta los tres productos</div>
+        <div class="orb-label" data-i18n-html="orbLabel"><b>omnIA</b> conecta los cuatro productos</div>
         <div class="sat" data-a="-100"><a href="#kairos"><i></i>Kairos</a></div>
-        <div class="sat" data-a="20"><a href="#informes"><i></i><span data-i18n="satInformes">Informes de servicio</span></a></div>
-        <div class="sat" data-a="140"><a href="#ora"><i></i>ORA</a></div>
+        <div class="sat" data-a="-10"><a href="#informes"><i></i><span data-i18n="satInformes">Informes de servicio</span></a></div>
+        <div class="sat" data-a="80"><a href="#ora"><i></i>ORA</a></div>
+        <div class="sat" data-a="170"><a href="#blueprint"><i></i>Blueprint 5.0</a></div>
       </div>
     </div>
     <div class="scroll-cue" aria-hidden="true"></div>
@@ -321,7 +322,7 @@ footer p{margin:0;font-size:13px;line-height:1.7}
   <section id="productos">
     <div class="wrap">
       <div class="sec-head">
-        <h2><span data-i18n="prodTitleA">Tres productos,</span><br><strong data-i18n="prodTitleB">una misma planta.</strong></h2>
+        <h2><span data-i18n="prodTitleA">Cuatro productos,</span><br><strong data-i18n="prodTitleB">una misma planta.</strong></h2>
         <p data-i18n="prodIntro">Cada demo corre en el navegador con datos de ejemplo. Entra con un rol de prueba y recorre el flujo completo.</p>
       </div>
 
@@ -362,6 +363,20 @@ footer p{margin:0;font-size:13px;line-height:1.7}
         <div class="visual rv"><div class="tilt combo">
           <div class="browser"><div class="bar"><i></i><i></i><i></i><span>ora · omnicon</span></div><img src="img/ora.jpg" alt="Pantalla de entrada de ORA" loading="lazy"></div>
           <div class="phone"><img src="img/ora_m.jpg" alt="ORA en el teléfono" loading="lazy"></div>
+        </div></div>
+      </article>
+
+      <article class="prod" id="blueprint">
+        <div class="copy">
+          <span class="status st-proto" data-i18n="stProto">Prototipo</span>
+          <h3 class="word">blueprint <b>5.0</b> <span style="font-size:.5em;color:var(--muted)" data-i18n="bpSub">consultoría de transformación digital</span></h3>
+          <p data-i18n="bpText">Del piso de planta al roadmap. El consultor levanta el proceso con la metodología DT Enabler, con apoyo de omnIA, y Blueprint arma el mapa, el diagnóstico, los requerimientos, las iniciativas y la estimación con supuestos: cada dólar se rastrea hasta el pain point y la entrevista que lo justifican.</p>
+          <ul class="flow"><li data-i18n="fLev">Levantar</li><li data-i18n="fDia">Diagnosticar</li><li data-i18n="fPri">Priorizar</li><li data-i18n="fPro">Proyectar</li></ul>
+          <a class="btn btn-dark" href="https://diegopaz83.github.io/omnicon-blueprint/" target="_blank" rel="noopener"><span data-i18n="openDemo">Abrir demo</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+        </div>
+        <div class="visual rv"><div class="tilt combo">
+          <div class="browser"><div class="bar"><i></i><i></i><i></i><span>blueprint 5.0 · omnicon</span></div><img src="img/blueprint.jpg" alt="Constructor de actividades de Blueprint 5.0 con la actividad Enjuagar Tanque" loading="lazy"></div>
+          <div class="phone"><img src="img/blueprint_m.jpg" alt="Entrada a Blueprint 5.0 en el teléfono" loading="lazy"></div>
         </div></div>
       </article>
     </div>
@@ -427,6 +442,7 @@ footer p{margin:0;font-size:13px;line-height:1.7}
           <div><h3>Kairos</h3><p data-i18n="omK">Ayuda a armar cotizaciones y respeta los límites que define el administrador para cada rol.</p></div>
           <div><h3 data-i18n="satInformes">Informes de servicio</h3><p data-i18n="omI">Convierte lo que el ingeniero dicta en una redacción sugerida que puede usar o descartar.</p></div>
           <div><h3>ORA</h3><p data-i18n="omO">Reutiliza la misma experiencia de omnIA para acompañar la evaluación.</p></div>
+          <div><h3>Blueprint 5.0</h3><p data-i18n="omB">Convierte entrevistas y notas de voz en propuestas de actividades, pain points y documentos, y avisa roles duplicados y datos faltantes.</p></div>
         </div>
       </div>
     </div>
@@ -481,9 +497,9 @@ var root=document.documentElement;
 var EN={
  skip:'Skip intro',navProducts:'Products',navExplore:'Exploration',kicker:'· test space',
  h1a:'What we are',h1b:'building.',
- lead:'Working prototypes by Omnicon for industry: projects that flow from quote to delivery, service reports issued in the field, and operational risk backed by evidence.',
- orbLabel:'<b>omnIA</b> connects all three products',ctaProducts:'See the products',ctaOmnia:'Meet omnIA',satInformes:'Service reports',
- prodTitleA:'Three products,',prodTitleB:'one plant floor.',
+ lead:'Working prototypes by Omnicon for industry: projects that flow from quote to delivery, service reports issued in the field, operational risk backed by evidence, and consulting from the plant floor to the roadmap.',
+ orbLabel:'<b>omnIA</b> connects all four products',ctaProducts:'See the products',ctaOmnia:'Meet omnIA',satInformes:'Service reports',
+ prodTitleA:'Four products,',bpSub:'digital transformation consulting',bpText:'From the plant floor to the roadmap. The consultant maps the process with the DT Enabler methodology, supported by omnIA, and Blueprint builds the map, the diagnosis, the requirements, the initiatives and the estimate with its assumptions: every dollar traces back to the pain point and the interview behind it.',fLev:'Capture',fDia:'Diagnose',fPri:'Prioritize',fPro:'Plan',omB:'Turns interviews and voice notes into proposed activities, pain points and documents, and flags duplicate roles and missing data.',prodTitleB:'one plant floor.',
  prodIntro:'Each demo runs in the browser with sample data. Sign in with a test role and walk through the whole flow.',
  stDemo:'Demo',stProto:'Prototype',kairosSub:'cross-cutting ecosystem',
  kairosText:'Projects that flow. Every phase, every person and every hour in its place, from the first quote to delivery, with roles for leadership, solution design, planning and engineering.',
